@@ -17,8 +17,8 @@ export default function ReportList(props) {
 		<ReportListSection>
 			<Title>{props.Title}</Title>
 			<Link href={props.MainCTAurl}>{props.MainCTAtext}</Link>
-			{props?.Reports?.map((report) => (
-				<ReportCard>
+			{props?.Reports?.map((report, index) => (
+				<ReportCard key={`rcard-${index}`}>
 					<MetaContainer>
 						<Date>Date</Date>
 						<Author>Author</Author>

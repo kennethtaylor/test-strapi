@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function getPageBySlug(slug) {
+export default function usePageBySlug(slug) {
 	const [data, setData] = useState(null);
 	const [error, setError] = useState(null);
 	const [isLoading, setILoading] = useState(false);
