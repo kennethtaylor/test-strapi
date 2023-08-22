@@ -6,13 +6,18 @@ import Title from "./Title";
 const HeroContent = styled.div`
 	display: grid;
 	place-items: center;
+	height: 100%;
+	width: 100%;
+	text-align: center;
 `;
 
-export default function Hero() {
+export default function Hero(props) {
 	return (
-		<Section>
+		<Section
+			anchor="#hero"
+			bgimage={`http://localhost:1337${props.Image.data.attributes.url}`}>
 			<HeroContent>
-				<Title>Default Hero Title</Title>
+				<Title>{props.Title}</Title>
 			</HeroContent>
 		</Section>
 	);
