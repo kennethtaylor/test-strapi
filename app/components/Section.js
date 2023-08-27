@@ -6,7 +6,7 @@ const StyledSection = styled.section`
 	position: relative;
 	height: 100vh;
 
-	background-image: url(${(props) => props.bg});
+	background-image: url(${(props) => `${procee.env.APP_URL}${props.bg}`});
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
