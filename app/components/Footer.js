@@ -130,7 +130,7 @@ export default function Footer() {
 		</FooterContainer>
 
 		<CopyRight>
-			<p>22VI ©{currentYear}. All Rights Reserved.</p>
+			<p>Twenty Two VI ©{currentYear}. All Rights Reserved.</p>
 		</CopyRight>
 		</StyledFooter>
 	);

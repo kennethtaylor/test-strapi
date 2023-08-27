@@ -36,7 +36,7 @@ const AnnouncementBar = styled.div`
 	justify-content: center;
 	background: var(--darkblue);
 	color: var(--white);
-	padding: 1rem 2rem;
+	padding: 0.7rem 2rem;
 	font-size: var(--nav);
 	font-family: var(--sans-serif);
 	font-weight: 400;
