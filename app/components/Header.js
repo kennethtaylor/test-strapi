@@ -56,7 +56,6 @@ const HeaderContainer = styled.div`
 	align-items: center;
 	flex-wrap: wrap;
 	background: var(--darkblue);
-
 	&.sticky {
 		background: var(--darkblue);
 	}
