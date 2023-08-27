@@ -10,14 +10,8 @@ export default function Home({ children }) {
 	const { data, error, isLoading } = usePageBySlug(pathname);
 	const sections = data?.data[0].attributes.Sections;
 
-	console.log(sections);
+	if (error) return <div>Error</div>;
+	if (isLoading) return <div>Loading...</div>;
 
-	return (
-		<>
-			{!isLoading &&
-				sections?.map((section, index) =>
-					sectionRenderer(section, index)
-				)}
-		</>
-	);
+	return sectionRenderer(sections);
 }

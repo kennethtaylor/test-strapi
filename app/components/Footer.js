@@ -3,8 +3,8 @@ import React from "react";
 import { styled } from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
-import FullLogo from '../../public/images/FullLogoWhite.svg?url';
-import LinkedIn from '../../public/images/icons/LinkedInWhite.svg?url';
+import FullLogo from "../../public/images/FullLogoWhite.svg?url";
+import LinkedIn from "../../public/images/icons/LinkedInWhite.svg?url";
 
 const StyledFooter = styled.footer`
 	width: 100%;
@@ -73,11 +73,10 @@ const FooterContainer = styled.div`
 	& .policyMenu li {
 		opacity: 0.8;
 	}
-
 `;
 
 const CopyRight = styled.div`
-	border-top: 1px solid rgba(255,255,255,0.3);
+	border-top: 1px solid rgba(255, 255, 255, 0.3);
 	width: 100%;
 	display: inline-block;
 	padding: 1rem 0 0 0rem;
@@ -98,40 +97,74 @@ export default function Footer() {
 
 	return (
 		<StyledFooter>
-		<FooterContainer>
-			<div className="column one">
-				<div className="LogoContainer">
-					<Image src={FullLogo} alt="22VI logo" width={473} height={103}/>
+			<FooterContainer>
+				<div className="column one">
+					<div className="LogoContainer">
+						<Image
+							src={FullLogo}
+							alt="22VI logo"
+							width={473}
+							height={103}
+						/>
+					</div>
+					<address>
+						1234 Address Here
+						<br />
+						New York, NY 1234
+					</address>
 				</div>
-				<address>1234 Address Here<br/>New York, NY 1234</address>
-			</div>
-			<div className="column two">
-				<div className="columninner">
-					<ul className="footerLinks">
-						<li><Link href="/reports">Reports</Link></li>
-						<li><Link href="/events">Events</Link></li>
-						<li><Link href="/company">Company</Link></li>
-						<li><Link href="/contact">Contact</Link></li>
-					</ul>
-					<div className="socialContainer">
-						<Image src={LinkedIn} alt="LinkedIn logo" width={20} height={20}/>
+				<div className="column two">
+					<div className="columninner">
+						<ul className="footerLinks">
+							<li>
+								<Link href="/reports">Reports</Link>
+							</li>
+							<li>
+								<Link href="/events">Events</Link>
+							</li>
+							<li>
+								<Link href="/company">Company</Link>
+							</li>
+							<li>
+								<Link href="/contact">Contact</Link>
+							</li>
+						</ul>
+						<div className="socialContainer">
+							<Image
+								src={LinkedIn}
+								alt="LinkedIn logo"
+								width={20}
+								height={20}
+							/>
+						</div>
+					</div>
+					<div className="columninner">
+						<ul className="policyMenu">
+							<li>
+								<Link href="/disclosures">Disclosures</Link>
+							</li>
+							<li>
+								<Link href="/terms">Terms</Link>
+							</li>
+							<li>
+								<Link href="/cookie-policy">Cookie Policy</Link>
+							</li>
+							<li>
+								<Link href="/privacy-policy">
+									Privacy Policy
+								</Link>
+							</li>
+							<li>
+								<Link href="/ada-statement">ADA Statement</Link>
+							</li>
+						</ul>
 					</div>
 				</div>
-				<div className="columninner">
-					<ul className="policyMenu">
-						<li><Link href="/disclosures">Disclosures</Link></li>
-						<li><Link href="/terms">Terms</Link></li>
-						<li><Link href="/cookie-policy">Cookie Policy</Link></li>
-						<li><Link href="/privacy-policy">Privacy Policy</Link></li>
-						<li><Link href="/ada-statement">ADA Statement</Link></li>
-					</ul>
-				</div>
-			</div>
-		</FooterContainer>
+			</FooterContainer>
 
-		<CopyRight>
-			<p>Twenty Two VI ©{currentYear}. All Rights Reserved.</p>
-		</CopyRight>
+			<CopyRight>
+				<p>Twenty Two VI ©{currentYear}. All Rights Reserved.</p>
+			</CopyRight>
 		</StyledFooter>
 	);
 }

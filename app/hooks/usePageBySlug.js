@@ -7,9 +7,10 @@ export default function usePageBySlug(slug) {
 
 	useEffect(() => {
 		const fetchData = async () => {
+			// `localhost:1337/api/page/${slug}?populate=deep`
+
 			const res = await fetch(
-				// `localhost:1337/api/page/${slug}?populate=deep`
-				`http://localhost:1337/api/pages?filters[slug][$eq]=${
+				`${process.env.APP_URL}/api/pages?filters[slug][$eq]=${
 					slug == "/" ? "home" : slug
 				}&populate=deep`
 			);
