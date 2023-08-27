@@ -14,11 +14,16 @@
 		"flickity": "^2.3.0",
 		"flickity-fullscreen": "^2.0.0",
 		"flickity-imagesloaded": "^2.0.0",
+		"gsap": "./gsap-bonus.tgz",
 		"next": "13.4.5",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"react-flickity-component": "^4.0.6",
 		"strapi-plugin-populate-deep": "^3.0.0",
-		"styled-components": "^6.0.7"
+		"styled-components": "^6.0.7",
+		"yarn": "^1.22.19"
+	},
+	"devDependencies": {
+		"@svgr/webpack": "^8.1.0"
 	}
 }
