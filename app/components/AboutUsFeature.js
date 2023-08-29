@@ -10,11 +10,11 @@ export default function AboutUsFeature(props) {
 	return (
 		<Section
 			anchor="about-us"
-			bgimage={`${process.env.APP_URL}${props.BGimage.data.attributes.url}`}>
+			bgimage={`${props.BGimage.data.attributes.url}`}>
 			<CircleContainer
-				bgimage={`${process.env.APP_URL}${props.CircleBGimage.data[0].attributes.url}`}>
+				bgimage={`${props.CircleBGimage.data[0].attributes.url}`}>
 				<Image
-					src={`${process.env.APP_URL}${props.Logo.data.attributes.url}`}
+					src={`${props.Logo.data.attributes.url}`}
 					alt="Circle"
 					width={100}
 					height={100}
