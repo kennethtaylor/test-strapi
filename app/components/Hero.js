@@ -8,17 +8,34 @@ const HeroContent = styled.div`
 	place-items: center;
 	height: 100%;
 	width: 100%;
+
 	text-align: center;
 `;
 
+const TwoColumn = styled.div``;
+
 export default function Hero(props) {
-	return (
-		<Section
-			anchor="#hero"
-			bgimage={`http://localhost:1337${props.Image.data.attributes.url}`}>
-			<HeroContent>
-				<Title>{props.Title}</Title>
-			</HeroContent>
-		</Section>
-	);
+	switch (props.type) {
+		case "Home":
+			return (
+				<Section
+					anchor="#hero"
+					$bgimage={`${props.Image.data.attributes.url}`}>
+					<HeroContent>
+						<Title>{props.Title}</Title>
+					</HeroContent>
+				</Section>
+			);
+		case "Post - Archive":
+			return (
+				<Section
+					anchor="#hero"
+					bgimage={`${props.Image.data.attributes.url}`}>
+					<HeroContent>
+						<Title>{props.Title}</Title>
+					</HeroContent>
+				</Section>
+			);
+		case "Post - Single":
+	}
 }
