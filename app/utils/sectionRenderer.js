@@ -7,13 +7,12 @@ import ReportList from "../components/ReportList";
 
 export default function sectionRenderer(sections, index) {
 	const sectionsToDisplay = [];
-	console.log(sections);
 
 	sections?.map((section, index) => {
 		switch (section.__component) {
 			case "layout.hero":
 				sectionsToDisplay.push(
-					<Hero key={`section-${index}`} {...section} />
+					<Hero type="Home" key={`section-${index}`} {...section} />
 				);
 				break;
 			case "layout.title-text-cta":
