@@ -15,7 +15,7 @@ export default function Hero(props) {
 	return (
 		<Section anchor="#hero" bgimage={`${props.Image.data.attributes.url}`}>
 			<HeroContent>
-				<Title>{props.Title}</Title>
+				<Title as="h1">{props.Title}</Title>
 			</HeroContent>
 		</Section>
 	);

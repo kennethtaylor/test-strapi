@@ -19,7 +19,7 @@ const StyledHeader = styled.header`
 	& .sitebranding {
 		width: 100%;
 	}
-
+	
 	& .sitebranding.sticky {
 		position: fixed;
 		top: 0;
@@ -29,25 +29,23 @@ const StyledHeader = styled.header`
 	}
 `;
 
-const AnnouncementBar = styled.div`
+const TopBar = styled.div`
 	width: 100%;
 	margin: auto;
 	display: flex;
-	justify-content: center;
+	align-items: center;
+	justify-content: space-between;
 	background: var(--darkblue);
-	color: var(--white);
-	padding: 0.7rem 2rem;
+	padding:1rem 2rem;
+	border-bottom: 1px solid rgba(255,255,255,0.3);
+`;
+const AnnoucementText = styled.p`
 	font-size: var(--nav);
 	font-family: var(--sans-serif);
 	font-weight: 400;
 	font-style: normal;
-	border-bottom: 1px solid rgba(255,255,255,0.3);
-
-	&.sticky {
-		border-bottom: 1px solid rgba(255,255,255,0.3);
-	}
+	color: var(--white);
 `;
-
 const HeaderContainer = styled.div`
 	width: 100%;
 	display: flex;
@@ -55,8 +53,10 @@ const HeaderContainer = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
-	background: var(--darkblue);
-	&.sticky {
+	background: transparent;
+	transition: 0.3s ease all;
+
+	.sitebranding.sticky & {
 		background: var(--darkblue);
 	}
 `;
@@ -339,18 +339,11 @@ export default function Header() {
 	return (
 		<StyledHeader>
 			<div className="sitebranding">
-			<AnnouncementBar>Lorem Ipsum</AnnouncementBar>
-			<HeaderContainer>
-				<NavContainerLeft>
-					<Image src={Logo} alt="22VI Logo" width={68} height={92}/>
-					<NavSection>
-						<Link href="/reports">Reports</Link>
-						<Link href="/events">Events</Link>
-					</NavSection>
-				</NavContainerLeft>
-
-				<NavContainerRight>
-					<NavSection>
+			<TopBar>
+				<AnnoucementText>
+				Lorem Ipsum
+				</AnnoucementText>
+				<NavSection>
 						<Link className="linkwbtn" href="#">
 							Log In <Image src={AngledArrow} alt="angled arrow" width={15} height={15}/>
 						</Link>
@@ -361,6 +354,18 @@ export default function Header() {
         						<div className="background"></div>
 							</div>
 						</Link>
+				</NavSection>
+			</TopBar>
+			<HeaderContainer>
+				<NavContainerLeft>
+					<Image src={Logo} alt="22VI Logo" width={68} height={92}/>
+				</NavContainerLeft>
+
+				<NavContainerRight>
+					<NavSection>
+						<Link href="/reports">Reports</Link>
+						<Link href="/events">Events</Link>
+						<Link href="/events">About</Link>
 					</NavSection>
 					<Hamburger onClick={() => toggleNav()}>
 						<div className="barTop"></div>
