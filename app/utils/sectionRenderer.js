@@ -5,7 +5,7 @@ import AboutUsFeature from "../components/AboutUsFeature";
 import MediaText from "../components/MediaText";
 import ReportList from "../components/ReportList";
 
-export default function sectionRenderer(sections, index) {
+export default async function sectionRenderer(sections, index) {
 	const sectionsToDisplay = [];
 
 	sections?.map((section, index) => {

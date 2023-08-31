@@ -33,17 +33,15 @@ const SecondaryContainer = styled.div``;
 const SecondContent = styled.p``;
 
 export default function MediaText(props) {
-	console.log("media text props: ", props);
 	return (
 		<MediaTextSection>
 			<MediaTextContainer>
-			<ImageContainer>
-			</ImageContainer>
+				<ImageContainer></ImageContainer>
 
-			<ContentContainer>
-				<Title>{props.Title}</Title>
-				{props.content}
-			</ContentContainer>
+				<ContentContainer>
+					<Title>{props.Title}</Title>
+					{props.content}
+				</ContentContainer>
 			</MediaTextContainer>
 		</MediaTextSection>
 	);

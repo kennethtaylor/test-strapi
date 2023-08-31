@@ -13,7 +13,7 @@ const HeroContent = styled.div`
 
 export default function Hero(props) {
 	return (
-		<Section anchor="#hero" bgimage={`${props.Image.data.attributes.url}`}>
+		<Section bgimage={`${props.Image.data.attributes.url}`}>
 			<HeroContent>
 				<Title as="h1">{props.Title}</Title>
 			</HeroContent>

@@ -1,17 +1,13 @@
-"use client";
-
-import { usePathname } from "next/navigation";
-
-import usePageBySlug from "./hooks/usePageBySlug";
+import { headers } from "next/headers";
 import sectionRenderer from "./utils/sectionRenderer";
+import getPageBySlug from "../lib/getPageBySlug";
 
-export default function Home({ children }) {
-	const pathname = usePathname();
-	const { data, error, isLoading } = usePageBySlug(pathname);
-	const sections = data?.data[0].attributes.Sections;
+export default async function Page(props) {
+	const headersList = headers();
+	const pathname = headersList.get("x-invoke-path") || "";
 
-	if (error) return <div>Error</div>;
-	if (isLoading) return <div>Loading...</div>;
+	const data = await getPageBySlug(pathname);
+	const sections = data[0]?.attributes?.Sections;
 
 	return sectionRenderer(sections);
 }

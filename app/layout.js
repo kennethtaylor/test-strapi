@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./globals.css";
@@ -13,10 +14,15 @@ export const metadata = {
 };
 
 export default function RootLayout(props) {
+	console.log("props", props);
 	const { children } = props;
+
+	const headersList = headers();
+	const pathname = headersList.get("x-invoke-path") || "";
+
 	return (
 		<html lang="en">
-			<body className={inter.className}>
+			<body className={inter.className} data-page={pathname}>
 				<StyledComponentsRegistry>
 					<Header />
 					<main>{children}</main>
