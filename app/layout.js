@@ -14,15 +14,15 @@ export const metadata = {
 };
 
 export default function RootLayout(props) {
-	console.log("props", props);
 	const { children } = props;
 
-	const headersList = headers();
-	const pathname = headersList.get("x-invoke-path") || "";
+	// const headersList = headers();
+	// const pathname = headersList.get("x-invoke-path") || "";
 
 	return (
 		<html lang="en">
-			<body className={inter.className} data-page={pathname}>
+			{/* <body className={inter.className} data-page={pathname}> */}
+			<body className={inter.className}>
 				<StyledComponentsRegistry>
 					<Header />
 					<main>{children}</main>
