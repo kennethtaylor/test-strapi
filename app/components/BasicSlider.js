@@ -6,12 +6,28 @@ import "flickity/css/flickity.css";
 import { useRef } from "react";
 
 const BasicSliderSection = styled.section`
-	padding-block: 2rem;
+	width: 100%;
+	display: inline-block;
+	position: relative;
 `;
 
-const Word = styled.article`
-	font-size: 5rem;
-	color: black;
+const TopGradientLine = styled.div`
+	width: 100%;
+	height: 0.5px;
+	display: block;
+	background: var( --blue-gradient-linear);
+	background: var( --blue-gradient-moz);
+	background: var( --blue-gradient-webkit);
+`;
+const MarqueeContainer = styled.div`
+	width: 100%;
+	padding: 2rem 0rem;
+`;
+const Word = styled.p`
+	font-size: var(--heading);
+	font-family: var(--sans-serif);
+	color: var(--white);
+	font-weight: 400;
 	padding-right: 5rem;
 	vertical-align: middle;
 `;
@@ -20,6 +36,8 @@ export default function BasicSlider(props) {
 	const slider = useRef(null);
 	return (
 		<BasicSliderSection>
+			<TopGradientLine></TopGradientLine>
+			<MarqueeContainer>
 			<Flickity
 				options={{
 					cellAlign: "left",
@@ -36,6 +54,7 @@ export default function BasicSlider(props) {
 					<Word key={`slide-${index}`}>{slide.Title}</Word>
 				))}
 			</Flickity>
+			</MarqueeContainer>
 		</BasicSliderSection>
 	);
 }

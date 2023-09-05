@@ -3,10 +3,14 @@
 import { styled } from "styled-components";
 import Title from "./Title";
 import BodyCopy from "./BodyCopy";
+import Image from "next/image";
+import Link from "next/link";
+import AngledArrowBlue from '../../public/images/icons/angledArrowBlue.svg?url';
 
 const MediaTextSection = styled.section`
 	width: 100%;
 	display: inline-block;
+	background: var(--white);
 	position: relative;
 `;
 
@@ -39,8 +43,9 @@ export default function MediaText(props) {
 				<ImageContainer></ImageContainer>
 
 				<ContentContainer>
-					<Title>{props.Title}</Title>
-					{props.content}
+					<Title color="darkblue" size="quote" weight="medium" as="h2">{props.Title}</Title>
+					{props.Content}
+					<Link className="primaryBtnBlue" href={props.MainCTAurl}><span>{props.MainCTAText}</span><Image src={AngledArrowBlue} alt="angled arrow" width={15} height={15}/></Link>
 				</ContentContainer>
 			</MediaTextContainer>
 		</MediaTextSection>

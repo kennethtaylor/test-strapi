@@ -12,7 +12,7 @@ const TitleLeftTextCtaRightContainer = styled.section`
 	display: flex;
 	align-items: flex-start;
 	gap: 4rem;
-	padding: 6rem 6rem;
+	padding: 14rem 6rem 10rem 6rem;
 	flex-wrap: wrap;
 `;
 const TitleContainer = styled.div`

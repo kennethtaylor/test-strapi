@@ -30,7 +30,7 @@ const TitleStyled = styled.h1`
 	font-weight: ${(props) => props.weight === "bold"
 		? "700"
 		: props.weight === "medium"
-		? "500"
+		? "600"
 		: "400"}
 `;
 
