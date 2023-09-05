@@ -22,6 +22,9 @@
   --body: clamp(1rem, 1vw, 2rem);
   --nav: clamp(0.8rem, 0.8vw, 1.6rem);
   --sans-serif: proxima-nova, sans-serif;
+  --blue-gradient-linear: linear-gradient(90deg, rgba(32,58,113,1) 0%, rgba(50,119,223,1) 100%);
+  --blue-gradient-webkit: -webkit-linear-gradient(90deg, rgba(32,58,113,1) 0%, rgba(50,119,223,1) 100%);
+  --blue-gradient-moz: -moz-linear-gradient(90deg, rgba(32,58,113,1) 0%, rgba(50,119,223,1) 100%);
 }
 
 * {

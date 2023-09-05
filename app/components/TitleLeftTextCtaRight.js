@@ -35,12 +35,13 @@ const ContentContainer = styled.div`
 		border: 1px solid var(--white);
 		border-radius: 1.5rem;
 		padding: 0.7rem 1rem;
+		letter-spacing: 0.1rem;
 		color: var(--white);
 		transition: 0.3s ease all;
 	}
 	& a span {
 		font-family: var(--sans-serif);
-		font-weight: 600;
+		font-weight: 400;
 		font-size: var(--nav);
 		text-transform: uppercase;
 	}
