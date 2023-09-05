@@ -26,29 +26,8 @@ const TitleContainer = styled.div`
 const ContentContainer = styled.div`
 	width: calc(60% - 2rem);
 	padding-top: 6rem;
-	& a {
-		display: flex;
-		width: fit-content;
-		width: -webkit-fit-content;
-		gap: 0.5rem;
-		align-items: flex-start;
-		border: 1px solid var(--white);
-		border-radius: 1.5rem;
-		padding: 0.7rem 1rem;
-		letter-spacing: 0.1rem;
-		color: var(--white);
-		transition: 0.3s ease all;
-	}
-	& a span {
-		font-family: var(--sans-serif);
-		font-weight: 400;
-		font-size: var(--nav);
-		text-transform: uppercase;
-	}
-	& a:hover {
-		border: 1px solid var(--orange);
-	}
 `;
+
 const Content = styled.div`
 	font-size: var(--body);
 	color: var(--white);
@@ -61,11 +40,11 @@ export default function TitleLeftTextCtaRight(props) {
 	return (
 		<TitleLeftTextCtaRightContainer>
 			<TitleContainer>
-				<Title as="h2" size="quote" color="white">{props.Title}</Title>
+				<Title as="h2" weight="medium" size="quote" color="white">{props.Title}</Title>
 			</TitleContainer>
 			<ContentContainer>
 				<Content dangerouslySetInnerHTML={{ __html: props.Content }} />
-				<Link href={props.CTAurl}><span>{props.CTAtext}</span><Image src={AngledArrow} alt="angled arrow" width={15} height={15}/></Link>
+				<Link className="primaryBtnWhite" href={props.CTAurl}><span>{props.CTAtext}</span><Image src={AngledArrow} alt="angled arrow" width={15} height={15}/></Link>
 			</ContentContainer>
 		</TitleLeftTextCtaRightContainer>
 	);

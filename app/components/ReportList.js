@@ -4,19 +4,28 @@ import Link from "next/link";
 import { styled } from "styled-components";
 import Title from "./Title";
 import BodyCopy from "./BodyCopy";
+import Image from "next/image";
+import AngledArrowBlue from '../../public/images/icons/angledArrowBlue.svg?url';
 
-const ReportListSection = styled.section``;
+const ReportListSection = styled.section`
+	width: 100%;
+	background: var(--cool-grey);
+	padding: 4rem 6rem;
+`;
+
 const ReportCard = styled.article``;
 const MetaContainer = styled.div``;
 const Date = styled.p``;
 const Author = styled.p``;
-const TitleContainer = styled.div``;
+
+const TitleContainer = styled.div`
+`;
 
 export default function ReportList(props) {
 	return (
 		<ReportListSection>
-			<Title>{props.Title}</Title>
-			<Link href={props.MainCTAurl}>{props.MainCTAtext}</Link>
+			<Title size="heading" weight="medium" color="darkblue" as="h2">{props.Title}</Title>
+			<Link className="primaryBtnBlue" href={props.MainCTAurl}><span>{props.MainCTAtext}</span><Image src={AngledArrowBlue} alt="angled arrow" width={15} height={15}/></Link>
 			{props?.Reports?.map((report, index) => (
 				<ReportCard key={`rcard-${index}`}>
 					<MetaContainer>

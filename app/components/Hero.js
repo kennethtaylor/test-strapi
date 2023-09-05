@@ -83,7 +83,7 @@ export default function Hero(props) {
 	return (
 		<Section bgimage={`${props.Image.data.attributes.url}`}>
 			<HeroContent>
-				<Title as="h1" color="white" size="heading" align="center">{props.Title}</Title>
+				<Title as="h1" color="white" size="heading" weight="medium" align="center">{props.Title}</Title>
 			</HeroContent>
 			<ScrollContent>
 			<div className="scrollIcon">

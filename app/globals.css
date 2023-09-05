@@ -49,3 +49,39 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+a.primaryBtnWhite,
+a.primaryBtnBlue {
+  display: flex;
+  width: fit-content;
+  width: -webkit-fit-content;
+  gap: 0.5rem;
+  align-items: flex-start;
+  border-radius: 1.5rem;
+  padding: 0.7rem 1rem;
+  letter-spacing: 0.1rem;
+  transition: 0.3s ease all;
+}
+
+a.primaryBtnBlue {
+  color: var(--darkblue);
+  border: 1px solid var(--darkblue);
+}
+
+a.primaryBtnWhite {
+  color: var(--white);
+  border: 1px solid var(--white);
+}
+
+a.primaryBtnWhite span,
+a.primaryBtnBlue span {
+  font-family: var(--sans-serif);
+  font-weight: 400;
+  font-size: var(--nav);
+  text-transform: uppercase;
+}
+
+a.primaryBtnWhite:hover,
+a.primaryBtnBlue:hover {
+  border: 1px solid var(--orange);
+}

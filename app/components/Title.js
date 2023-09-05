@@ -7,8 +7,8 @@ const TitleStyled = styled.h1`
 		? "var(--white)"
 		: props.color === "coolgrey"
 		? "var(--cool-grey)"
-		: props.color === "slate"
-		? "var(--slate)"
+		: props.color === "darkblue"
+		? "var(--darkblue)"
 		: "var(--white)"};
 	font-size: ${(props) => props.size === "xlheading" 
 		? "var(--xlheading)" 
@@ -26,10 +26,16 @@ const TitleStyled = styled.h1`
 		: props.align === "center" 
 		? "center"
 		: "left"}
+	font-family: var(--sans-serif);
+	font-weight: ${(props) => props.weight === "bold"
+		? "700"
+		: props.weight === "medium"
+		? "500"
+		: "400"}
 `;
 
 export default function Title(props) {
-	const { as, size, color, align } = props;
+	const { as, size, color, align, weight } = props;
 
-	return <TitleStyled as={as} size={size} color={color} align={align}>{props.children}</TitleStyled>;
+	return <TitleStyled as={as} size={size} color={color} align={align} weight={weight}>{props.children}</TitleStyled>;
 }
