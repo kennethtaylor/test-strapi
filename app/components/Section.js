@@ -5,7 +5,7 @@ import Anchor from "./Anchor";
 const StyledSection = styled.section`
 	position: relative;
 	height: 100vh;
-	background-image: url(${(props) => `${process.env.APP_URL}${props.bg}`});
+	background-image: url(${(props) => `${props.bg}`});
 	background-size: cover !important;
 	-webkit-background-size: cover !important;
 	-moz-background-size: cover !important;

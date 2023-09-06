@@ -10,16 +10,16 @@ export default function AboutUsFeature(props) {
 	return (
 		<Section
 			anchor="about-us"
-			bgimage={`${props.BGimage.data.attributes.url}`}>
+			bgimage={`${props?.BGimage?.data?.attributes?.url}`}>
 			<CircleContainer
-				bgimage={`${props.CircleBGimage.data[0].attributes.url}`}>
-				<Image
-					src={`${props.Logo.data.attributes.url}`}
+				bgimage={`${props?.CircleBGimage?.data[0]?.attributes?.url}`}>
+				<img
+					src={`${props?.Logo?.data?.attributes?.url}`}
 					alt="Circle"
 					width={100}
 					height={100}
 				/>
-				<Link href={props.CTAurl}>{props.CTAtext}</Link>
+				<Link href={props?.CTAurl}>{props?.CTAtext}</Link>
 			</CircleContainer>
 		</Section>
 	);
