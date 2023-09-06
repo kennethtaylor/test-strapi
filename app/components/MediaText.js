@@ -25,6 +25,13 @@ const MediaTextContainer = styled.div`
 const ImageContainer = styled.div`
 	width: 50%;
 	position: relative;
+	overflow: hidden;
+
+	& img {
+		width: 100%;
+		max-width: 100%;
+		height: auto;
+	}
 `;
 
 const ContentContainer = styled.div`
@@ -34,17 +41,27 @@ const ContentContainer = styled.div`
 `;
 const StyledLink = styled.a``;
 const SecondaryContainer = styled.div``;
-const SecondContent = styled.p``;
+const BodyContainer = styled.div`
+	padding: 2rem 0;
+	line-height: 1.5;
+`;
 
 export default function MediaText(props) {
 	return (
 		<MediaTextSection>
 			<MediaTextContainer>
-				<ImageContainer></ImageContainer>
+				<ImageContainer>
+				<Image
+					src={`${props.ImageVideo.data.attributes.url}`}
+					alt=""
+					width={882}
+					height={723}
+				/>
+				</ImageContainer>
 
 				<ContentContainer>
 					<Title color="darkblue" size="quote" weight="medium" as="h2">{props.Title}</Title>
-					{props.Content}
+					<BodyContainer>{props.Content}</BodyContainer>
 					<Link className="primaryBtnBlue" href={props.MainCTAurl}><span>{props.MainCTAText}</span><Image src={AngledArrowBlue} alt="angled arrow" width={15} height={15}/></Link>
 				</ContentContainer>
 			</MediaTextContainer>
