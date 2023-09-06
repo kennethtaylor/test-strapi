@@ -8,7 +8,11 @@ const nextConfig = {
 		styledComponents: true,
 	},
 	images: {
-		domains: ["localhost", "lobster-app-823vy.ondigitalocean.app"],
+		domains: [
+			"localhost",
+			"lobster-app-823vy.ondigitalocean.app",
+			"22vi-strapi-aws-media-bucket.s3.us-west-1.amazonaws.com",
+		],
 	},
 	env: {
 		APP_URL: "https://lobster-app-823vy.ondigitalocean.app",
