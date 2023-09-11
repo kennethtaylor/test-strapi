@@ -20,7 +20,7 @@ const Author = styled.p``;
 
 const TitleContainer = styled.div``;
 
-function formatDate(date) {
+function formatDate(report) {
 	if (typeof window !== "undefined") {
 		let date = new window.Date(report.attributes.publishedAt);
 	}
@@ -50,9 +50,7 @@ export default function ReportList(props) {
 				return (
 					<ReportCard key={`rcard-${index}`}>
 						<MetaContainer>
-							<Date>
-								{formatDate(report?.attributes?.publishedAt)}
-							</Date>
+							<Date>{formatDate(report)}</Date>
 							<Author>Author</Author>
 						</MetaContainer>
 						<TitleContainer>
