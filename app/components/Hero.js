@@ -96,9 +96,9 @@ const ScrollContent = styled.div`
 `;
 
 export default function Hero(props) {
-	const { Title, Image, type } = props;
+	const { Title: title, Image, Type } = props;
 	console.log(props.attributes);
-	switch (type) {
+	switch (Type) {
 		case "home":
 			return (
 				<Section bgimage={`${Image.data.attributes.url}`}>
@@ -109,7 +109,7 @@ export default function Hero(props) {
 							size="heading"
 							weight="medium"
 							align="center">
-							{Title}
+							{title}
 						</Title>
 					</HeroContent>
 					<ScrollContent>
