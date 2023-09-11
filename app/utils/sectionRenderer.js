@@ -12,7 +12,7 @@ export default async function sectionRenderer(sections, index) {
 		switch (section.__component) {
 			case "layout.hero":
 				sectionsToDisplay.push(
-					<Hero type="Home" key={`section-${index}`} {...section} />
+					<Hero key={`section-${index}`} {...section} />
 				);
 				break;
 			case "layout.title-text-cta":

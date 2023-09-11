@@ -19,7 +19,7 @@ const ScrollContent = styled.div`
 	position: absolute;
 	bottom: -3rem;
 	left: 0rem;
-	right: 0rem; 
+	right: 0rem;
 	z-index: 2;
 
 	& .scrollIcon {
@@ -38,7 +38,7 @@ const ScrollContent = styled.div`
 	& .scrollIcon .background,
 	& .scrollIcon .border {
 		border-radius: 184px;
-  	}
+	}
 
 	& .scrollIcon span {
 		color: var(--white);
@@ -52,16 +52,21 @@ const ScrollContent = styled.div`
 	}
 
 	& .scrollIcon::before {
-		background: linear-gradient(90deg, rgba(32,58,113,1) 0%, rgba(50,119,223,1) 100%) border-box;
+		background: linear-gradient(
+				90deg,
+				rgba(32, 58, 113, 1) 0%,
+				rgba(50, 119, 223, 1) 100%
+			)
+			border-box;
 	}
 
 	& .scrollIcon .background,
 	& .scrollIcon .border {
-   		position: absolute;
-    	top: 0;
-    	left: 0;
-    	bottom: 0;
-    	right: 0;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
 	}
 
 	& .scrollIcon .background {
@@ -71,27 +76,57 @@ const ScrollContent = styled.div`
 
 	& .scrollIcon .border {
 		border: 1px solid transparent;
-		background: linear-gradient(90deg, rgba(32,58,113,1) 0%, rgba(50,119,223,1) 100%) border-box;
-		background: linear-gradient(90deg, rgba(32,58,113,1) 0%, rgba(50,119,223,1) 100%) border-box;
-			-webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+		background: linear-gradient(
+				90deg,
+				rgba(32, 58, 113, 1) 0%,
+				rgba(50, 119, 223, 1) 100%
+			)
+			border-box;
+		background: linear-gradient(
+				90deg,
+				rgba(32, 58, 113, 1) 0%,
+				rgba(50, 119, 223, 1) 100%
+			)
+			border-box;
+		-webkit-mask: linear-gradient(#fff 0 0) padding-box,
+			linear-gradient(#fff 0 0);
 		-webkit-mask-composite: destination-out;
 		mask-composite: exclude;
-	  }
+	}
 `;
 
 export default function Hero(props) {
-	return (
-		<Section bgimage={`${props.Image.data.attributes.url}`}>
-			<HeroContent>
-				<Title as="h1" color="white" size="heading" weight="medium" align="center">{props.Title}</Title>
-			</HeroContent>
-			<ScrollContent>
-			<div className="scrollIcon">
-				<span>Scroll</span>
-				<div className="border"></div>
-        		<div className="background"></div>
-			</div>
-			</ScrollContent>
-		</Section>
-	);
+	const { Title, Image, type } = props;
+	console.log(props.attributes);
+	switch (type) {
+		case "home":
+			return (
+				<Section bgimage={`${Image.data.attributes.url}`}>
+					<HeroContent>
+						<Title
+							as="h1"
+							color="white"
+							size="heading"
+							weight="medium"
+							align="center">
+							{Title}
+						</Title>
+					</HeroContent>
+					<ScrollContent>
+						<div className="scrollIcon">
+							<span>Scroll</span>
+							<div className="border"></div>
+							<div className="background"></div>
+						</div>
+					</ScrollContent>
+				</Section>
+			);
+			break;
+		case "full":
+		case "threeQuarters":
+		case "postArchive":
+		case "postSingle":
+		default:
+			break;
+	}
 }
