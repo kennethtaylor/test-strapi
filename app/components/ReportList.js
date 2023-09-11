@@ -21,9 +21,8 @@ const Author = styled.p``;
 const TitleContainer = styled.div``;
 
 function formatDate(report) {
-	if (typeof window !== "undefined") {
-		let date = new window.Date(report.attributes.publishedAt);
-	}
+	let date = new Date(report.attributes.publishedAt);
+
 	return date.toLocaleString("default", {
 		month: "long",
 		day: "numeric",
