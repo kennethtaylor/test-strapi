@@ -20,6 +20,17 @@ const Author = styled.p``;
 
 const TitleContainer = styled.div``;
 
+function formatDate(date) {
+	if (typeof window !== "undefined") {
+		let date = new window.Date(report.attributes.publishedAt);
+	}
+	return date.toLocaleString("default", {
+		month: "long",
+		day: "numeric",
+		year: "numeric",
+	});
+}
+
 export default function ReportList(props) {
 	return (
 		<ReportListSection>
@@ -36,16 +47,11 @@ export default function ReportList(props) {
 				/>
 			</Link>
 			{props?.reports?.data?.map((report, index) => {
-				let date = new window.Date(report.attributes.publishedAt);
 				return (
 					<ReportCard key={`rcard-${index}`}>
 						<MetaContainer>
 							<Date>
-								{date.toLocaleString("default", {
-									month: "long",
-									day: "numeric",
-									year: "numeric",
-								})}
+								{formatDate(report.attributes.publishedAt)}
 							</Date>
 							<Author>Author</Author>
 						</MetaContainer>
