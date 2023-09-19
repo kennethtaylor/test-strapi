@@ -4,6 +4,7 @@ import TitleLeftTextCtaRight from "../components/TitleLeftTextCtaRight";
 import AboutUsFeature from "../components/AboutUsFeature";
 import MediaText from "../components/MediaText";
 import ReportList from "../components/ReportList";
+import Search from "../components/Search";
 
 export default async function sectionRenderer(sections, index) {
 	const sectionsToDisplay = [];
@@ -41,6 +42,11 @@ export default async function sectionRenderer(sections, index) {
 			case "layout.media-full-content":
 				sectionsToDisplay.push(
 					<MediaText key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.search-bar":
+				sectionsToDisplay.push(
+					<Search key={`section-${index}`} {...section} />
 				);
 				break;
 			default:

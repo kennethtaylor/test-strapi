@@ -95,9 +95,29 @@ const ScrollContent = styled.div`
 	}
 `;
 
+const ArchiveHeroContent = styled.div`
+	padding-top: 13rem;
+	padding-inline: 2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+const FilterContainer = styled.div`
+	display: flex;
+	gap: 1rem;
+`;
+const Filter = styled.select`
+	width: 100%;
+	min-width: 125px;
+`;
+
+const ArchiveContentContainer = styled.div`
+	color: white;
+`;
+
 export default function Hero(props) {
-	const { Title: title, Image, Type } = props;
-	console.log(props.attributes);
+	const { Title: title, Content, Image, Type } = props;
+
 	switch (Type) {
 		case "home":
 			return (
@@ -121,10 +141,37 @@ export default function Hero(props) {
 					</ScrollContent>
 				</Section>
 			);
-			break;
 		case "full":
 		case "threeQuarters":
 		case "postArchive":
+			return (
+				<Section bgimage={`${Image.data.attributes.url}`} half={true}>
+					<ArchiveHeroContent>
+						<ArchiveContentContainer>
+							<Title
+								as="h1"
+								color="white"
+								size="heading"
+								weight="medium"
+								align="center">
+								{title}
+							</Title>
+							<p>{Content}</p>
+						</ArchiveContentContainer>
+						<FilterContainer>
+							<Filter>
+								<option>Category</option>
+							</Filter>
+							<Filter>
+								<option>Month</option>
+							</Filter>
+							<Filter>
+								<option>Year</option>
+							</Filter>
+						</FilterContainer>
+					</ArchiveHeroContent>
+				</Section>
+			);
 		case "postSingle":
 		default:
 			break;

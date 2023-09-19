@@ -1,8 +1,8 @@
-import sectionRenderer from "../utils/sectionRenderer";
-import getPageBySlug from "../../lib/getPageBySlug";
+import sectionRenderer from "../../utils/sectionRenderer";
+import getReportBySlug from "../../../lib/getReportBySlug";
 
 export async function generateStaticParams() {
-	const res = await fetch(`${process.env.APP_URL}/api/pages`);
+	const res = await fetch(`${process.env.APP_URL}/api/reports`);
 	const data = await res.json();
 
 	if (!res.ok) {
@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 	const paths = data?.data.map((item) => {
 		return {
 			params: {
-				page: item.attributes.Slug,
+				report: item.attributes.Slug,
 			},
 		};
 	});
@@ -21,9 +21,8 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }) {
-	const data = await getPageBySlug(params.slug[0]);
+	const data = await getReportBySlug(params?.report);
 	const sections = data[0]?.attributes?.Sections;
-	console.log(sections);
 
 	return sectionRenderer(sections);
 }
