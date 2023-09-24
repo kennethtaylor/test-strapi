@@ -6,6 +6,7 @@ import Title from "./Title";
 import BodyCopy from "./BodyCopy";
 import Image from "next/image";
 import AngledArrowBlue from "../../public/images/icons/angledArrowBlue.svg?url";
+import ArrowRightOrange from "../../public/images/icons/arrowRightOrange.svg?url";
 import { useEffect, useState } from "react";
 
 import { DateTime } from "luxon";
@@ -13,18 +14,20 @@ import { DateTime } from "luxon";
 const ReportListSection = styled.section`
 	width: 100%;
 	background: var(--cool-grey);
-	padding: 4rem 6rem;
+	padding: 4rem 0rem;
 `;
 
 const ReportGridSection = styled.div`
 	width: 100%;
 	padding: 4rem 6rem;
 `;
+
 const ReportGridInnerContainer = styled.div`
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 2rem;
 `;
+
 const ReportGridCard = styled.article`
 	background-color: white;
 	padding: 1rem;
@@ -32,12 +35,67 @@ const ReportGridCard = styled.article`
 	aspect-ratio: 430/396;
 `;
 
-const ReportCard = styled.article``;
-const MetaContainer = styled.div``;
-const Date = styled.p``;
-const Author = styled.p``;
+const ReportsTopContainer = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	justify-content: space-between;
+	padding: 4rem 6rem 3rem 6rem;
+`;
 
+const ReportCard = styled.article`
+	border-top: 1px solid var(--darkblue);
+	width: 100%;
+	display: flex;
+	padding: 3rem 6rem;
+
+	&:last-child {
+		border-bottom: 1px solid var(--darkblue);
+	}
+
+	&:hover img.rightArrow{opacity: 1;}
+`;
+
+const MetaContainer = styled.div``;
+
+const MetaContainerList = styled.div`
+	width: 30%;
+`;
+
+const Date = styled.p``;
+
+const DateList = styled.p`
+	font-weight: 600;
+	font-family: var(--sans-serif);
+	padding: 0 0 1rem 0;
+	font-size: var(--body);
+`;
+
+const Author = styled.p`
+	font-weight: 400;
+	font-family: var(--sans-serif);	
+	font-size: var(--body);
+`;
 const TitleContainer = styled.div``;
+
+const TitleContainerList = styled.div`
+	font-size: var(--sub-heading);
+	font-weight: 600;
+	width: 60%;
+	font-family: var(--sans-serif);
+`;
+
+const Arrow = styled.div`
+	width: 10%;
+
+	& img {
+		transition: 0.3s ease all;
+		width: 100%;
+		max-width: 40px;
+		height: auto;
+		opacity: 0;
+	}
+`;
 
 export default function ReportList(props) {
 	// isloading state
@@ -90,6 +148,7 @@ export default function ReportList(props) {
 		default:
 			return (
 				<ReportListSection>
+					<ReportsTopContainer>
 					<Title
 						size="heading"
 						weight="medium"
@@ -106,25 +165,35 @@ export default function ReportList(props) {
 							height={15}
 						/>
 					</Link>
+					</ReportsTopContainer>
 					{props?.reports?.data?.map((report, index) => {
 						let date = DateTime.now(report.attributes.publishedAt);
 						return (
 							<ReportCard key={`rcard-${index}`}>
-								<MetaContainer>
-									<Date>
+								<MetaContainerList>
+									<DateList>
 										{Intl.DateTimeFormat("en-us", {
 											month: "long",
 											day: "numeric",
 											year: "numeric",
 										}).format(date)}
-									</Date>
+									</DateList>
 									<Author>Author</Author>
-								</MetaContainer>
-								<TitleContainer>
+								</MetaContainerList>
+								<TitleContainerList>
 									<Link href={report?.CTAurl || ""}>
 										{report?.attributes?.Title}
 									</Link>
-								</TitleContainer>
+								</TitleContainerList>
+								<Arrow>
+									<Image
+										src={ArrowRightOrange}
+										alt="angled arrow"
+										width={15}
+										height={15}
+										className="rightArrow"
+									/>
+								</Arrow>
 							</ReportCard>
 						);
 					})}
