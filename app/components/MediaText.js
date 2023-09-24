@@ -24,6 +24,7 @@ const MediaTextContainer = styled.div`
 
 const ImageContainer = styled.div`
 	width: 50%;
+	max-width: 50%;
 	position: relative;
 	overflow: hidden;
 

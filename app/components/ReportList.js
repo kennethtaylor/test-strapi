@@ -30,9 +30,37 @@ const ReportGridInnerContainer = styled.div`
 
 const ReportGridCard = styled.article`
 	background-color: white;
-	padding: 1rem;
+	padding: 1.5rem;
 	border-radius: 1rem;
+	display: flex;
+	border: 2px solid;
+	flex-direction: column;
+	justify-content: space-between;
 	aspect-ratio: 430/396;
+	transition: 0.5s ease all;
+	cursor: pointer;
+	position: relative;
+
+	&:hover {
+		background: var(--darkblue);
+	}
+
+	&:hover::after {
+		position: absolute;
+    	top: -4px; bottom: -4px;
+    	left: -4px; right: -4px;
+    	background: linear-gradient(90deg, rgba(32,58,113,1) 0%, rgba(50,119,223,1) 100%);
+    	content: '';
+    	z-index: -1;
+    	border-radius: 1rem;
+	}
+
+	&:hover h2 a,
+	&:hover p {color: var(--white);}
+
+	&:hover a img {
+		filter: contrast(0) sepia(100%) hue-rotate(-15deg) saturate(3);
+	}
 `;
 
 const ReportsTopContainer = styled.div`
@@ -62,26 +90,50 @@ const MetaContainerList = styled.div`
 	width: 30%;
 `;
 
-const Date = styled.p``;
+const Date = styled.p`
+	font-family: var(--sans-serif);
+	font-weight: 400;
+	font-size: var(--body);
+	color: var(--darkblue);
+`;
 
 const DateList = styled.p`
 	font-weight: 600;
 	font-family: var(--sans-serif);
 	padding: 0 0 1rem 0;
 	font-size: var(--body);
+	color: var(--darkblue);
+`;
+
+const AuthorContainer = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 `;
 
 const Author = styled.p`
 	font-weight: 400;
 	font-family: var(--sans-serif);	
 	font-size: var(--body);
+	color: var(--darkblue);
 `;
-const TitleContainer = styled.div``;
+
+const TitleContainer = styled.h2`
+	& a  {
+		font-family: var(--sans-serif);
+		font-weight: 600;
+		font-size: var(--sub-heading);
+		text-decoration: none;
+		color: var(--darkblue);
+	}
+`;
 
 const TitleContainerList = styled.div`
 	font-size: var(--sub-heading);
 	font-weight: 600;
 	width: 60%;
+	color: var(--darkblue);
 	font-family: var(--sans-serif);
 `;
 
@@ -132,13 +184,22 @@ export default function ReportList(props) {
 												year: "numeric",
 											}).format(date)}
 										</Date>
-										<Author>Author</Author>
 									</MetaContainer>
 									<TitleContainer>
 										<Link href={report?.CTAurl || ""}>
 											{report?.attributes?.Title}
 										</Link>
 									</TitleContainer>
+									<AuthorContainer>
+										<Author>Author</Author>
+										<Link href={report?.CTAurl || ""}><Image
+											src={AngledArrowBlue}
+											alt="angled arrow"
+											width={30}
+											height={30}
+										/>
+										</Link>
+									</AuthorContainer>
 								</ReportGridCard>
 							);
 						})}
