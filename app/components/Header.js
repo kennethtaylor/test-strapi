@@ -44,6 +44,7 @@ const TopBar = styled.div`
 	padding:1rem 2rem;
 	border-bottom: 1px solid rgba(255,255,255,0.3);
 `;
+
 const AnnoucementText = styled.p`
 	font-size: var(--nav);
 	font-family: var(--sans-serif);
@@ -63,6 +64,7 @@ const HeaderContainer = styled.div`
 
 	.sitebranding.sticky & {
 		background: var(--darkblue);
+		padding: 0.7rem 2rem;
 	}
 `;
 
@@ -71,6 +73,12 @@ const NavContainerLeft = styled.div`
 	align-items: center;
 	gap: 4rem;
 	width: calc(50% - 2rem);
+	transition: 0.3s ease all;
+
+	.sitebranding.sticky & img {
+		max-width: 50px;
+		height: auto;
+	}
 `;
 const NavContainerRight = styled.div`
 	display: flex;
@@ -373,7 +381,7 @@ export default function Header() {
 			<div className="sitebranding">
 			<TopBar>
 				<AnnoucementText>
-				Lorem Ipsum
+				Optional Announcement Text
 				</AnnoucementText>
 				<NavSection>
 						<Link className="linkwbtn" href="#">

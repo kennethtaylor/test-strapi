@@ -1,9 +1,9 @@
 "use client";
-
+import { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import Flickity from "react-flickity-component";
-import "flickity/css/flickity.css";
-import { useRef } from "react";
+import { gsap } from "gsap/dist/gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 const BasicSliderSection = styled.section`
 	width: 100%;
@@ -22,38 +22,53 @@ const TopGradientLine = styled.div`
 const MarqueeContainer = styled.div`
 	width: 100%;
 	padding: 2rem 0rem;
-`;
-const Word = styled.p`
-	font-size: var(--heading);
-	font-family: var(--sans-serif);
-	color: var(--white);
-	font-weight: 400;
-	padding-right: 5rem;
-	vertical-align: middle;
+
+	& .marquee {
+		overflow-x: hidden;
+	}
+	  
+	& .marqueeInner {
+		display: inline-flex;
+		white-space: nowrap;
+	}
+
+	& .box {
+		margin: auto 5rem;
+		font-size: var(--heading);
+		font-family: var(--sans-serif);
+		color: var(--white);
+		font-weight: 400;
+	}
 `;
 
 export default function BasicSlider(props) {
-	const slider = useRef(null);
+
+	useEffect(() => {
+		let wrapWidth = document.querySelector(".marqueeInner").offsetWidth;
+
+		gsap.to(".marqueeInner", {
+  			duration: 12,
+  			ease: "none",
+  			repeat: -1,
+  			immediateRender: true,
+  			x: `-=${wrapWidth / 2}`
+});
+	}, []);
+
 	return (
 		<BasicSliderSection>
 			<TopGradientLine></TopGradientLine>
 			<MarqueeContainer>
-			<Flickity
-				options={{
-					cellAlign: "left",
-					prevNextButtons: true,
-					pageDots: false,
-					prevNextButtons: false,
-					draggable: true,
-					wrapAround: true,
-				}}
-				flickityRef={(c) => {
-					slider.current = c;
-				}}>
+			<div className="marquee">
+			<div className="marqueeInner">
 				{props.SlideData.map((slide, index) => (
-					<Word key={`slide-${index}`}>{slide.Title}</Word>
+					<div key={`slide-${index}`} className="box">{slide.Title}</div>
 				))}
-			</Flickity>
+				{props.SlideData.map((slide, index) => (
+					<div key={`slide-${index}`} className="box">{slide.Title}</div>
+				))}
+			</div>
+			</div>
 			</MarqueeContainer>
 		</BasicSliderSection>
 	);
