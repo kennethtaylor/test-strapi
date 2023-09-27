@@ -69,6 +69,16 @@ const ReportsTopContainer = styled.div`
 	gap: 2rem;
 	justify-content: space-between;
 	padding: 4rem 6rem 3rem 6rem;
+
+	@media only screen and (max-width: 820px) {
+		& {
+			display: block;
+			padding: 4rem 4rem 3rem 4rem;
+		}
+		& a.primaryBtnBlue {
+			margin-top: 2rem;
+		}
+	}
 `;
 
 const ReportCard = styled.article`
@@ -82,12 +92,24 @@ const ReportCard = styled.article`
 	}
 
 	&:hover img.rightArrow{opacity: 1;}
+
+	@media only screen and (max-width: 820px) {
+		& {
+			flex-direction: column;
+			padding: 3rem 4rem;
+		}
+	}
 `;
 
 const MetaContainer = styled.div``;
 
 const MetaContainerList = styled.div`
 	width: 30%;
+	@media only screen and (max-width: 820px) {
+		& {
+			width: 100%;
+		}
+	}
 `;
 
 const Date = styled.p`
@@ -103,6 +125,12 @@ const DateList = styled.p`
 	padding: 0 0 1rem 0;
 	font-size: var(--body);
 	color: var(--darkblue);
+
+	@media only screen and (max-width: 820px) {
+		& {
+			width: 100%;
+		}
+	}
 `;
 
 const AuthorContainer = styled.div`
@@ -135,6 +163,36 @@ const TitleContainerList = styled.div`
 	width: 60%;
 	color: var(--darkblue);
 	font-family: var(--sans-serif);
+
+	& .mobileArrow {display: none;}
+
+	@media only screen and (max-width: 820px) {
+		& {
+			display: flex;
+			width: 100%;
+			gap: 2rem;
+			justify-content: space-between;
+			align-items: center;
+			padding: 2rem 0 0 0;
+		}
+
+		& .mobileArrow {
+			display: block;
+			width: 20%;
+			position: relative;
+		}
+
+		& .mobileArrow img {
+			transition: 0.3s ease all;
+			width: 100%;
+			max-width: 40px;
+			height: auto;
+			opacity: 0;
+			margin: auto;
+			text-align: right;
+			display: block;
+		}
+	}
 `;
 
 const Arrow = styled.div`
@@ -145,7 +203,13 @@ const Arrow = styled.div`
 		width: 100%;
 		max-width: 40px;
 		height: auto;
+		margin: auto;
+		display: block;
+		text-align: right;
 		opacity: 0;
+	}
+	@media only screen and (max-width: 820px) {
+		& {display: none;}
 	}
 `;
 
@@ -245,6 +309,15 @@ export default function ReportList(props) {
 									<Link href={report?.CTAurl || ""}>
 										{report?.attributes?.Title}
 									</Link>
+									<div className="mobileArrow">
+										<Image
+											src={ArrowRightOrange}
+											alt="angled arrow"
+											width={15}
+											height={15}
+											className="rightArrow"
+										/>
+									</div>
 								</TitleContainerList>
 								<Arrow>
 									<Image

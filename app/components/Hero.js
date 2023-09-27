@@ -13,6 +13,17 @@ const HeroContent = styled.div`
 	& h1 {
 		padding: 0 6rem;
 	}
+	@media only screen and (max-width: 820px) {
+		& h1 {
+			font-size: 3rem;
+			padding: 0 2rem;
+		}
+	}
+	@media only screen and (max-width: 600px) {
+		& h1 {
+			font-size: 2.5rem;
+		}
+	}
 `;
 
 const ScrollContent = styled.div`
@@ -92,6 +103,23 @@ const ScrollContent = styled.div`
 			linear-gradient(#fff 0 0);
 		-webkit-mask-composite: destination-out;
 		mask-composite: exclude;
+	}
+
+	@media only screen and (max-width: 600px) {
+		& {
+			bottom: -2rem;
+		}
+		& .scrollIcon {
+			position: relative;
+			color: var(--white);
+			padding: 3.5rem 1.5rem;
+			background: transparent !important;
+			width: 100%;
+			max-width: 150px;
+			height: 150px;
+			margin: auto;
+			text-align: center;
+		}
 	}
 `;
 

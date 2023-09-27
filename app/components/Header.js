@@ -78,6 +78,12 @@ const NavContainerRight = styled.div`
 	justify-content: flex-end;
 	gap: 2rem;
 	width: calc(50% - 2rem);
+
+	@media only screen and (max-width: 600px) {
+		& nav {
+			display: none;
+		}
+	}
 `;
 
 const NavSection = styled.nav`
@@ -163,6 +169,7 @@ const Hamburger = styled.div`
     justify-content: space-between;
     height: 1.1rem;
     width: 2rem;
+	min-width: 2rem;
     cursor: pointer;
 
 	& .barTop {
@@ -186,11 +193,11 @@ const Hamburger = styled.div`
 const MobileMenu = styled.div`
 	position: fixed;
 	right: -100%;
-	top: 4rem;
+	top: 1rem;
 	bottom: 1rem;
 	z-index: 100;
 	width: 40%;
-	height: calc(100vh - 5rem);
+	height: calc(100vh - 2rem);
 	background: var(--white);
 	border-radius: 1rem;
 	transition: 0.5s ease all;
@@ -206,6 +213,7 @@ const MobileMenu = styled.div`
 		cursor: pointer;
 		width: calc(1.5vw * 1);
 	}
+
 	& .closeContainer img {
 		width: 100%;
 		height: auto;
@@ -214,6 +222,25 @@ const MobileMenu = styled.div`
 	@media only screen and (max-width: 1680px) {
 		& {
 			max-width: 450px;
+		}
+	}
+	@media only screen and (max-width: 820px) {
+		& {
+			max-width: 80%;
+			width: 100%;
+		}
+		& .closeContainer {
+			position: absolute;
+			top: 1rem;
+			right: 1rem;
+			cursor: pointer;
+			width: 1.5rem;
+		}
+	}
+	@media only screen and (max-width: 600px) {
+		& {
+			max-width: 100%;
+			width: 90%;
 		}
 	}
 `;
@@ -317,11 +344,11 @@ const Underlay = styled.div`
 	bottom: 0;
 	opacity: 0;
 	z-index: -1;
-	background: rgba(0,0,0,0.5);
+	background: rgba(0,0,0,0.7);
 	transition: opacity 0.5s ease;
 
 	&.open {
-		z-index: 98;
+		z-index: 99;
 		opacity: 1;
 	}
 `;

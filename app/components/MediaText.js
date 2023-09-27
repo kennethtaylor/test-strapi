@@ -9,7 +9,7 @@ import AngledArrowBlue from '../../public/images/icons/angledArrowBlue.svg?url';
 
 const MediaTextSection = styled.section`
 	width: 100%;
-	display: inline-block;
+	display: block;
 	background: var(--white);
 	position: relative;
 `;
@@ -20,6 +20,10 @@ const MediaTextContainer = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
+
+	@media only screen and (max-width: 820px) {
+		flex-direction: column;
+	}
 `;
 
 const ImageContainer = styled.div`
@@ -33,12 +37,25 @@ const ImageContainer = styled.div`
 		max-width: 100%;
 		height: auto;
 	}
+	@media only screen and (max-width: 820px) {
+		& {
+			width: 100%;
+			max-width: 100%;
+		}
+	}
 `;
 
 const ContentContainer = styled.div`
 	width: 50%;
 	padding: 0 6rem;
 	position: relative;
+
+	@media only screen and (max-width: 820px) {
+		& {
+			width: 100%;
+			padding: 4rem 4rem;
+		}
+	}
 `;
 const StyledLink = styled.a``;
 const SecondaryContainer = styled.div``;

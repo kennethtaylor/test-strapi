@@ -12,20 +12,39 @@ const TitleLeftTextCtaRightContainer = styled.section`
 	display: flex;
 	align-items: flex-start;
 	gap: 4rem;
-	padding: 14rem 6rem 10rem 6rem;
+	padding: 14rem 8rem 10rem 8rem;
 	flex-wrap: wrap;
+
+	@media only screen and (max-width: 820px) {
+		& {
+			flex-direction: column;
+			gap: 2rem;
+			padding: 14rem 4rem 8rem 4rem;
+		}
+	}
 `;
 const TitleContainer = styled.div`
 	width: calc(40% - 2rem);
+
 	& h2 {
 		font-weight: 400;
 		font-familu: var(--sans-serif);
+	}
+	@media only screen and (max-width: 820px) {
+		& {width: 100%;}
 	}
 `;
 
 const ContentContainer = styled.div`
 	width: calc(60% - 2rem);
 	padding-top: 6rem;
+
+	@media only screen and (max-width: 820px) {
+		& {
+			width: 100%;
+			padding: 2rem 0 0rem 4rem;
+		}
+	}
 `;
 
 const Content = styled.div`
