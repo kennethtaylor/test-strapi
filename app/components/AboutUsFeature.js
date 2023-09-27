@@ -39,10 +39,16 @@ const InnerContainer = styled.div`
 
 	& img.logoMark {
 		display: block;
-		margin: 0 auto 4rem;auto;
+		margin: 0 auto 4rem auto;
 		width: 100%;
-		max-width: calc(100% * 1);
+		max-width: calc(80% * 1);
 		height: auto;
+	}
+	@media only screen and (max-width: 820px){
+		& img.logoMark {
+			max-width: calc(60% * 1);
+			margin: 0 auto 2rem auto;
+		}
 	}
 `;
 

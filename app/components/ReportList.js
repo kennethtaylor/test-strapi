@@ -100,7 +100,9 @@ const ReportCard = styled.article`
 	}
 `;
 
-const MetaContainer = styled.div``;
+const MetaContainer = styled.div`
+	width: 100%;
+`;
 
 const MetaContainerList = styled.div`
 	width: 30%;
