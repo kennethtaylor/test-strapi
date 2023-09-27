@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { styled } from "styled-components";
 import { gsap } from "gsap/dist/gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -7,17 +7,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const BasicSliderSection = styled.section`
 	width: 100%;
-	display: inline-block;
+	display: block;
 	position: relative;
+	padding: 0px;
 `;
 
 const TopGradientLine = styled.div`
 	width: 100%;
 	height: 0.5px;
 	display: block;
+	padding: 0;
 	background: var( --blue-gradient-linear);
-	background: var( --blue-gradient-moz);
-	background: var( --blue-gradient-webkit);
+	-moz-background: var( --blue-gradient-moz);
+	-webkit-background: var( --blue-gradient-webkit);
 `;
 
 const MarqueeContainer = styled.div`

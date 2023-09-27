@@ -144,6 +144,7 @@ const AuthorList = styled.p`
 	font-family: var(--sans-serif);	
 	font-size: var(--body);
 	color: var(--darkblue);
+	padding: 0px;
 `;
 
 const Author = styled.p`
@@ -184,7 +185,7 @@ const TitleContainerList = styled.div`
 
 		& .mobileArrow {
 			display: block;
-			width: 20%;
+			width: 40px;
 			position: relative;
 		}
 
@@ -261,7 +262,7 @@ export default function ReportList(props) {
 										</Link>
 									</TitleContainer>
 									<AuthorContainer>
-										<AuthorList>Author</AuthorList>
+										<Author>Author</Author>
 										<Link href={report?.CTAurl || ""}><Image
 											src={AngledArrowBlue}
 											alt="angled arrow"
@@ -309,7 +310,7 @@ export default function ReportList(props) {
 											year: "numeric",
 										}).format(date)}
 									</DateList>
-									<Author>Author</Author>
+									<AuthorList>Author</AuthorList>
 								</MetaContainerList>
 								<TitleContainerList>
 									<Link href={report?.CTAurl || ""}>
