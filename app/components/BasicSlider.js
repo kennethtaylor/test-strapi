@@ -19,6 +19,7 @@ const TopGradientLine = styled.div`
 	background: var( --blue-gradient-moz);
 	background: var( --blue-gradient-webkit);
 `;
+
 const MarqueeContainer = styled.div`
 	width: 100%;
 	padding: 2rem 0rem;
@@ -45,14 +46,13 @@ export default function BasicSlider(props) {
 
 	useEffect(() => {
 		let wrapWidth = document.querySelector(".marqueeInner").offsetWidth;
-
 		gsap.to(".marqueeInner", {
   			duration: 12,
   			ease: "none",
   			repeat: -1,
   			immediateRender: true,
-  			x: `-=${wrapWidth / 2}`
-});
+  			x: `-=${wrapWidth / 2}`,
+		});
 	}, []);
 
 	return (

@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-
 import { styled } from "styled-components";
 import Title from "./Title";
 import BodyCopy from "./BodyCopy";
@@ -140,6 +139,13 @@ const AuthorContainer = styled.div`
 	align-items: center;
 `;
 
+const AuthorList = styled.p`
+	font-weight: 400;
+	font-family: var(--sans-serif);	
+	font-size: var(--body);
+	color: var(--darkblue);
+`;
+
 const Author = styled.p`
 	font-weight: 400;
 	font-family: var(--sans-serif);	
@@ -255,7 +261,7 @@ export default function ReportList(props) {
 										</Link>
 									</TitleContainer>
 									<AuthorContainer>
-										<Author>Author</Author>
+										<AuthorList>Author</AuthorList>
 										<Link href={report?.CTAurl || ""}><Image
 											src={AngledArrowBlue}
 											alt="angled arrow"
