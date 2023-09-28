@@ -136,11 +136,36 @@ const FilterContainer = styled.div`
 `;
 const Filter = styled.select`
 	width: 100%;
-	min-width: 125px;
+	min-width: 155px;
+	background: transparent;
+	text-align: center;
+	border: 0.5px solid var(--white);
+	font-family: var(--sans-serif);
+	letter-spacing: 0.1rem;
+	font-size: var(--nav);
+	font-weight: 400;
+	text-transform: uppercase;
+	border-radius: 1.5rem;
+	padding: 0.5rem 1rem;
+	color: var(--white);
+	-webkit-appearance: none;
+    background-image: linear-gradient(135deg, rgb(0, 85, 155) 0%, transparent 0%), radial-gradient(#fff 70%, transparent 72%);
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - .5em) .5em;
+  	background-size: 5px 5px, 5px 5px, 1.5em 1.5em;
+    background-repeat: no-repeat;
 `;
 
 const ArchiveContentContainer = styled.div`
 	color: white;
+
+	& h1 {padding: 0 0 2rem 0;}
+	
+	& p {
+		font-family: var(--sans-serif);
+		color: var(--white);
+		font-weight: 400;
+		font-size: var(--body);
+	}
 `;
 
 export default function Hero(props) {
@@ -173,13 +198,13 @@ export default function Hero(props) {
 		case "threeQuarters":
 		case "postArchive":
 			return (
-				<Section bgimage={`${Image.data.attributes.url}`} half={true}>
+				<Section half={true}>
 					<ArchiveHeroContent>
 						<ArchiveContentContainer>
 							<Title
 								as="h1"
 								color="white"
-								size="heading"
+								size="xlheading"
 								weight="medium"
 								align="center">
 								{title}
