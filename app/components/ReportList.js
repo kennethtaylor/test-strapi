@@ -19,12 +19,29 @@ const ReportListSection = styled.section`
 const ReportGridSection = styled.div`
 	width: 100%;
 	padding: 4rem 6rem;
+	@media only screen and (max-width: 1100px) {
+		& {
+			padding: 4rem 4rem;
+		}
+	}
 `;
 
 const ReportGridInnerContainer = styled.div`
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
+	height: max-content;
 	gap: 2rem;
+
+	@media only screen and (max-width: 1100px) {
+		& {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media only screen and (max-width: 820px) {
+		& {
+			grid-template-columns: repeat(1, 1fr);
+		}
+	}
 `;
 
 const ReportGridCard = styled.article`
@@ -59,6 +76,15 @@ const ReportGridCard = styled.article`
 
 	&:hover a img {
 		filter: contrast(0) sepia(100%) hue-rotate(-15deg) saturate(3);
+	}
+
+	@media only screen and (max-width: 820px) {
+		& {
+			aspect-ratio: unset;
+		}
+		& h2 {
+			padding: 2rem 0;
+		}
 	}
 `;
 
@@ -160,8 +186,9 @@ const TitleContainer = styled.h2`
 	& a  {
 		font-family: var(--sans-serif);
 		font-weight: 600;
-		font-size: var(--sub-heading);
+		font-size: var(--reportsheading);
 		text-decoration: none;
+		line-height: 1.1;
 		color: var(--darkblue);
 	}
 `;

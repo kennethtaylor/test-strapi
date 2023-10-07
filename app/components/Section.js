@@ -4,7 +4,7 @@ import Anchor from "./Anchor";
 
 const StyledSection = styled.section`
 	position: relative;
-	height: ${(props) => (props.half ? "50vh" : "100vh")};
+	height: ${(props) => (props.half ? "50vh" : props.none ? "" : "100vh")};
 	background-image: url(${(props) => `${props.bg}`});
 	background-size: cover !important;
 	-webkit-background-size: cover !important;
@@ -15,10 +15,10 @@ const StyledSection = styled.section`
 `;
 
 export default function Section(props) {
-	const { anchor, bgimage = "none", half } = props;
+	const { anchor, bgimage = "none", half, none } = props;
 
 	return (
-		<StyledSection bg={bgimage} half={props.half}>
+		<StyledSection bg={bgimage} half={props.half} none={props.none}>
 			{props.children}
 		</StyledSection>
 	);

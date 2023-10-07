@@ -124,15 +124,32 @@ const ScrollContent = styled.div`
 `;
 
 const ArchiveHeroContent = styled.div`
-	padding-top: 13rem;
-	padding-inline: 2rem;
+	width: 100%;
+	padding: 13rem 6rem 0 6rem;
 	display: flex;
+	gap: 4rem;
 	justify-content: space-between;
 	align-items: center;
+
+	@media only screen and (max-width: 1100px) {
+		padding: 13rem 4rem 0 4rem;
+		flex-direction: column;
+
+		& h1,
+		& p {text-align: center;}
+	}
+
+	@media only screen and (max-width: 655px) {
+		padding: 13rem 4rem 0rem 4rem;
+	}
 `;
 const FilterContainer = styled.div`
 	display: flex;
 	gap: 1rem;
+	@media only screen and (max-width: 655px) {
+		flex-direction: column;
+		gap: 1.5rem;
+	}
 `;
 const Filter = styled.select`
 	width: 100%;
@@ -198,7 +215,7 @@ export default function Hero(props) {
 		case "threeQuarters":
 		case "postArchive":
 			return (
-				<Section half={true}>
+				<Section none={true}>
 					<ArchiveHeroContent>
 						<ArchiveContentContainer>
 							<Title

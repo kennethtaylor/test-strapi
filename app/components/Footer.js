@@ -15,10 +15,14 @@ const StyledFooter = styled.footer`
 `;
 const FooterContainer = styled.div`
 	display: flex;
-	padding: 0rem 2rem;
+	padding: 0rem 2rem 2rem 2rem;
 	justify-content: space-between;
 	align-items: flex-start;
 	gap: 2rem;
+
+	& .column.one {
+		width: calc(60% - 1rem);
+	}
 
 	& .column.one address {
 		padding: 2rem 0;
@@ -44,6 +48,7 @@ const FooterContainer = styled.div`
 		display: flex;
 		justify-content: space-between;
 		gap: 8rem;
+		width: calc(40% - 1rem);
 	}
 
 	& .column.two .socialContainer {
@@ -72,6 +77,41 @@ const FooterContainer = styled.div`
 	}
 	& .policyMenu li {
 		opacity: 0.8;
+	}
+	@media only screen and (max-width: 900px) {
+		& .column.one,
+		& .column.two{
+			width: calc(50% - 1rem);
+			position: relative;
+		}
+		& .column.one .LogoContainer {
+			width: 100%;
+			max-width: 100%;
+		}
+		& .column.one .LogoContainer img{
+			width: 100%;
+			max-width: 300px;
+			height: auto;
+		}
+	}
+	@media only screen and (max-width: 700px) {
+		& {
+			flex-wrap: wrap;
+		}
+		& .column.one {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			gap: 1rem;
+		}
+		& .column.one .LogoContainer {
+			width: 100%;
+			max-width: 300px;
+		}
+		& .column.two {
+			width: 100%;
+		}
 	}
 `;
 

@@ -17,6 +17,7 @@
   --orange-gradient-webkit: -webkit-linear-gradient(163deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%);
   --xlheading: clamp(9.3rem, 9.3vw, 18.6rem);
   --heading: clamp(4.3rem, 4.3vw, 8.6rem);
+  --reportsheading: clamp(1.8rem, 1.8vw, 3.2rem);
   --quote: clamp(2rem, 2vw, 4rem);
   --sub-heading: clamp(1.5rem, 1.5vw, 3rem);
   --body: clamp(1rem, 1vw, 2rem);
@@ -25,6 +26,11 @@
   --blue-gradient-linear: linear-gradient(90deg, rgba(32,58,113,1) 0%, rgba(50,119,223,1) 100%);
   --blue-gradient-webkit: -webkit-linear-gradient(90deg, rgba(32,58,113,1) 0%, rgba(50,119,223,1) 100%);
   --blue-gradient-moz: -moz-linear-gradient(90deg, rgba(32,58,113,1) 0%, rgba(50,119,223,1) 100%);
+}
+@media only screen and (max-width: 1325px) {
+:root {
+  --xlheading: clamp(6rem, 6vw, 12rem);
+}
 }
 
 * {
