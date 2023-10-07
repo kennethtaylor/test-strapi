@@ -275,7 +275,8 @@ export default function ReportList(props) {
 								report.attributes.publishedAt
 							);
 							return (
-								<ReportGridCard key={`rcard-${index}`}>
+								<Link key={`rcardlink-${index}`} href={report?.CTAurl || ""}>
+									<ReportGridCard key={`rcard-${index}`}>
 									<MetaContainer>
 										<Date>
 											{Intl.DateTimeFormat("en-us", {
@@ -292,15 +293,15 @@ export default function ReportList(props) {
 									</TitleContainer>
 									<AuthorContainer>
 										<Author>Author</Author>
-										<Link href={report?.CTAurl || ""}><Image
+										<Image
 											src={AngledArrowBlue}
 											alt="angled arrow"
 											width={30}
 											height={30}
 										/>
-										</Link>
 									</AuthorContainer>
 								</ReportGridCard>
+								</Link>
 							);
 						})}
 					</ReportGridInnerContainer>
