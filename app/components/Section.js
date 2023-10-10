@@ -4,7 +4,7 @@ import Anchor from "./Anchor";
 
 const StyledSection = styled.section`
 	position: relative;
-	height: ${(props) => (props.half ? "50vh" : props.none ? "" : "100vh")};
+	height: ${(props) => (props.half ? "50vh" : props.none ? "auto" : "100vh")};
 	background-image: url(${(props) => `${props.bg}`});
 	background-size: cover !important;
 	-webkit-background-size: cover !important;
