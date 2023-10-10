@@ -62,6 +62,9 @@ const SecondaryContainer = styled.div``;
 const BodyContainer = styled.div`
 	padding: 2rem 0;
 	line-height: 1.5;
+	font-family: var(--sans-serif);
+	font-size: var(--body);
+	color: var(--darkblue);
 `;
 
 export default function MediaText(props) {

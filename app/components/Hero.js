@@ -12,8 +12,6 @@ const HeroContent = styled.div`
 
 	& h1 {
 		padding: 0 6rem;
-		font-family: var(--sans-serif);
-		font-weight: 600;
 		line-height: 1.2;
 	}
 	@media only screen and (max-width: 820px) {

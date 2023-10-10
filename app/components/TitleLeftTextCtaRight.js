@@ -27,8 +27,8 @@ const TitleContainer = styled.div`
 	width: calc(40% - 2rem);
 
 	& h2 {
-		font-weight: 400;
 		font-family: var(--sans-serif);
+		line-height: 1.2;
 	}
 	@media only screen and (max-width: 820px) {
 		& {width: 100%;}
@@ -38,6 +38,7 @@ const TitleContainer = styled.div`
 const ContentContainer = styled.div`
 	width: calc(60% - 2rem);
 	padding-top: 6rem;
+	line-height: 1.5;
 
 	@media only screen and (max-width: 820px) {
 		& {
