@@ -63,16 +63,24 @@ const ReportGridCard = styled.article`
 
 	&:hover::after {
 		position: absolute;
-    	top: -4px; bottom: -4px;
-    	left: -4px; right: -4px;
-    	background: linear-gradient(90deg, rgba(32,58,113,1) 0%, rgba(50,119,223,1) 100%);
-    	content: '';
-    	z-index: -1;
-    	border-radius: 1rem;
+		top: -4px;
+		bottom: -4px;
+		left: -4px;
+		right: -4px;
+		background: linear-gradient(
+			90deg,
+			rgba(32, 58, 113, 1) 0%,
+			rgba(50, 119, 223, 1) 100%
+		);
+		content: "";
+		z-index: -1;
+		border-radius: 1rem;
 	}
 
 	&:hover h2 a,
-	&:hover p {color: var(--white);}
+	&:hover p {
+		color: var(--white);
+	}
 
 	&:hover a img {
 		filter: contrast(0) sepia(100%) hue-rotate(-15deg) saturate(3);
@@ -116,7 +124,9 @@ const ReportCard = styled.article`
 		border-bottom: 1px solid var(--darkblue);
 	}
 
-	&:hover img.rightArrow{opacity: 1;}
+	&:hover img.rightArrow {
+		opacity: 1;
+	}
 
 	@media only screen and (max-width: 820px) {
 		& {
@@ -169,7 +179,7 @@ const AuthorContainer = styled.div`
 
 const AuthorList = styled.p`
 	font-weight: 400;
-	font-family: var(--sans-serif);	
+	font-family: var(--sans-serif);
 	font-size: var(--body);
 	color: var(--darkblue);
 	padding: 0px;
@@ -177,13 +187,13 @@ const AuthorList = styled.p`
 
 const Author = styled.p`
 	font-weight: 400;
-	font-family: var(--sans-serif);	
+	font-family: var(--sans-serif);
 	font-size: var(--body);
 	color: var(--darkblue);
 `;
 
 const TitleContainer = styled.h2`
-	& a  {
+	& a {
 		font-family: var(--sans-serif);
 		font-weight: 600;
 		font-size: var(--reportsheading);
@@ -200,7 +210,9 @@ const TitleContainerList = styled.div`
 	color: var(--darkblue);
 	font-family: var(--sans-serif);
 
-	& .mobileArrow {display: none;}
+	& .mobileArrow {
+		display: none;
+	}
 
 	@media only screen and (max-width: 820px) {
 		& {
@@ -245,7 +257,9 @@ const Arrow = styled.div`
 		opacity: 0;
 	}
 	@media only screen and (max-width: 820px) {
-		& {display: none;}
+		& {
+			display: none;
+		}
 	}
 `;
 
@@ -275,32 +289,41 @@ export default function ReportList(props) {
 								report.attributes.publishedAt
 							);
 							return (
-								<Link key={`rcardlink-${index}`} href={report?.CTAurl || ""}>
+								<Link
+									key={`rcardlink-${index}`}
+									href={
+										`/reports/${report?.attributes?.slug}` ||
+										""
+									}>
 									<ReportGridCard key={`rcard-${index}`}>
-									<MetaContainer>
-										<Date>
-											{Intl.DateTimeFormat("en-us", {
-												month: "long",
-												day: "numeric",
-												year: "numeric",
-											}).format(date)}
-										</Date>
-									</MetaContainer>
-									<TitleContainer>
-										<Link href={report?.CTAurl || ""}>
-											{report?.attributes?.Title}
-										</Link>
-									</TitleContainer>
-									<AuthorContainer>
-										<Author>Author</Author>
-										<Image
-											src={AngledArrowBlue}
-											alt="angled arrow"
-											width={30}
-											height={30}
-										/>
-									</AuthorContainer>
-								</ReportGridCard>
+										<MetaContainer>
+											<Date>
+												{Intl.DateTimeFormat("en-us", {
+													month: "long",
+													day: "numeric",
+													year: "numeric",
+												}).format(date)}
+											</Date>
+										</MetaContainer>
+										<TitleContainer>
+											<Link
+												href={
+													`/reports/${report?.attributes?.slug}` ||
+													""
+												}>
+												{report?.attributes?.Title}
+											</Link>
+										</TitleContainer>
+										<AuthorContainer>
+											<Author>Author</Author>
+											<Image
+												src={AngledArrowBlue}
+												alt="angled arrow"
+												width={30}
+												height={30}
+											/>
+										</AuthorContainer>
+									</ReportGridCard>
 								</Link>
 							);
 						})}
@@ -311,22 +334,24 @@ export default function ReportList(props) {
 			return (
 				<ReportListSection>
 					<ReportsTopContainer>
-					<Title
-						size="heading"
-						weight="medium"
-						color="darkblue"
-						as="h2">
-						{props.Title}
-					</Title>
-					<Link className="primaryBtnBlue" href={props.MainCTAurl}>
-						<span>{props.MainCTAtext}</span>
-						<Image
-							src={AngledArrowBlue}
-							alt="angled arrow"
-							width={15}
-							height={15}
-						/>
-					</Link>
+						<Title
+							size="heading"
+							weight="medium"
+							color="darkblue"
+							as="h2">
+							{props.Title}
+						</Title>
+						<Link
+							className="primaryBtnBlue"
+							href={props.MainCTAurl}>
+							<span>{props.MainCTAtext}</span>
+							<Image
+								src={AngledArrowBlue}
+								alt="angled arrow"
+								width={15}
+								height={15}
+							/>
+						</Link>
 					</ReportsTopContainer>
 					{props?.reports?.data?.map((report, index) => {
 						let date = DateTime.now(report.attributes.publishedAt);
