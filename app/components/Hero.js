@@ -181,7 +181,6 @@ const ArchiveContentContainer = styled.div`
 	color: white;
 
 	& h1 {
-		padding: 0rem;
 		font-family: var(--sans-serif);
 		font-weight: 600;
 	}
@@ -231,7 +230,8 @@ export default function Hero(props) {
 								as="h1"
 								color="white"
 								size="xlheading"
-								weight="medium">
+								weight="medium"
+								align="center">
 								{title}
 							</Title>
 							<p>{Content}</p>
