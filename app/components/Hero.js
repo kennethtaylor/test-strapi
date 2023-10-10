@@ -3,6 +3,8 @@ import { styled } from "styled-components";
 import Section from "./Section";
 import Title from "./Title";
 
+import { DateTime } from "luxon";
+
 const HeroContent = styled.div`
 	display: grid;
 	place-items: center;
@@ -141,7 +143,9 @@ const ArchiveHeroContent = styled.div`
 		flex-direction: column;
 
 		& h1,
-		& p {text-align: center;}
+		& p {
+			text-align: center;
+		}
 	}
 
 	@media only screen and (max-width: 655px) {
@@ -171,10 +175,16 @@ const Filter = styled.select`
 	padding: 0.5rem 1rem;
 	color: var(--white);
 	-webkit-appearance: none;
-    background-image: linear-gradient(135deg, rgb(0, 85, 155) 0%, transparent 0%), radial-gradient(#fff 70%, transparent 72%);
-    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - .5em) .5em;
-  	background-size: 5px 5px, 5px 5px, 1.5em 1.5em;
-    background-repeat: no-repeat;
+	background-image: linear-gradient(
+			135deg,
+			rgb(0, 85, 155) 0%,
+			transparent 0%
+		),
+		radial-gradient(#fff 70%, transparent 72%);
+	background-position: calc(100% - 20px) calc(1em + 2px),
+		calc(100% - 15px) calc(1em + 2px), calc(100% - 0.5em) 0.5em;
+	background-size: 5px 5px, 5px 5px, 1.5em 1.5em;
+	background-repeat: no-repeat;
 `;
 
 const ArchiveContentContainer = styled.div`
@@ -184,7 +194,7 @@ const ArchiveContentContainer = styled.div`
 		font-family: var(--sans-serif);
 		font-weight: 600;
 	}
-	
+
 	& p {
 		font-family: var(--sans-serif);
 		color: var(--white);
@@ -194,7 +204,14 @@ const ArchiveContentContainer = styled.div`
 `;
 
 export default function Hero(props) {
-	const { Title: title, Content, Image, Type } = props;
+	const {
+		Title: title,
+		Content,
+		Image,
+		Type,
+		publishedAt,
+		reportTitle,
+	} = props;
 
 	switch (Type) {
 		case "home":
@@ -251,6 +268,32 @@ export default function Hero(props) {
 				</Section>
 			);
 		case "postSingle":
+			let date = DateTime.now(publishedAt);
+
+			return (
+				<Section none={true}>
+					<ArchiveHeroContent>
+						<ArchiveContentContainer>
+							<Title
+								as="h1"
+								color="white"
+								size="heading"
+								weight="medium"
+								align="center">
+								{reportTitle}
+							</Title>
+							<p style={{ textAlign: "center" }}>
+								Published at{" "}
+								{Intl.DateTimeFormat("en-us", {
+									month: "long",
+									day: "numeric",
+									year: "numeric",
+								}).format(date)}
+							</p>
+						</ArchiveContentContainer>
+					</ArchiveHeroContent>
+				</Section>
+			);
 		default:
 			break;
 	}

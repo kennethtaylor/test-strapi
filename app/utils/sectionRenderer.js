@@ -5,6 +5,9 @@ import AboutUsFeature from "../components/AboutUsFeature";
 import MediaText from "../components/MediaText";
 import ReportList from "../components/ReportList";
 import Search from "../components/Search";
+import ReportSection from "../components/ReportSection";
+import ReportSummary from "../components/ReportSummary";
+import ContentBlock from "../components/ContentBlock";
 
 export default async function sectionRenderer(sections, index) {
 	const sectionsToDisplay = [];
@@ -47,6 +50,21 @@ export default async function sectionRenderer(sections, index) {
 			case "layout.search-bar":
 				sectionsToDisplay.push(
 					<Search key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.report-summary":
+				sectionsToDisplay.push(
+					<ReportSummary key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.content-block":
+				sectionsToDisplay.push(
+					<ContentBlock key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.report-section":
+				sectionsToDisplay.push(
+					<ReportSection key={`section-${index}`} {...section} />
 				);
 				break;
 			default:

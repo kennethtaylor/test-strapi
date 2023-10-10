@@ -1,28 +1,24 @@
+"use client";
 import sectionRenderer from "../../utils/sectionRenderer";
 import getReportBySlug from "../../../lib/getReportBySlug";
-
-export async function generateStaticParams() {
-	const res = await fetch(`${process.env.APP_URL}/api/reports`);
-	const data = await res.json();
-
-	if (!res.ok) {
-		throw new Error("Failed to fetch");
-	}
-
-	const paths = data?.data.map((item) => {
-		return {
-			params: {
-				report: item.attributes.Slug,
-			},
-		};
-	});
-
-	return paths;
-}
+import { getServerSession } from "next-auth";
+import Hero from "@/app/components/Hero";
 
 export default async function Page({ params }) {
 	const data = await getReportBySlug(params?.report);
-	const sections = data[0]?.attributes?.Sections;
+	const sections = await data.data[0]?.attributes?.Sections;
 
-	return sectionRenderer(sections);
+	const title = data.data[0]?.attributes?.Title;
+	const publishedAt = data.data[0]?.attributes?.publishedAt;
+
+	return (
+		<>
+			<Hero
+				reportTitle={title}
+				Type="postSingle"
+				publishedAt={publishedAt}
+			/>
+			{sectionRenderer(sections)}
+		</>
+	);
 }
