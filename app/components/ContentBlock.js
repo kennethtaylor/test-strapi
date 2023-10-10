@@ -57,7 +57,10 @@ const ContentBlockSection = styled.section`
 		font-weight: 300;
 	}
 	& ol li,
-	& ul li {font-size: var(--body);}
+	& ul li {
+		font-size: var(--body);
+		padding: 0 0 1rem 0;
+	}
 
 	& ol li:before {
 		content: "counter(item)";
