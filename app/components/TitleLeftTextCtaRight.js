@@ -28,7 +28,7 @@ const TitleContainer = styled.div`
 
 	& h2 {
 		font-weight: 400;
-		font-familu: var(--sans-serif);
+		font-family: var(--sans-serif);
 	}
 	@media only screen and (max-width: 820px) {
 		& {width: 100%;}
