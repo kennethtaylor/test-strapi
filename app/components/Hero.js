@@ -129,8 +129,12 @@ const ArchiveHeroContent = styled.div`
 	padding: 13rem 6rem 0 6rem;
 	display: flex;
 	gap: 4rem;
-	justify-content: space-between;
 	align-items: center;
+	justify-content: space-between;
+
+	& h1 {
+		text-align: left;
+	}
 
 	@media only screen and (max-width: 1100px) {
 		padding: 13rem 4rem 0 4rem;
@@ -177,7 +181,7 @@ const ArchiveContentContainer = styled.div`
 	color: white;
 
 	& h1 {
-		padding: 0 0 2rem 0;
+		padding: 0rem;
 		font-family: var(--sans-serif);
 		font-weight: 600;
 	}
@@ -227,8 +231,7 @@ export default function Hero(props) {
 								as="h1"
 								color="white"
 								size="xlheading"
-								weight="medium"
-								align="center">
+								weight="medium">
 								{title}
 							</Title>
 							<p>{Content}</p>

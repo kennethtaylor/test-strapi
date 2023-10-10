@@ -31,6 +31,7 @@ const StyledHeader = styled.header`
 		left: 0;
 		right: 0;
 		z-index: 99;
+		background: var(--darkblue);
 	}
 `;
 
@@ -42,7 +43,7 @@ const TopBar = styled.div`
 	justify-content: space-between;
 	background: var(--darkblue);
 	padding:1rem 2rem;
-	border-bottom: 1px solid rgba(255,255,255,0.3);
+	border-bottom: 0.5px solid rgba(255,255,255,0.2);
 `;
 
 const AnnoucementText = styled.p`
@@ -55,9 +56,9 @@ const AnnoucementText = styled.p`
 const HeaderContainer = styled.div`
 	width: 100%;
 	display: flex;
-	padding: 1rem 2rem;
+	padding: 1.5rem 2rem 1rem 2rem;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-start;
 	flex-wrap: wrap;
 	background: transparent;
 	transition: 0.3s ease all;
@@ -65,6 +66,7 @@ const HeaderContainer = styled.div`
 	.sitebranding.sticky & {
 		background: var(--darkblue);
 		padding: 0.7rem 2rem;
+		align-items: center;
 	}
 `;
 
@@ -75,7 +77,13 @@ const NavContainerLeft = styled.div`
 	width: calc(50% - 2rem);
 	transition: 0.3s ease all;
 
-	.sitebranding.sticky & img {
+	& .headerLogo {
+		width: 100%;
+		max-width: 100px;
+		height: auto;
+		transition: 0.3s ease all;
+	}
+	.sitebranding.sticky & .headerLogo {
 		max-width: 50px;
 		height: auto;
 	}
@@ -398,7 +406,9 @@ export default function Header() {
 			</TopBar>
 			<HeaderContainer>
 				<NavContainerLeft>
-					<Image src={Logo} alt="22VI Logo" width={68} height={92}/>
+					<Link href="/">
+						<Image className="headerLogo" src={Logo} alt="22VI Logo" width={68} height={92}/>
+					</Link>
 				</NavContainerLeft>
 
 				<NavContainerRight>
