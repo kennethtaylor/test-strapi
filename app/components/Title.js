@@ -29,8 +29,7 @@ const TitleStyled = styled.h1`
 			? "center"
 			: "left"};
 	font-family: var(--sans-serif);
-	font-weight: ${(props) =>
-		props.weight === "bold"
+	font-weight: ${(props) => props.weight === "bold"
 			? "700"
 			: props.weight === "medium"
 			? "600"

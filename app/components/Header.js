@@ -392,6 +392,7 @@ export default function Header() {
 				Optional Announcement Text
 				</AnnoucementText>
 				<NavSection>
+						<Image src={SearchIcon} alt="search icon" width={20} height={20}/>
 						<Link className="linkwbtn" href="#">
 							Log In <Image src={AngledArrow} alt="angled arrow" width={15} height={15}/>
 						</Link>
@@ -419,7 +420,6 @@ export default function Header() {
 						<div className="barTop"></div>
 						<div className="barMiddle"></div>
 					</Hamburger>
-					<Image src={SearchIcon} alt="search icon" width={20} height={20}/>
 				</NavContainerRight>
 			</HeaderContainer>
 			</div>

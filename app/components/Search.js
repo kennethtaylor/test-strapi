@@ -2,7 +2,18 @@
 import styled from "styled-components";
 
 const SearchSection = styled.div`
-	padding: 2rem;
+	padding: 2rem 6rem;
+
+	@media only screen and (max-width: 1100px) {
+		& {
+			padding: 2rem 4rem;
+		}
+	}
+	@media only screen and (max-width: 655px) {
+		& {
+			padding: 2rem 2rem;
+		}
+	}
 `;
 const SearchBarContainer = styled.div`
 	position: relative;

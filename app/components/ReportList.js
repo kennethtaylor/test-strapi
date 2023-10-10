@@ -24,6 +24,11 @@ const ReportGridSection = styled.div`
 			padding: 4rem 4rem;
 		}
 	}
+	@media only screen and (max-width: 655px) {
+		& {
+			padding: 4rem 2rem 4rem 2rem;
+		}
+	}
 `;
 
 const ReportGridInnerContainer = styled.div`

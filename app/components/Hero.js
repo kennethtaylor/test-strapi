@@ -128,7 +128,7 @@ const ScrollContent = styled.div`
 
 const ArchiveHeroContent = styled.div`
 	width: 100%;
-	padding: 13rem 6rem 0 6rem;
+	padding: 14rem 6rem 0 6rem;
 	display: flex;
 	gap: 4rem;
 	align-items: center;
@@ -139,7 +139,7 @@ const ArchiveHeroContent = styled.div`
 	}
 
 	@media only screen and (max-width: 1100px) {
-		padding: 13rem 4rem 0 4rem;
+		padding: 14rem 4rem 0 4rem;
 		flex-direction: column;
 
 		& h1,
@@ -149,7 +149,7 @@ const ArchiveHeroContent = styled.div`
 	}
 
 	@media only screen and (max-width: 655px) {
-		padding: 13rem 4rem 0rem 4rem;
+		padding: 14rem 2rem 0rem 2rem;
 	}
 `;
 const FilterContainer = styled.div`
@@ -192,7 +192,6 @@ const ArchiveContentContainer = styled.div`
 
 	& h1 {
 		font-family: var(--sans-serif);
-		font-weight: 600;
 	}
 
 	& p {
@@ -247,7 +246,7 @@ export default function Hero(props) {
 								as="h1"
 								color="white"
 								size="xlheading"
-								weight="medium"
+								weight="bold"
 								align="center">
 								{title}
 							</Title>
