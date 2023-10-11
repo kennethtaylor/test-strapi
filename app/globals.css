@@ -17,9 +17,11 @@
   --orange-gradient-webkit: -webkit-linear-gradient(163deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%);
   --xlheading: clamp(9.3rem, 9.3vw, 18.6rem);
   --heading: clamp(4.3rem, 4.3vw, 8.6rem);
-  --reportsheading: clamp(1.8rem, 1.8vw, 3.2rem);
+  --smallheading: clamp(3rem, 3vw, 6rem);
   --quote: clamp(2rem, 2vw, 4rem);
+  --reportsheading: clamp(1.8rem, 1.8vw, 3.2rem);
   --sub-heading: clamp(1.5rem, 1.5vw, 3rem);
+  --body-large: clamp(1.2rem, 1.2vw, 2.4rem);
   --body: clamp(1rem, 1vw, 2rem);
   --nav: clamp(0.8rem, 0.8vw, 1.6rem);
   --sans-serif: proxima-nova, sans-serif;

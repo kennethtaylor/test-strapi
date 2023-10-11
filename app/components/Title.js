@@ -13,6 +13,10 @@ const TitleStyled = styled.h1`
 	font-size: ${(props) =>
 		props.size === "xlheading"
 			? "var(--xlheading)"
+			: props.size === "reportsheading"
+			? "var(--reportsheading)"
+			: props.size === "smallheading"
+			? "var(--smallheading)"
 			: props.size === "heading"
 			? "var(--heading)"
 			: props.size === "quote"

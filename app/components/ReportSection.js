@@ -11,13 +11,61 @@ const StyledReportSection = styled.section`
 const ReportSectionContainer = styled.div``;
 
 const Top = styled.div``;
-const SubtitleContainer = styled.h3``;
-const Content = styled.p``;
 
-const Bottom = styled.div``;
-const GradientDivider = styled.div``;
-const ContentLeftContainer = styled.p``;
+const SubtitleContainer = styled.h3`
+	color: var(--darkblue);
+	font-family: var(--sans-serif);
+	font-size: var(--reportsheading);
+	padding: 0 0 1rem 0;
+`;
+const Content = styled.p`
+	color: var(--darkblue);
+	font-family: var(--sans-serif);
+	font-size: var(--body);
+`;
 
+const Bottom = styled.div`
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 4rem;
+	padding: 4rem 0 0 0;
+`;
+
+const BottomImagesContainer = styled.div``;
+
+const GradientDivider = styled.div`
+height: 3px;
+max-width: 50%;
+width: 100%;
+text-align: left;
+margin: 0 0 2rem 0;
+background: rgb(255,185,1);
+background: linear-gradient(0deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%);
+background: -moz-linear-gradient(0deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%);
+background: -webkit-linear-gradient(0deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%);
+`;
+
+const ContentLeftContainer = styled.div`
+	width: calc(40% - 2rem);
+
+	& p {
+	color: var(--darkblue);
+	font-family: var(--sans-serif);
+	font-size: var(--body);
+	}
+`;
+const ImageContainer = styled.div`
+	width: calc(60% - 2rem);
+	position: relative;
+
+	& img {
+		width: 100%;
+		height: auto;
+		max-width: 100%;
+	}
+`;
 const BottomContent = styled.div``;
 const BottomImage = styled.div``;
 const BottomImages = styled.div`
@@ -42,13 +90,13 @@ export default function ReportSection(props) {
 				<StyledReportSection>
 					<ReportSectionContainer>
 						<Top>
-							<Title as="h2" color="darkblue" weight="medium" size="quote">{title}</Title>
+							<Title as="h2" color="darkblue" weight="medium" size="smallheading">{title}</Title>
 							<SubtitleContainer>{Subtitle}</SubtitleContainer>
 							<Content
 								dangerouslySetInnerHTML={{ __html: Blurb }}
 							/>
 						</Top>
-						<Bottom>
+						<BottomImagesContainer>
 							<BottomImages>
 								<Image
 									src={imageLeft?.data?.attributes?.url}
@@ -63,7 +111,7 @@ export default function ReportSection(props) {
 									style={{ width: "100%", height: "auto" }}
 								/>
 							</BottomImages>
-						</Bottom>
+						</BottomImagesContainer>
 					</ReportSectionContainer>
 				</StyledReportSection>
 			);
@@ -72,7 +120,7 @@ export default function ReportSection(props) {
 				<StyledReportSection>
 					<ReportSectionContainer>
 						<Top>
-							<Title as="h2" color="darkblue" weight="medium" size="quote">{title}</Title>
+							<Title as="h2" color="darkblue" weight="medium" size="smallheading">{title}</Title>
 							<SubtitleContainer>{Subtitle}</SubtitleContainer>
 							<Content
 								dangerouslySetInnerHTML={{ __html: Blurb }}
@@ -81,13 +129,15 @@ export default function ReportSection(props) {
 						<Bottom>
 							<ContentLeftContainer>
 								<GradientDivider />
-								{ContentLeft}
+								<Content>{ContentLeft}</Content>
 							</ContentLeftContainer>
+							<ImageContainer>
 							<Image
 								src={ImageRight.data.attributes.url}
-								width={624}
+								width={940}
 								height={464}
 							/>
+							</ImageContainer>
 						</Bottom>
 					</ReportSectionContainer>
 				</StyledReportSection>

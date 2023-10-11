@@ -36,6 +36,12 @@ const Right = styled.div`
 	}
 	& h2 {padding: 0 0 1rem 0;}
 `;
+const ContentLeft = styled.p`
+	color: var(--darkblue);
+	font-family: var(--sans-serif);
+	font-size: var( --body-large);
+	font-weight: 400;
+`;
 
 const Content = styled.p`
 	color: var(--darkblue);
@@ -62,7 +68,7 @@ background: -webkit-linear-gradient(0deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1
 
 const CTATitle = styled.h3`
 	font-family: var(--sans-serif);
-	font-size: var(--quote);
+	font-size: var(--reportsheading);
 	font-weight: 600;
 `;
 const CTAContent = styled.p`
@@ -83,12 +89,12 @@ export default function ReportSummary(props) {
 	return (
 		<ReportSummarySection>
 			<Left>
-				<Title as="h2" color="darkblue" weight="medium" size="quote">{LeftTitle}</Title>
-				<Content>{LeftContent}</Content>
+				<Title as="h2" color="darkblue" weight="medium" size="reportsheading">{LeftTitle}</Title>
+				<ContentLeft>{LeftContent}</ContentLeft>
 			</Left>
 
 			<Right>
-				<Title as="h2" color="darkblue" weight="medium" size="quote">{RightTitle}</Title>
+				<Title as="h2" color="darkblue" weight="medium" size="reportsheading">{RightTitle}</Title>
 				<Content>{RightContent}</Content>
 				<GradientContainer>
 					<CTATitle>{CallOutTitle}</CTATitle>
