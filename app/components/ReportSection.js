@@ -37,10 +37,19 @@ const SubtitleContainer = styled.h3`
 	font-size: var(--reportsheading);
 	padding: 0 0 1rem 0;
 `;
+
+const BlockContent = styled.div`
+	color: var(--darkblue);
+	font-family: var(--sans-serif);
+	font-size: var(--body);
+	font-weight: 600;
+`;
+
 const Content = styled.p`
 	color: var(--darkblue);
 	font-family: var(--sans-serif);
 	font-size: var(--body);
+	font-weight: 400;
 `;
 
 const Bottom = styled.div`
@@ -88,9 +97,11 @@ const ImageContainer = styled.div`
 const BottomContent = styled.div``;
 const BottomImage = styled.div``;
 const BottomImages = styled.div`
+	width: 100%;
+	padding: 4rem 0 0 0;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 1rem;
+	gap: 4rem;
 `;
 
 export default function ReportSection(props) {
@@ -148,7 +159,7 @@ export default function ReportSection(props) {
 						<Bottom>
 							<ContentLeftContainer>
 								<GradientDivider />
-								<Content>{ContentLeft}</Content>
+								<BlockContent>{ContentLeft}</BlockContent>
 							</ContentLeftContainer>
 							<ImageContainer>
 							<Image
