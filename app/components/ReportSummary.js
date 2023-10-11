@@ -17,6 +17,8 @@ const ReportSummarySection = styled.section`
 
 const Left = styled.div`	
 	width: calc(40% - 3rem);
+
+	& h2 {padding: 0 0 1rem 0;}
 `;
 const Right = styled.div`
 	width: calc(60% - 3rem);
@@ -32,16 +34,22 @@ const Right = styled.div`
 		bottom: 0;
 
 	}
+	& h2 {padding: 0 0 1rem 0;}
 `;
 
-const Content = styled.p``;
+const Content = styled.p`
+	color: var(--darkblue);
+	font-family: var(--sans-serif);
+	font-size: var(--body);
+	font-weight: 400;
+`;
 
 const GradientContainer = styled.div`
 display: flex;
-gap: 4rem;
+gap: 3rem;
 align-items: center;
 color: var(--white);
-margin: 2rem auto auto auto;
+margin: 3rem auto auto auto;
 border-radius: 1rem;
 -webkit-border-radius: 1rem;
 -moz-border-radius: 1rem;

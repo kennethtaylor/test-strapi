@@ -4,7 +4,10 @@ import styled from "styled-components";
 import Title from "./Title";
 import Image from "next/image";
 
-const StyledReportSection = styled.section``;
+const StyledReportSection = styled.section`
+	background: var(--white);
+	padding: 4rem 6rem;
+`;
 const ReportSectionContainer = styled.div``;
 
 const Top = styled.div``;
@@ -39,7 +42,7 @@ export default function ReportSection(props) {
 				<StyledReportSection>
 					<ReportSectionContainer>
 						<Top>
-							<Title>{title}</Title>
+							<Title as="h2" color="darkblue" weight="medium" size="quote">{title}</Title>
 							<SubtitleContainer>{Subtitle}</SubtitleContainer>
 							<Content
 								dangerouslySetInnerHTML={{ __html: Blurb }}
@@ -69,7 +72,7 @@ export default function ReportSection(props) {
 				<StyledReportSection>
 					<ReportSectionContainer>
 						<Top>
-							<Title>{title}</Title>
+							<Title as="h2" color="darkblue" weight="medium" size="quote">{title}</Title>
 							<SubtitleContainer>{Subtitle}</SubtitleContainer>
 							<Content
 								dangerouslySetInnerHTML={{ __html: Blurb }}
