@@ -187,8 +187,28 @@ const Filter = styled.select`
 	background-repeat: no-repeat;
 `;
 
+const ArchiveContentContainerSingle = styled.div`
+	color: var(--white);
+	padding: 0 0 4rem 0;
+
+	& h1 {
+		font-family: var(--sans-serif);
+		line-height: 1.2;
+		margin: auto;
+		text-align: center;
+	}
+
+	& p {
+		font-family: var(--sans-serif);
+		color: var(--white);
+		font-weight: 400;
+		font-size: var(--body);
+		padding: 2rem 0 0 0;
+	}
+`;
+
 const ArchiveContentContainer = styled.div`
-	color: white;
+	color: var(--white);
 
 	& h1 {
 		font-family: var(--sans-serif);
@@ -272,7 +292,7 @@ export default function Hero(props) {
 			return (
 				<Section none={true}>
 					<ArchiveHeroContent>
-						<ArchiveContentContainer>
+						<ArchiveContentContainerSingle>
 							<Title
 								as="h1"
 								color="white"
@@ -282,14 +302,14 @@ export default function Hero(props) {
 								{reportTitle}
 							</Title>
 							<p style={{ textAlign: "center" }}>
-								Published at{" "}
+								Published on{" "}
 								{Intl.DateTimeFormat("en-us", {
 									month: "long",
 									day: "numeric",
 									year: "numeric",
 								}).format(date)}
 							</p>
-						</ArchiveContentContainer>
+						</ArchiveContentContainerSingle>
 					</ArchiveHeroContent>
 				</Section>
 			);
