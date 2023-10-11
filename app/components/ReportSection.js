@@ -6,9 +6,28 @@ import Image from "next/image";
 
 const StyledReportSection = styled.section`
 	background: var(--white);
-	padding: 4rem 6rem;
+
+	&:after {
+		content: "";
+		padding: 0;
+		display: block;
+		clear: both;
+		height: 3rem;
+		background: var(--white);
+		background: rgb(255,255,255);
+		background: -moz-linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(227,233,235,1) 48%, rgba(255,255,255,1) 100%);
+		background: -webkit-linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(227,233,235,1) 48%, rgba(255,255,255,1) 100%);
+		background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(227,233,235,1) 48%, rgba(255,255,255,1) 100%);
+	}
+
+	&:last-child:after {
+		content: "";
+		display: none;
+	}
 `;
-const ReportSectionContainer = styled.div``;
+const ReportSectionContainer = styled.div`
+padding: 4rem 6rem;
+`;
 
 const Top = styled.div``;
 
