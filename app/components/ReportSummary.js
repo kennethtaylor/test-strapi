@@ -47,7 +47,7 @@ const Right = styled.div`
 	&:before {
 		content: "";
 		width: 2px;
-		background: rgba(128,128,132,0.3);
+		background: rgba(128,128,132,0.2);
 		height: 100%;
 		display: inline;
 		position: absolute;

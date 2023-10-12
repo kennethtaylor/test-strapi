@@ -128,7 +128,7 @@ const ScrollContent = styled.div`
 
 const ArchiveHeroContent = styled.div`
 	width: 100%;
-	padding: 14rem 6rem 0 6rem;
+	padding: 15rem 6rem 0 6rem;
 	display: flex;
 	gap: 4rem;
 	align-items: center;
