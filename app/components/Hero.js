@@ -205,6 +205,15 @@ const ArchiveContentContainerSingle = styled.div`
 		font-size: var(--body);
 		padding: 2rem 0 0 0;
 	}
+	@media only screen and (max-width: 820px) {
+		& h1 {
+			font-family: var(--sans-serif);
+			line-height: 1.2;
+			margin: auto;
+			text-align: center;
+			font-size: 3.5rem;
+		}
+	}
 `;
 
 const ArchiveContentContainer = styled.div`
