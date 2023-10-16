@@ -1,5 +1,6 @@
 import sectionRenderer from "../utils/sectionRenderer";
 import getPageBySlug from "../../lib/getPageBySlug";
+import getPageSections from "../../lib/getPageSections";
 
 export async function generateStaticParams() {
 	const res = await fetch(`${process.env.APP_URL}/api/pages`);
@@ -22,8 +23,9 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }) {
 	const data = await getPageBySlug(params.slug[0]);
-	const sections = data[0]?.attributes?.Sections;
-	console.log(sections);
+	const sections = await getPageSections(data[0].id);
+
+	console.log("pagedata: ", data);
 
 	return sectionRenderer(sections);
 }
