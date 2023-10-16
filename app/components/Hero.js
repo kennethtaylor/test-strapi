@@ -231,6 +231,38 @@ const ArchiveContentContainer = styled.div`
 	}
 `;
 
+const ThreeQuarters = styled.div`
+	width: 100%;
+	padding: 15rem 6rem 0 6rem;
+	max-width: 70%;
+	& h1 {
+		line-height: 1.2;
+		padding: 0 0 2rem 0;
+	}
+	& p {
+		color: var(--white);
+		font-family: var(--sans-serif);
+		font-size: var(--body);
+		font-weight: 400;
+	}
+	@media only screen and (max-width: 1280px) {
+		& {
+			max-width: 80%;
+		}
+	}
+	@media only screen and (max-width: 1024px) {
+		& {
+			max-width: 100%;
+		}
+	}
+	@media only screen and (max-width: 820px) {
+		padding: 15rem 4rem 0 4rem;
+	}
+	@media only screen and (max-width: 600px) {
+		padding: 15rem 3rem 0 3rem;
+	}
+`;
+
 export default function Hero(props) {
 	const {
 		Title: title,
@@ -266,6 +298,21 @@ export default function Hero(props) {
 			);
 		case "full":
 		case "threeQuarters":
+			return (
+				<Section none={true}>
+					<ThreeQuarters>
+						<Title
+							as="h1"
+							color="white"
+							size="heading"
+							weight="medium"
+							align="left">
+							{title}
+						</Title>
+						<p>{Content}</p>
+					</ThreeQuarters>
+				</Section>
+			);
 		case "postArchive":
 			return (
 				<Section none={true}>
