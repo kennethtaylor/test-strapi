@@ -1,10 +1,16 @@
 import styled from "styled-components";
 import Title from "./Title";
+import Link from "next/link";
 
 const GatedContentModalContainerBlur = styled.div``;
 const GatedContentModalInnerContainer = styled.div``;
 const FormContainer = styled.div``;
 const StyledForm = styled.form``;
+const FormGroup = styled.div``;
+const StyledLabel = styled.label``;
+const StyledInput = styled.input``;
+const StyledButton = styled.button``;
+const SubContent = styled.div``;
 
 export default function GatedContentModal(props) {
 	const [userData, setUserData] = useState({
