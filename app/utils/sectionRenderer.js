@@ -9,7 +9,7 @@ import ReportSection from "../components/ReportSection";
 import ReportSummary from "../components/ReportSummary";
 import ContentBlock from "../components/ContentBlock";
 import CircleFeature from "../components/CircleFeature";
-import AnalystsGrid from "../components/AnalystsGrid";
+import FeatureList from "../components/FeatureList";
 
 export default async function sectionRenderer(sections, index) {
 	const sectionsToDisplay = [];
@@ -72,6 +72,11 @@ export default async function sectionRenderer(sections, index) {
 			case "layout.report-section":
 				sectionsToDisplay.push(
 					<ReportSection key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.feature-list":
+				sectionsToDisplay.push(
+					<FeatureList key={`section-${index}`} {...section} />
 				);
 				break;
 			default:
