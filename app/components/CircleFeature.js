@@ -56,10 +56,11 @@ const InnerText = styled.p`
         }
     }
     @media only screen and (max-width: 600px) {
-        max-width: 75%;
-        width: 100%;
-        font-size: 1.5rem;
-    }
+        & {
+            max-width: 75%;
+            width: 100%;
+            font-size: 1.5rem;
+        }
     }
 `;
 
