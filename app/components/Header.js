@@ -414,7 +414,7 @@ export default function Header() {
 					<NavSection>
 						<Link href="/reports">Reports</Link>
 						<Link href="/events">Events</Link>
-						<Link href="/events">About</Link>
+						<Link href="/company">About</Link>
 					</NavSection>
 					<Hamburger onClick={() => toggleNav()}>
 						<div className="barTop"></div>

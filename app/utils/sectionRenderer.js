@@ -8,6 +8,8 @@ import Search from "../components/Search";
 import ReportSection from "../components/ReportSection";
 import ReportSummary from "../components/ReportSummary";
 import ContentBlock from "../components/ContentBlock";
+import CircleFeature from "../components/CircleFeature";
+import AnalystsGrid from "../components/AnalystsGrid";
 
 export default async function sectionRenderer(sections, index) {
 	const sectionsToDisplay = [];
@@ -60,6 +62,11 @@ export default async function sectionRenderer(sections, index) {
 			case "layout.content-block":
 				sectionsToDisplay.push(
 					<ContentBlock key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.circle-feature":
+				sectionsToDisplay.push(
+					<CircleFeature key={`section-${index}`} {...section} />
 				);
 				break;
 			case "layout.report-section":
