@@ -58,6 +58,24 @@ a {
   text-decoration: none;
 }
 
+.primaryLinkBlue {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--sans-serif);
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  gap: 0.5rem;
+  font-size: var(--nav);
+  text-transform: uppercase;
+  color: var(--darkblue);
+  margin: 0 0 0 1rem;
+  transition: 0.3s ease all;
+}
+
+.primaryLinkBlue:hover img {
+  filter: invert(0.4) sepia(1) saturate(20) hue-rotate(360deg) brightness(1.04);
+}
+
 a.primaryBtnWhite,
 a.primaryBtnBlue {
   display: flex;

@@ -10,12 +10,12 @@ const StyledFooter = styled.footer`
 	width: 100%;
 	padding: 4rem 0rem 1rem 0rem;
 	display: inline-block;
-	margin: auto;
+	margin: -5px 0 0 0;
 	background: var(--darkblue);
 `;
 const FooterContainer = styled.div`
 	display: flex;
-	padding: 0rem 2rem 2rem 2rem;
+	padding: 0rem 4rem 2rem 4rem;
 	justify-content: space-between;
 	align-items: flex-start;
 	gap: 2rem;
@@ -46,7 +46,7 @@ const FooterContainer = styled.div`
 
 	& .column.two {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		gap: 8rem;
 		width: calc(40% - 1rem);
 	}
