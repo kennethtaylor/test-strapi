@@ -11,6 +11,7 @@ import ContentBlock from "../components/ContentBlock";
 import CircleFeature from "../components/CircleFeature";
 import FeatureList from "../components/FeatureList";
 import Form from "../components/Form";
+import EventList from "../components/EventList";
 
 export default async function sectionRenderer(sections, index) {
 	const sectionsToDisplay = [];
@@ -83,6 +84,11 @@ export default async function sectionRenderer(sections, index) {
 			case "layout.feature-list":
 				sectionsToDisplay.push(
 					<FeatureList key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.event-list":
+				sectionsToDisplay.push(
+					<EventList key={`section-${index}`} {...section} />
 				);
 				break;
 			default:

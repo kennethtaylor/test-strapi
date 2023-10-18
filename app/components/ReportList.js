@@ -302,7 +302,7 @@ export default function ReportList(props) {
 									key={`rcardlink-${index}`}
 									href={
 										`/reports/${report?.attributes?.slug}` ||
-										""
+										"#"
 									}>
 									<ReportGridCard key={`rcard-${index}`}>
 										<MetaContainer>
@@ -315,7 +315,7 @@ export default function ReportList(props) {
 											</Date>
 										</MetaContainer>
 										<TitleContainer>
-												{report?.attributes?.Title}
+											{report?.attributes?.Title}
 										</TitleContainer>
 										<AuthorContainer>
 											<Author>Author</Author>
@@ -347,7 +347,7 @@ export default function ReportList(props) {
 						</Title>
 						<Link
 							className="primaryBtnBlue"
-							href={props.MainCTAurl}>
+							href={props.MainCTAurl || "#"}>
 							<span>{props.MainCTAtext}</span>
 							<Image
 								src={AngledArrowBlue}
@@ -372,7 +372,7 @@ export default function ReportList(props) {
 									<AuthorList>Author</AuthorList>
 								</MetaContainerList>
 								<TitleContainerList>
-									<Link href={report?.CTAurl || ""}>
+									<Link href={report?.CTAurl || "#"}>
 										{report?.attributes?.Title}
 									</Link>
 									<div className="mobileArrow">

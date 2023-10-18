@@ -302,7 +302,7 @@ export default function EventList(props) {
 									key={`rcardlink-${index}`}
 									href={
 										`/events/${event?.attributes?.slug}` ||
-										""
+										"#"
 									}>
 									<EventGridCard key={`rcard-${index}`}>
 										<MetaContainer>
@@ -347,7 +347,7 @@ export default function EventList(props) {
 						</Title>
 						<Link
 							className="primaryBtnBlue"
-							href={props.MainCTAurl}>
+							href={props.MainCTAurl || "#"}>
 							<span>{props.MainCTAtext}</span>
 							<Image
 								src={AngledArrowBlue}
@@ -372,7 +372,7 @@ export default function EventList(props) {
 									<AuthorList>Author</AuthorList>
 								</MetaContainerList>
 								<TitleContainerList>
-									<Link href={event?.CTAurl || ""}>
+									<Link href={event?.CTAurl || "#"}>
 										{event?.attributes?.Title}
 									</Link>
 									<div className="mobileArrow">

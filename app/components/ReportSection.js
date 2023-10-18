@@ -255,10 +255,10 @@ export default function ReportSection(props) {
 							</ContentLeftContainer>
 							<ImageContainer>
 								<Image
-									src={ImageRight.data.attributes.url}
+									src={ImageRight?.data?.attributes?.url}
 									width={940}
 									height={464}
-									alt={ImageRight.data.attributes.alt}
+									alt={ImageRight?.data?.attributes?.alt}
 								/>
 							</ImageContainer>
 						</Bottom>
