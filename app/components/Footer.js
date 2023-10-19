@@ -15,7 +15,7 @@ const StyledFooter = styled.footer`
 `;
 const FooterContainer = styled.div`
 	display: flex;
-	padding: 0rem 4rem 2rem 4rem;
+	padding: 0rem 3rem 2rem 3rem;
 	justify-content: space-between;
 	align-items: flex-start;
 	gap: 2rem;
