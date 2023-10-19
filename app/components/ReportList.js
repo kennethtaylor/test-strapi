@@ -122,7 +122,7 @@ export default function ReportList(props) {
                         </Title>
                         <Link
                             className="primaryBtnBlue"
-                            href={props.MainCTAurl}
+                            href={props.MainCTAurl || "#"}
                         >
                             <span>{props.MainCTAtext}</span>
                             <Image
@@ -148,7 +148,7 @@ export default function ReportList(props) {
                                     <AuthorList>Author</AuthorList>
                                 </MetaContainerList>
                                 <TitleContainerList>
-                                    <Link href={report?.CTAurl || ""}>
+                                    <Link href={report?.CTAurl || "#"}>
                                         {report?.attributes?.Title}
                                     </Link>
                                     <div className="mobileArrow">

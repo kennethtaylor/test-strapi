@@ -5,13 +5,12 @@ import Title from "./Title";
 import BodyCopy from "./BodyCopy";
 import Image from "next/image";
 import Link from "next/link";
-import AngledArrowBlue from '../../public/images/icons/angledArrowBlue.svg?url';
+import AngledArrowBlue from "../../public/images/icons/angledArrowBlue.svg?url";
 
 const MediaTextSection = styled.section`
 	width: 100%;
 	display: block;
 	background: var(--white);
-	position: relative;
 `;
 
 const MediaTextContainer = styled.div`
@@ -58,7 +57,15 @@ const ContentContainer = styled.div`
 	}
 `;
 const StyledLink = styled.a``;
-const SecondaryContainer = styled.div``;
+
+const SecondaryContainer = styled.div`
+	padding: 2rem 0 0 0;
+	font-family: var(--sans-serif);
+	font-size: var(--body);
+	color: var(--darkblue);
+	font-size: var(--nav);
+`;
+
 const BodyContainer = styled.div`
 	padding: 2rem 0;
 	line-height: 1.5;
@@ -72,18 +79,57 @@ export default function MediaText(props) {
 		<MediaTextSection>
 			<MediaTextContainer>
 				<ImageContainer>
-				<Image
-					src={`${props.ImageVideo.data.attributes.url}`}
-					alt=""
-					width={882}
-					height={723}
-				/>
+					<Image
+						src={`${props.ImageVideo.data.attributes.url}`}
+						alt=""
+						width={882}
+						height={723}
+					/>
 				</ImageContainer>
 
 				<ContentContainer>
-					<Title color="darkblue" size="quote" weight="medium" as="h2">{props.Title}</Title>
+					<Title
+						color="darkblue"
+						size="quote"
+						weight="medium"
+						as="h2">
+						{props.Title}
+					</Title>
 					<BodyContainer>{props.Content}</BodyContainer>
-					<Link className="primaryBtnBlue" href={props.MainCTAurl}><span>{props.MainCTAText}</span><Image src={AngledArrowBlue} alt="angled arrow" width={15} height={15}/></Link>
+					<Link className="primaryBtnBlue" href={props.MainCTAurl}>
+						<span>{props.MainCTAText}</span>
+						<Image
+							src={AngledArrowBlue}
+							alt="angled arrow"
+							width={15}
+							height={15}
+						/>
+					</Link>
+					{props.SecondaryContent && (
+						<SecondaryContainer>
+							{props.SecondaryContent}
+							<Link
+								className="primaryLinkBlue"
+								href={props.SecondaryCTAurl}>
+								<span>{props.SecondaryCTAtext}</span>
+								<Image
+									src={AngledArrowBlue}
+									alt="angled arrow"
+									width={15}
+									height={15}
+								/>
+							</Link>
+						</SecondaryContainer>
+					)}
+					{/* <Link className="primaryBtnBlue" href={props.MainCTAurl}>
+						<span>{props.MainCTAText}</span>
+						<Image
+							src={AngledArrowBlue}
+							alt="angled arrow"
+							width={15}
+							height={15}
+						/>
+					</Link> */}
 				</ContentContainer>
 			</MediaTextContainer>
 		</MediaTextSection>

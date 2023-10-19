@@ -42,7 +42,7 @@ const TopBar = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	background: var(--darkblue);
-	padding:1rem 2rem;
+	padding:0.5rem 2rem;
 	border-bottom: 0.5px solid rgba(255,255,255,0.2);
 `;
 
@@ -389,7 +389,7 @@ export default function Header() {
 			<div className="sitebranding">
 			<TopBar>
 				<AnnoucementText>
-				Optional Announcement Text
+				{/*Optional Announcement Text*/}
 				</AnnoucementText>
 				<NavSection>
 						<Image src={SearchIcon} alt="search icon" width={20} height={20}/>
