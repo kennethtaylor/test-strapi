@@ -407,7 +407,9 @@ export default function Header() {
 			</TopBar>
 			<HeaderContainer>
 				<NavContainerLeft>
+					<Link href="/">
 						<Image className="headerLogo" src={Logo} alt="22VI Logo" width={68} height={92}/>
+					</Link>
 				</NavContainerLeft>
 
 				<NavContainerRight>
