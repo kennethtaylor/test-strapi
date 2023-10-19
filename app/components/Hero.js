@@ -2,6 +2,7 @@
 import { styled } from "styled-components";
 import Section from "./Section";
 import Title from "./Title";
+import PostFilters from "./PostFilters";
 
 import { DateTime } from "luxon";
 
@@ -152,40 +153,6 @@ const ArchiveHeroContent = styled.div`
 		padding: 14rem 2rem 0rem 2rem;
 	}
 `;
-const FilterContainer = styled.div`
-	display: flex;
-	gap: 1rem;
-	@media only screen and (max-width: 655px) {
-		flex-direction: column;
-		gap: 1.5rem;
-	}
-`;
-const Filter = styled.select`
-	width: 100%;
-	min-width: 155px;
-	background: transparent;
-	text-align: center;
-	border: 0.5px solid var(--white);
-	font-family: var(--sans-serif);
-	letter-spacing: 0.1rem;
-	font-size: var(--nav);
-	font-weight: 400;
-	text-transform: uppercase;
-	border-radius: 1.5rem;
-	padding: 0.5rem 1rem;
-	color: var(--white);
-	-webkit-appearance: none;
-	background-image: linear-gradient(
-			135deg,
-			rgb(0, 85, 155) 0%,
-			transparent 0%
-		),
-		radial-gradient(#fff 70%, transparent 72%);
-	background-position: calc(100% - 20px) calc(1em + 2px),
-		calc(100% - 15px) calc(1em + 2px), calc(100% - 0.5em) 0.5em;
-	background-size: 5px 5px, 5px 5px, 1.5em 1.5em;
-	background-repeat: no-repeat;
-`;
 
 const ArchiveContentContainerSingle = styled.div`
 	color: var(--white);
@@ -283,7 +250,8 @@ export default function Hero(props) {
 							color="white"
 							size="heading"
 							weight="medium"
-							align="center">
+							align="center"
+						>
 							{title}
 						</Title>
 					</HeroContent>
@@ -306,7 +274,8 @@ export default function Hero(props) {
 							color="white"
 							size="heading"
 							weight="medium"
-							align="left">
+							align="left"
+						>
 							{title}
 						</Title>
 						<p>{Content}</p>
@@ -323,22 +292,13 @@ export default function Hero(props) {
 								color="white"
 								size="xlheading"
 								weight="bold"
-								align="center">
+								align="center"
+							>
 								{title}
 							</Title>
 							<p>{Content}</p>
 						</ArchiveContentContainer>
-						<FilterContainer>
-							<Filter>
-								<option>Category</option>
-							</Filter>
-							<Filter>
-								<option>Month</option>
-							</Filter>
-							<Filter>
-								<option>Year</option>
-							</Filter>
-						</FilterContainer>
+						<PostFilters />
 					</ArchiveHeroContent>
 				</Section>
 			);
@@ -354,7 +314,8 @@ export default function Hero(props) {
 								color="white"
 								size="heading"
 								weight="medium"
-								align="center">
+								align="center"
+							>
 								{reportTitle}
 							</Title>
 							<p style={{ textAlign: "center" }}>
