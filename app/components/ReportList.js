@@ -17,23 +17,49 @@ import useDebouncedState from "./../hooks/useDebouncedState";
 
 export default function ReportList(props) {
 	const [reports, setReports] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [searchTerm, setSearchTerm] = useDebouncedState("", 500);
 	const searchParams = useSearchParams();
 
 	// TODO - For now the grid version of this component used the reports api directly
 	const getReports = async (searchTerm) => {
 		let filters = {};
+		const andFilters = [];
+
+		if (searchParams.get("dateFrom") || searchParams.get("dateTo")) {
+			let nestedDateFilters = {};
+
+			if (searchParams.get("dateFrom")) {
+				andFilters.push({
+					publishedAt: {
+						$gte: searchParams.get("dateFrom"),
+					},
+				});
+			}
+
+			if (searchParams.get("dateTo")) {
+				andFilters.push({
+					...nestedDateFilters,
+					publishedAt: {
+						$lte: searchParams.get("dateTo"),
+					},
+				});
+			}
+		}
 
 		if (searchParams.get("category")) {
-			filters = {
-				...filters,
+			andFilters.push({
 				categories: {
 					Name: {
 						$contains: searchParams.get("category"),
 					},
 				},
-			};
+			});
+		}
+
+		// Add the $and condition if it's not empty
+		if (andFilters.length > 0) {
+			filters["$and"] = andFilters;
 		}
 
 		const query = qs.stringify(
@@ -73,25 +99,30 @@ export default function ReportList(props) {
 						isLoading={isLoading}
 						handleSearch={setSearchTerm}
 					/>
-					<ReportGridSection>
-						<ReportGridInnerContainer>
-							{reports?.data?.map((report, index) => {
-								const publishedAt = new Date(
-									report?.attributes.publishedAt
-								);
+					{!isLoading && reports?.data?.length > 0 ? (
+						<ReportGridSection>
+							<ReportGridInnerContainer>
+								{reports?.data?.map((report, index) => {
+									const publishedAt = new Date(
+										report?.attributes.publishedAt
+									);
 
-								return (
-									<ReportGridCardLink
-										key={`rcardlink-${index}`}
-										href={
-											`/reports/${report?.attributes?.slug}` ||
-											""
-										}
-									>
-										<ReportGridCard key={`rcard-${index}`}>
-											<ReportGridCardHeader>
-												<MetaContainer>
-													<MetaDate>
+									return (
+										<ReportGridCardLink
+											key={`rcardlink-${index}`}
+											href={
+												`/reports/${report?.attributes?.slug}` ||
+												""
+											}
+										>
+											<ReportGridCard
+												key={`rcard-${index}`}
+											>
+												<TitleContainer>
+													{report?.attributes?.Title}
+												</TitleContainer>
+												<ReportGridCardFooter>
+													<span className="text">
 														{Intl.DateTimeFormat(
 															"en-us",
 															{
@@ -100,39 +131,39 @@ export default function ReportList(props) {
 																year: "numeric",
 															}
 														).format(publishedAt)}
-													</MetaDate>
-												</MetaContainer>
-												<TitleContainer>
-													{report?.attributes?.Title}
-												</TitleContainer>
-											</ReportGridCardHeader>
-											<AuthorContainer>
-												<Author>
-													{
-														report?.attributes
-															?.createdBy
-															?.firstname
-													}{" "}
-													{
-														report?.attributes
-															?.createdBy
-															?.lastname
-													}
-												</Author>
-												<Image
-													src={AngledArrowBlue}
-													alt="angled arrow"
-													width={30}
-													height={30}
-													className="angledArrow"
-												/>
-											</AuthorContainer>
-										</ReportGridCard>
-									</ReportGridCardLink>
-								);
-							})}
-						</ReportGridInnerContainer>
-					</ReportGridSection>
+													</span>
+													<Image
+														src={AngledArrowBlue}
+														alt="angled arrow"
+														width={30}
+														height={30}
+														className="angledArrow"
+													/>
+												</ReportGridCardFooter>
+											</ReportGridCard>
+										</ReportGridCardLink>
+									);
+								})}
+							</ReportGridInnerContainer>
+						</ReportGridSection>
+					) : (
+						<SearchMessage>
+							{isLoading ? (
+								<p>Gathering Reports</p>
+							) : (
+								<div>
+									<p>
+										Sorry, nothing matches your search
+										criteria.
+									</p>
+									<p>
+										Please try refiing your search or
+										contact us for more information.
+									</p>
+								</div>
+							)}
+						</SearchMessage>
+					)}
 				</>
 			);
 		default:
@@ -204,6 +235,25 @@ export default function ReportList(props) {
 			);
 	}
 }
+
+const SearchMessage = styled.div`
+	color: var(--white);
+	padding: 4rem 6rem 6rem 6rem;
+	font-size: 1.5rem;
+	text-align: center;
+	min-height: 35vmin;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	p {
+		margin-bottom: 2rem;
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+	}
+`;
 
 const TitleContainer = styled.h2`
 	font-family: var(--sans-serif);
@@ -318,15 +368,9 @@ const ReportGridInnerContainer = styled.div`
 	}
 `;
 
-const ReportGridCardHeader = styled.div`
-	${TitleContainer} {
-		margin-top: 1rem;
-	}
-`;
-
 const ReportGridCard = styled.article`
 	background-color: white;
-	padding: 1.5rem;
+	padding: 3rem 2rem 2rem;
 	border-radius: 1rem;
 	display: flex;
 	border: 2px solid;
@@ -343,6 +387,8 @@ const ReportGridCard = styled.article`
 	}
 
 	@media only screen and (max-width: 820px) {
+		padding: 2rem;
+
 		& {
 			aspect-ratio: unset;
 		}
@@ -378,7 +424,8 @@ const ReportGridCardLink = styled(Link)`
 			}
 
 			h2,
-			p {
+			p,
+			.text {
 				color: var(--white);
 			}
 
@@ -429,10 +476,6 @@ const ReportCard = styled.article`
 	}
 `;
 
-const MetaContainer = styled.div`
-	width: 100%;
-`;
-
 const MetaContainerList = styled.div`
 	width: 30%;
 	@media only screen and (max-width: 820px) {
@@ -440,13 +483,6 @@ const MetaContainerList = styled.div`
 			width: 100%;
 		}
 	}
-`;
-
-const MetaDate = styled.p`
-	font-family: var(--sans-serif);
-	font-weight: 400;
-	font-size: var(--body);
-	color: var(--darkblue);
 `;
 
 const DateList = styled.p`
@@ -463,7 +499,7 @@ const DateList = styled.p`
 	}
 `;
 
-const AuthorContainer = styled.div`
+const ReportGridCardFooter = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
