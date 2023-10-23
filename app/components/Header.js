@@ -1,15 +1,18 @@
-"use client";
-import { useEffect, useState } from "react";
-import { styled } from "styled-components";
-import Image from "next/image";
-import Link from "next/link";
+'use client';
+import { useEffect, useState } from 'react';
+import { styled } from 'styled-components';
+import Image from 'next/image';
+import Link from 'next/link';
 import SearchIcon from '../../public/images/icons/searchIcon.svg?url';
 import AngledArrow from '../../public/images/icons/angledArrow.svg?url';
 import Logo from '../../public/images/logoWhite.svg?url';
 import LinkedIn from '../../public/images/icons/LinkedInWhite.svg?url';
 import CloseIcon from '../../public/images/icons/closeIconBlack.svg?url';
-import { gsap } from "gsap/dist/gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { gsap } from 'gsap/dist/gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import Search from './Search';
+import useDebouncedState from './../hooks/useDebouncedState';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const StyledHeader = styled.header`
@@ -24,7 +27,7 @@ const StyledHeader = styled.header`
 		right: 0;
 		z-index: 99;
 	}
-	
+
 	& .sitebranding.sticky {
 		position: fixed;
 		top: 0;
@@ -42,8 +45,9 @@ const TopBar = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	background: var(--darkblue);
-	padding:0.5rem 2rem;
-	border-bottom: 0.5px solid rgba(255,255,255,0.2);
+	padding: 0.5rem 2rem;
+	position: relative;
+	border-bottom: 0.5px solid rgba(255, 255, 255, 0.2);
 `;
 
 const AnnoucementText = styled.p`
@@ -120,8 +124,9 @@ const NavSection = styled.nav`
 		align-items: center;
 		transition: 0.3s ease all;
 	}
-	& .linkwbtn:hover img{
-		filter: invert(0.4) sepia(1) saturate(20) hue-rotate(360deg) brightness(1.04);
+	& .linkwbtn:hover img {
+		filter: invert(0.4) sepia(1) saturate(20) hue-rotate(360deg)
+			brightness(1.04);
 	}
 	& .primaryBtn {
 		position: relative;
@@ -134,19 +139,26 @@ const NavSection = styled.nav`
 	& .primaryBtn .background,
 	& .primaryBtn .border {
 		border-radius: 9.2rem;
-  	}
+	}
 
 	& .primaryBtn::before {
-		background: linear-gradient(163deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%) border-box;
+		background: linear-gradient(
+				163deg,
+				rgba(255, 185, 1, 1) 0%,
+				rgba(255, 127, 0, 1) 45%,
+				rgba(254, 99, 18, 1) 89%,
+				rgba(253, 98, 32, 1) 100%
+			)
+			border-box;
 	}
 
 	& .primaryBtn .background,
 	& .primaryBtn .border {
-   		position: absolute;
-    	top: 0;
-    	left: 0;
-    	bottom: 0;
-    	right: 0;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
 	}
 
 	& .primaryBtn .background {
@@ -159,34 +171,49 @@ const NavSection = styled.nav`
 		opacity: 1;
 	}
 
-	  & .primaryBtn .border {
+	& .primaryBtn .border {
 		border: 1px solid transparent;
-		background: linear-gradient(163deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%) border-box;
-		background: linear-gradient(163deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%) border-box;
-			-webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+		background: linear-gradient(
+				163deg,
+				rgba(255, 185, 1, 1) 0%,
+				rgba(255, 127, 0, 1) 45%,
+				rgba(254, 99, 18, 1) 89%,
+				rgba(253, 98, 32, 1) 100%
+			)
+			border-box;
+		background: linear-gradient(
+				163deg,
+				rgba(255, 185, 1, 1) 0%,
+				rgba(255, 127, 0, 1) 45%,
+				rgba(254, 99, 18, 1) 89%,
+				rgba(253, 98, 32, 1) 100%
+			)
+			border-box;
+		-webkit-mask: linear-gradient(#fff 0 0) padding-box,
+			linear-gradient(#fff 0 0);
 		-webkit-mask-composite: destination-out;
 		mask-composite: exclude;
-	  }
+	}
 
-	  & .primaryBtn span {
+	& .primaryBtn span {
 		color: #fff;
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
 		position: relative;
 		z-index: 1;
-	  }
+	}
 `;
 
 const Hamburger = styled.div`
 	margin: 0rem 1rem;
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: space-between;
-    height: 1.1rem;
-    width: 2rem;
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: space-between;
+	height: 1.1rem;
+	width: 2rem;
 	min-width: 2rem;
-    cursor: pointer;
+	cursor: pointer;
 
 	& .barTop {
 		height: 1px;
@@ -271,7 +298,7 @@ const MobileMenuContainer = styled.div`
 const TopMenu = styled.div`
 	padding: 4rem 2rem 0 2rem;
 
-	.largeMenu, 
+	.largeMenu,
 	.smallMenu {
 		list-style: none;
 	}
@@ -288,7 +315,7 @@ const TopMenu = styled.div`
 		letter-spacing: 0.15rem;
 		line-height: 2;
 	}
-	.largeMenu li, 
+	.largeMenu li,
 	.smallMenu li {
 		font-family: var(--sans-serif);
 		text-transform: uppercase;
@@ -360,7 +387,7 @@ const Underlay = styled.div`
 	bottom: 0;
 	opacity: 0;
 	z-index: -1;
-	background: rgba(0,0,0,0.7);
+	background: rgba(0, 0, 0, 0.7);
 	transition: opacity 0.5s ease;
 
 	&.open {
@@ -369,107 +396,269 @@ const Underlay = styled.div`
 	}
 `;
 
-export default function Header() {
-	const [navIsOpen, setNavIsOpen] = useState(false);
+const IconAction = styled.button`
+	display: inline-flex;
+`;
 
-    function toggleNav() {
+const SearchContainer = styled.div`
+	padding: 2rem 2rem 1rem;
+	position: fixed;
+	flex: 0 0 100%;
+	width: 100%;
+	height: 7rem;
+	display: flex;
+	align-items: center;
+	top: 0;
+	left: 0;
+	background: var(--darkblue);
+	z-index: 99;
+
+	opacity: ${(props) => (props.isSearchVisible ? 1 : 0)};
+	pointer-events: ${(props) => (props.isSearchVisible ? 'auto' : 'none')};
+	transition: 0.2s opacity ease-out;
+
+	${IconAction} {
+		position: relative;
+		margin-bottom: 1rem;
+	}
+`;
+
+export default function Header() {
+	const minSearchTermLength = 2;
+	const [navIsOpen, setNavIsOpen] = useState(false);
+	const [searchIsLoading, setSearchIsLoading] = useState(false);
+	const [searchResults, setSearchResults] = useState([]);
+	const [searchTerm, setSearchTerm] = useDebouncedState('', 500);
+	const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+	function toggleNav() {
 		setNavIsOpen(!navIsOpen);
 	}
 
+	const fetchGlobalSearchResults = async (searchTerm = '') => {
+		setSearchIsLoading(true);
+
+		const res = await fetch(
+			`${process.env.APP_URL}/api/fuzzy-search/search?query=${searchTerm}&[publishedAt][$notNull]=true`
+		);
+		const results = await res.json();
+
+		setSearchResults(results);
+		setSearchIsLoading(false);
+	};
+
 	useEffect(() => {
 		ScrollTrigger.create({
-			start: "top 0",
+			start: 'top 0',
 			end: 99999,
-			toggleClass: { className: "sticky", targets: ".sitebranding" },
+			toggleClass: { className: 'sticky', targets: '.sitebranding' },
 		});
 	}, []);
+
+	useEffect(() => {
+		// Min length search term
+		if (searchTerm.trim().length >= minSearchTermLength) {
+			fetchGlobalSearchResults(searchTerm);
+		}
+	}, [searchTerm]);
 
 	return (
 		<StyledHeader>
 			<div className="sitebranding">
-			<TopBar>
-				<AnnoucementText>
-				{/*Optional Announcement Text*/}
-				</AnnoucementText>
-				<NavSection>
-						<Image src={SearchIcon} alt="search icon" width={20} height={20}/>
+				<TopBar>
+					<SearchContainer isSearchVisible={isSearchVisible}>
+						<Search
+							isLoading={searchIsLoading}
+							handleSearch={setSearchTerm}
+							isVisible={isSearchVisible}
+						/>
+						<IconAction
+							className="button-reset"
+							onClick={() => setIsSearchVisible(false)}
+							aria-label="close search"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="30"
+								height="30"
+								viewBox="0 0 30 30"
+								fill="none"
+							>
+								<path
+									d="M15.5437 15L25.8697 4.662C25.9415 4.58954 25.9817 4.4917 25.9817 4.38975C25.9817 4.28779 25.9415 4.18996 25.8697 4.1175C25.7962 4.04741 25.6985 4.00838 25.597 4.00851C25.4954 4.00865 25.3978 4.04796 25.3245 4.11825L15 14.4555L4.67399 4.1175C4.60045 4.04787 4.50302 4.00907 4.40174 4.00907C4.30047 4.00907 4.20304 4.04787 4.12949 4.1175C4.05782 4.18983 4.0176 4.28754 4.0176 4.38937C4.0176 4.4912 4.05782 4.58892 4.12949 4.66125L14.4562 15L4.13024 25.338C4.09235 25.3732 4.06195 25.4157 4.04084 25.4629C4.01974 25.5101 4.00837 25.5611 4.00742 25.6128C4.00647 25.6645 4.01595 25.7159 4.0353 25.7638C4.05465 25.8118 4.08347 25.8554 4.12005 25.8919C4.15662 25.9285 4.20018 25.9573 4.24814 25.9767C4.29611 25.996 4.34748 26.0055 4.39919 26.0046C4.4509 26.0036 4.50188 25.9923 4.5491 25.9711C4.59632 25.95 4.63879 25.9196 4.67399 25.8817L15 15.5445L25.3252 25.8825C25.3609 25.9182 25.4033 25.9466 25.45 25.966C25.4967 25.9854 25.5467 25.9953 25.5972 25.9954C25.6478 25.9954 25.6978 25.9855 25.7445 25.9662C25.7912 25.9469 25.8336 25.9186 25.8694 25.8829C25.9051 25.8472 25.9335 25.8048 25.9529 25.7581C25.9722 25.7114 25.9822 25.6614 25.9822 25.6109C25.9823 25.5604 25.9724 25.5103 25.9531 25.4636C25.9338 25.4169 25.9054 25.3745 25.8697 25.3387L15.5437 15Z"
+									fill="#FBFBFB"
+								/>
+							</svg>
+						</IconAction>
+					</SearchContainer>
+					<AnnoucementText>
+						{/*Optional Announcement Text*/}
+					</AnnoucementText>
+					<NavSection>
+						<IconAction
+							className="button-reset"
+							onClick={() => setIsSearchVisible(true)}
+							aria-label="display search box"
+						>
+							<Image
+								src={SearchIcon}
+								alt="search icon"
+								width={20}
+								height={20}
+							/>
+						</IconAction>
 						<Link className="linkwbtn" href="#">
-							Log In <Image src={AngledArrow} alt="angled arrow" width={15} height={15}/>
+							Log In{' '}
+							<Image
+								src={AngledArrow}
+								alt="angled arrow"
+								width={15}
+								height={15}
+							/>
 						</Link>
 						<Link href="#">
 							<div className="primaryBtn">
-								<span>Sign Up <Image src={AngledArrow} alt="angled arrow" width={15} height={15}/></span>
+								<span>
+									Sign Up{' '}
+									<Image
+										src={AngledArrow}
+										alt="angled arrow"
+										width={15}
+										height={15}
+									/>
+								</span>
 								<div className="border"></div>
-        						<div className="background"></div>
+								<div className="background"></div>
 							</div>
 						</Link>
-				</NavSection>
-			</TopBar>
-			<HeaderContainer>
-				<NavContainerLeft>
-					<Link href="/">
-						<Image className="headerLogo" src={Logo} alt="22VI Logo" width={68} height={92}/>
-					</Link>
-				</NavContainerLeft>
-
-				<NavContainerRight>
-					<NavSection>
-						<Link href="/reports">Reports</Link>
-						<Link href="/events">Events</Link>
-						<Link href="/company">About</Link>
 					</NavSection>
-					<Hamburger onClick={() => toggleNav()}>
-						<div className="barTop"></div>
-						<div className="barMiddle"></div>
-					</Hamburger>
-				</NavContainerRight>
-			</HeaderContainer>
+				</TopBar>
+				<HeaderContainer>
+					<NavContainerLeft>
+						<Link href="/">
+							<Image
+								className="headerLogo"
+								src={Logo}
+								alt="22VI Logo"
+								width={68}
+								height={92}
+							/>
+						</Link>
+					</NavContainerLeft>
+
+					<NavContainerRight>
+						<NavSection>
+							<Link href="/reports">Reports</Link>
+							<Link href="/events">Events</Link>
+							<Link href="/company">About</Link>
+						</NavSection>
+						<Hamburger onClick={() => toggleNav()}>
+							<div className="barTop"></div>
+							<div className="barMiddle"></div>
+						</Hamburger>
+					</NavContainerRight>
+				</HeaderContainer>
 			</div>
 
-			<MobileMenu className={navIsOpen ? "open" : ""}>
+			<MobileMenu className={navIsOpen ? 'open' : ''}>
 				<div className="closeContainer" onClick={() => toggleNav()}>
-					<Image src={CloseIcon} alt="close icon" width={20} height={20}/>
+					<Image
+						src={CloseIcon}
+						alt="close icon"
+						width={20}
+						height={20}
+					/>
 				</div>
 
 				<MobileMenuContainer>
 					<TopMenu>
 						<ul className="largeMenu">
-							<li><Link href="/reports">Reports</Link></li>
-							<li><Link href="/events">Events</Link></li>
-							<li><Link href="/company">Company</Link></li>
-							<li><Link href="/contact">Contact</Link></li>
+							<li>
+								<Link href="/reports">Reports</Link>
+							</li>
+							<li>
+								<Link href="/events">Events</Link>
+							</li>
+							<li>
+								<Link href="/company">Company</Link>
+							</li>
+							<li>
+								<Link href="/contact">Contact</Link>
+							</li>
 						</ul>
 						<ul className="smallMenu">
-							<li><Link className="linkwbtn" href="#">Log In <Image src={AngledArrow} alt="angled arrow" width={15} height={15}/></Link></li>
-							<li><Link className="linkwbtn" href="#">Sign Up <Image src={AngledArrow} alt="angled arrow" width={15} height={15}/></Link></li>
+							<li>
+								<Link className="linkwbtn" href="#">
+									Log In{' '}
+									<Image
+										src={AngledArrow}
+										alt="angled arrow"
+										width={15}
+										height={15}
+									/>
+								</Link>
+							</li>
+							<li>
+								<Link className="linkwbtn" href="#">
+									Sign Up{' '}
+									<Image
+										src={AngledArrow}
+										alt="angled arrow"
+										width={15}
+										height={15}
+									/>
+								</Link>
+							</li>
 						</ul>
 					</TopMenu>
 
 					<BottomMenu>
 						<div className="column">
-							<address>1234 Main Street
-							<br/>Anytown, USA 12345
+							<address>
+								1234 Main Street
+								<br />
+								Anytown, USA 12345
 							</address>
 
 							<div className="socialContainer">
-								<Image src={LinkedIn} alt="linkedin icon" width={20} height={20}/>
+								<Image
+									src={LinkedIn}
+									alt="linkedin icon"
+									width={20}
+									height={20}
+								/>
 							</div>
 						</div>
 						<div className="column">
 							<ul className="policyMenu">
-								<li><Link href="/disclosures">Disclosures</Link></li>
-								<li><Link href="/terms">Terms</Link></li>
-								<li><Link href="/cookie-policy">Cookie Policy</Link></li>
-								<li><Link href="/privacy-policy">Privacy Policy</Link></li>
-								<li><Link href="/ada-statement">ADA Statement</Link></li>
+								<li>
+									<Link href="/disclosures">Disclosures</Link>
+								</li>
+								<li>
+									<Link href="/terms">Terms</Link>
+								</li>
+								<li>
+									<Link href="/cookie-policy">
+										Cookie Policy
+									</Link>
+								</li>
+								<li>
+									<Link href="/privacy-policy">
+										Privacy Policy
+									</Link>
+								</li>
+								<li>
+									<Link href="/ada-statement">
+										ADA Statement
+									</Link>
+								</li>
 							</ul>
 						</div>
 					</BottomMenu>
 				</MobileMenuContainer>
 			</MobileMenu>
 
-			<Underlay className={navIsOpen ? "open" : ""}></Underlay>
-			
+			<Underlay className={navIsOpen ? 'open' : ''}></Underlay>
 		</StyledHeader>
 	);
 }

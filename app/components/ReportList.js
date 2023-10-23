@@ -95,10 +95,12 @@ export default function ReportList(props) {
 		case "grid":
 			return (
 				<>
-					<Search
-						isLoading={isLoading}
-						handleSearch={setSearchTerm}
-					/>
+					<SearchContainer>
+						<Search
+							isLoading={isLoading}
+							handleSearch={setSearchTerm}
+						/>
+					</SearchContainer>
 					{!isLoading && reports?.data?.length > 0 ? (
 						<ReportGridSection>
 							<ReportGridInnerContainer>
@@ -235,6 +237,22 @@ export default function ReportList(props) {
 			);
 	}
 }
+
+const SearchContainer = styled.div`
+	padding: 2rem 6rem;
+	margin: 4rem 0 0 0;
+
+	@media only screen and (max-width: 1100px) {
+		& {
+			padding: 2rem 4rem;
+		}
+	}
+	@media only screen and (max-width: 655px) {
+		& {
+			padding: 2rem 2rem;
+		}
+	}
+`;
 
 const SearchMessage = styled.div`
 	color: var(--white);
