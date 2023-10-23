@@ -3,9 +3,8 @@ import getPageBySlug from "../../lib/getPageBySlug";
 import getPageSections from "../../lib/getPageSections";
 
 export default async function Page({ params }) {
-	console.log(params);
-	const data = await getPageBySlug(params.slug[0]);
-	const sections = await getPageSections(data[0].id);
+	const data = await getPageBySlug(params?.slug[0]);
+	const sections = await getPageSections(data[0]?.id);
 
 	return sectionRenderer(sections);
 }
