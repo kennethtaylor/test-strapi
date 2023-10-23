@@ -104,8 +104,18 @@ export default function ReportList(props) {
 							<ReportGridInnerContainer>
 								{reports?.data?.map((report, index) => {
 									const publishedAt = new Date(
-										report?.attributes.publishedAt
+										report?.attributes.publishedAt.substring(
+											0,
+											10
+										)
 									);
+
+									const formattedPublishedAt =
+										publishedAt.toLocaleString("default", {
+											month: "long",
+											day: "numeric",
+											year: "numeric",
+										});
 
 									return (
 										<ReportGridCardLink
@@ -123,14 +133,7 @@ export default function ReportList(props) {
 												</TitleContainer>
 												<ReportGridCardFooter>
 													<span className="text">
-														{Intl.DateTimeFormat(
-															"en-us",
-															{
-																month: "long",
-																day: "numeric",
-																year: "numeric",
-															}
-														).format(publishedAt)}
+														{formattedPublishedAt}
 													</span>
 													<Image
 														src={AngledArrowBlue}
@@ -192,17 +195,22 @@ export default function ReportList(props) {
 						</Link>
 					</ReportsTopContainer>
 					{props?.reports?.data?.map((report, index) => {
-						let date = DateTime.now(report.attributes.publishedAt);
+						const publishedAt = new Date(
+							report?.attributes.publishedAt.substring(0, 10)
+						);
+
+						const formattedPublishedAt = publishedAt.toLocaleString(
+							"default",
+							{
+								month: "long",
+								day: "numeric",
+								year: "numeric",
+							}
+						);
 						return (
 							<ReportCard key={`rcard-${index}`}>
 								<MetaContainerList>
-									<DateList>
-										{Intl.DateTimeFormat("en-us", {
-											month: "long",
-											day: "numeric",
-											year: "numeric",
-										}).format(date)}
-									</DateList>
+									<DateList>{formattedPublishedAt}</DateList>
 									<AuthorList>Author</AuthorList>
 								</MetaContainerList>
 								<TitleContainerList>

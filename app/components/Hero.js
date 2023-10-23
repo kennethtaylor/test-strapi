@@ -303,7 +303,7 @@ export default function Hero(props) {
 				</Section>
 			);
 		case "postSingle":
-			let date = DateTime.now(publishedAt);
+			let date = new Date(publishedAt);
 
 			return (
 				<Section none={true}>
@@ -320,11 +320,11 @@ export default function Hero(props) {
 							</Title>
 							<p style={{ textAlign: "center" }}>
 								Published on{" "}
-								{Intl.DateTimeFormat("en-us", {
+								{`${date.toLocaleString("default", {
 									month: "long",
 									day: "numeric",
 									year: "numeric",
-								}).format(date)}
+								})}`}
 							</p>
 						</ArchiveContentContainerSingle>
 					</ArchiveHeroContent>
