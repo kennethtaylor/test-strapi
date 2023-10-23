@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { styled } from "styled-components";
 import Title from "./Title";
-import BodyCopy from "./BodyCopy";
 import Image from "next/image";
 import AngledArrowBlue from "../../public/images/icons/angledArrowBlue.svg?url";
 import ArrowRightOrange from "../../public/images/icons/arrowRightOrange.svg?url";
@@ -176,7 +175,7 @@ const DateList = styled.p`
 	}
 `;
 
-const AuthorContainer = styled.div`
+const LearnMoreContainer = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -191,7 +190,7 @@ const AuthorList = styled.p`
 	padding: 0px;
 `;
 
-const Author = styled.p`
+const LearnMoreBtn = styled.p`
 	font-weight: 400;
 	font-family: var(--sans-serif);
 	font-size: var(--body);
@@ -276,49 +275,35 @@ export default function EventList(props) {
 	// isloading state
 	const [isLoading, setIsLoading] = useState(true);
 
-	let win;
-
-	let formatDate = function (win, event) {
-		let date = new win.Date(event.attributes.publishedAt);
-		console.log("date", date);
-		return date.toLocaleString("default", {
-			month: "long",
-			day: "numeric",
-			year: "numeric",
-		});
-	};
-
 	switch (props.Type) {
 		case "grid":
 			return (
 				<EventGridSection>
 					<EventGridInnerContainer>
 						{props?.events?.data?.map((event, index) => {
-							let date = DateTime.now(
-								event.attributes.publishedAt
+							let publishedAt = DateTime.fromISO(
+								event?.attributes?.publishedAt
 							);
+
 							return (
 								<Link
 									key={`rcardlink-${index}`}
 									href={
 										`/events/${event?.attributes?.slug}` ||
 										"#"
-									}>
+									}
+								>
 									<EventGridCard key={`rcard-${index}`}>
 										<MetaContainer>
-											<Date>
-												{Intl.DateTimeFormat("en-us", {
-													month: "long",
-													day: "numeric",
-													year: "numeric",
-												}).format(date)}
-											</Date>
+											<Date>{`${publishedAt.monthLong} ${publishedAt.c.day}, ${publishedAt.c.year}`}</Date>
 										</MetaContainer>
 										<TitleContainer>
 											{event?.attributes?.Title}
 										</TitleContainer>
-										<AuthorContainer>
-											<Author>Author</Author>
+										<LearnMoreContainer>
+											<LearnMoreBtn>
+												Learn More
+											</LearnMoreBtn>
 											<Image
 												src={AngledArrowBlue}
 												alt="angled arrow"
@@ -326,7 +311,7 @@ export default function EventList(props) {
 												height={30}
 												className="angledArrow"
 											/>
-										</AuthorContainer>
+										</LearnMoreContainer>
 									</EventGridCard>
 								</Link>
 							);
@@ -342,12 +327,14 @@ export default function EventList(props) {
 							size="heading"
 							weight="medium"
 							color="darkblue"
-							as="h2">
+							as="h2"
+						>
 							{props.Title}
 						</Title>
 						<Link
 							className="primaryBtnBlue"
-							href={props.MainCTAurl || "#"}>
+							href={props.MainCTAurl || "#"}
+						>
 							<span>{props.MainCTAtext}</span>
 							<Image
 								src={AngledArrowBlue}
@@ -358,16 +345,14 @@ export default function EventList(props) {
 						</Link>
 					</EventsTopContainer>
 					{props?.events?.data?.map((event, index) => {
-						let date = DateTime.now(event.attributes.publishedAt);
+						let publishedAt = new DateTime(
+							event.attributes.publishedAt
+						);
 						return (
 							<EventCard key={`rcard-${index}`}>
 								<MetaContainerList>
 									<DateList>
-										{Intl.DateTimeFormat("en-us", {
-											month: "long",
-											day: "numeric",
-											year: "numeric",
-										}).format(date)}
+										{`${publishedAt.monthLong} ${publishedAt.c.day}, ${publishedAt.c.year}`}
 									</DateList>
 									<AuthorList>Author</AuthorList>
 								</MetaContainerList>

@@ -3,7 +3,6 @@ import sectionRenderer from "../../utils/sectionRenderer";
 import getReportBySlug from "../../../lib/getReportBySlug";
 import Hero from "@/app/components/Hero";
 import getPageSections from "@/lib/getPageSections";
-import { DateTime } from "luxon";
 
 export default async function Page({ params }) {
 	const data = await getReportBySlug(params?.report);
