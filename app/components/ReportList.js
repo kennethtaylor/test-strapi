@@ -1,14 +1,14 @@
-"use client";
-import Link from "next/link";
-import { styled } from "styled-components";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import qs from "qs";
-import Title from "./Title";
+'use client';
+import Link from 'next/link';
+import { styled } from 'styled-components';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import qs from 'qs';
+import Title from './Title';
 // import BodyCopy from "./BodyCopy";
-import Image from "next/image";
-import AngledArrowBlue from "../../public/images/icons/angledArrowBlue.svg?url";
-import ArrowRightOrange from "../../public/images/icons/arrowRightOrange.svg?url";
+import Image from 'next/image';
+import AngledArrowBlue from '../../public/images/icons/angledArrowBlue.svg?url';
+import ArrowRightOrange from '../../public/images/icons/arrowRightOrange.svg?url';
 
 import { DateTime } from "luxon"; // TODO - can probably remove this
 
@@ -248,6 +248,8 @@ const SearchMessage = styled.div`
 	color: var(--white);
 	padding: 4rem 6rem 6rem 6rem;
 	font-size: 1.5rem;
+	font-family: var(--sans-serif);
+	font-weight: 400;
 	text-align: center;
 	min-height: 35vmin;
 	display: flex;
@@ -426,7 +428,7 @@ const ReportGridCardLink = styled(Link)`
 					rgba(32, 58, 113, 1) 0%,
 					rgba(50, 119, 223, 1) 100%
 				);
-				content: "";
+				content: '';
 				z-index: -1;
 				border-radius: 1rem;
 			}
@@ -494,7 +496,7 @@ const MetaContainerList = styled.div`
 `;
 
 const DateList = styled.p`
-	font-weight: 600;
+	font-weight: 400;
 	font-family: var(--sans-serif);
 	padding: 0 0 1rem 0;
 	font-size: var(--body);
@@ -512,19 +514,255 @@ const ReportGridCardFooter = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
+	& span.text {
+		font-weight: 400;
+		font-family: var(--sans-serif);
+		padding: 0 0 1rem 0;
+		font-size: var(--body);
+		color: var(--darkblue);
+	}
 `;
 
-const AuthorList = styled.p`
-	font-weight: 400;
-	font-family: var(--sans-serif);
-	font-size: var(--body);
-	color: var(--darkblue);
-	padding: 0px;
+const SearchContainer = styled.div`
+	padding: 2rem 6rem;
+	margin: 4rem 0 0 0;
+
+	@media only screen and (max-width: 1100px) {
+		& {
+			padding: 2rem 4rem;
+		}
+	}
+	@media only screen and (max-width: 655px) {
+		& {
+			padding: 2rem 2rem;
+		}
+	}
 `;
 
-const Author = styled.p`
-	font-weight: 400;
-	font-family: var(--sans-serif);
-	font-size: var(--body);
-	color: var(--darkblue);
-`;
+export default function ReportList(props) {
+	const [reports, setReports] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const [searchTerm, setSearchTerm] = useDebouncedState('', 500);
+	const searchParams = useSearchParams();
+
+	// TODO - For now the grid version of this component used the reports api directly
+	const getReports = async (searchTerm) => {
+		let filters = {};
+		const andFilters = [];
+
+		if (searchParams.get('dateFrom') || searchParams.get('dateTo')) {
+			let nestedDateFilters = {};
+
+			if (searchParams.get('dateFrom')) {
+				andFilters.push({
+					publishedAt: {
+						$gte: searchParams.get('dateFrom'),
+					},
+				});
+			}
+
+			if (searchParams.get('dateTo')) {
+				andFilters.push({
+					...nestedDateFilters,
+					publishedAt: {
+						$lte: searchParams.get('dateTo'),
+					},
+				});
+			}
+		}
+
+		if (searchParams.get('category')) {
+			andFilters.push({
+				categories: {
+					Name: {
+						$contains: searchParams.get('category'),
+					},
+				},
+			});
+		}
+
+		// Add the $and condition if it's not empty
+		if (andFilters.length > 0) {
+			filters['$and'] = andFilters;
+		}
+
+		const query = qs.stringify(
+			{
+				_q: searchTerm,
+				publicationState: 'live',
+				populate: '*',
+				sort: [`publishedAt:${searchParams.get('sort') || 'asc'}`],
+				filters,
+			},
+			{
+				encodeValuesOnly: true,
+			}
+		);
+
+		setIsLoading(true);
+
+		const res = await fetch(`${process.env.APP_URL}/api/reports?${query}`);
+		const reports = await res.json();
+
+		setReports(reports);
+		setIsLoading(false);
+
+		return reports;
+	};
+
+	useEffect(() => {
+		// Load all our reports
+		getReports(searchTerm);
+	}, [searchTerm, searchParams]);
+
+	switch (props.Type) {
+		case 'grid':
+			return (
+				<>
+					<SearchContainer>
+						<Search
+							isLoading={isLoading}
+							handleSearch={setSearchTerm}
+						/>
+					</SearchContainer>
+					{!isLoading && reports?.data?.length > 0 ? (
+						<ReportGridSection>
+							<ReportGridInnerContainer>
+								{reports?.data?.map((report, index) => {
+									const publishedAt = new Date(
+										report?.attributes.publishedAt
+									);
+
+									return (
+										<ReportGridCardLink
+											key={`rcardlink-${index}`}
+											href={
+												`/reports/${report?.attributes?.slug}` ||
+												''
+											}
+										>
+											<ReportGridCard
+												key={`rcard-${index}`}
+											>
+												<TitleContainer>
+													{report?.attributes?.Title}
+												</TitleContainer>
+												<ReportGridCardFooter>
+													<span className="text">
+														{Intl.DateTimeFormat(
+															'en-us',
+															{
+																month: 'long',
+																day: 'numeric',
+																year: 'numeric',
+															}
+														).format(publishedAt)}
+													</span>
+													<Image
+														src={AngledArrowBlue}
+														alt="angled arrow"
+														width={30}
+														height={30}
+														className="angledArrow"
+													/>
+												</ReportGridCardFooter>
+											</ReportGridCard>
+										</ReportGridCardLink>
+									);
+								})}
+							</ReportGridInnerContainer>
+						</ReportGridSection>
+					) : (
+						<SearchMessage>
+							{isLoading ? (
+								<p>Gathering Reports</p>
+							) : (
+								<div>
+									<p>
+										Sorry, nothing matches your search
+										criteria.
+									</p>
+									<p>
+										Please try refiing your search or
+										contact us for more information.
+									</p>
+								</div>
+							)}
+						</SearchMessage>
+					)}
+				</>
+			);
+		default:
+			return (
+				<ReportListSection>
+					<ReportsTopContainer>
+						<Title
+							size="heading"
+							weight="medium"
+							color="darkblue"
+							as="h2"
+						>
+							{props.Title}
+						</Title>
+						<Link
+							className="primaryBtnBlue"
+							href={props.MainCTAurl || '#'}
+						>
+							<span>{props.MainCTAtext}</span>
+							<Image
+								src={AngledArrowBlue}
+								alt="angled arrow"
+								width={15}
+								height={15}
+							/>
+						</Link>
+					</ReportsTopContainer>
+					{props?.reports?.data?.map((report, index) => {
+						const date = new Date(report?.attributes.publishedAt);
+						return (
+							<ReportCard key={`rcard-${index}`}>
+								<MetaContainerList>
+									<DateList>
+										{Intl.DateTimeFormat('en-us', {
+											month: 'long',
+											day: 'numeric',
+											year: 'numeric',
+										}).format(date)}
+									</DateList>
+								</MetaContainerList>
+								<TitleContainerList>
+									<Link
+										href={
+											`/reports/${report?.attributes?.slug}` ||
+											''
+										}
+									>
+										{report?.attributes?.Title}
+									</Link>
+									<div className="mobileArrow">
+										<Image
+											src={ArrowRightOrange}
+											alt="angled arrow"
+											width={15}
+											height={15}
+											className="rightArrow"
+										/>
+									</div>
+								</TitleContainerList>
+								<Arrow>
+									<Image
+										src={ArrowRightOrange}
+										alt="angled arrow"
+										width={15}
+										height={15}
+										className="rightArrow"
+									/>
+								</Arrow>
+							</ReportCard>
+						);
+					})}
+				</ReportListSection>
+			);
+	}
+}
