@@ -5,244 +5,13 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import qs from 'qs';
 import Title from './Title';
-// import BodyCopy from "./BodyCopy";
+
 import Image from 'next/image';
 import AngledArrowBlue from '../../public/images/icons/angledArrowBlue.svg?url';
 import ArrowRightOrange from '../../public/images/icons/arrowRightOrange.svg?url';
 
-import { DateTime } from "luxon"; // TODO - can probably remove this
-
-import Search from "./Search";
-import useDebouncedState from "./../hooks/useDebouncedState";
-
-export default function ReportList(props) {
-	const [reports, setReports] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [searchTerm, setSearchTerm] = useDebouncedState("", 500);
-	const searchParams = useSearchParams();
-
-	// TODO - For now the grid version of this component used the reports api directly
-	const getReports = async (searchTerm) => {
-		let filters = {};
-		const andFilters = [];
-
-		if (searchParams.get("dateFrom") || searchParams.get("dateTo")) {
-			let nestedDateFilters = {};
-
-			if (searchParams.get("dateFrom")) {
-				andFilters.push({
-					publishedAt: {
-						$gte: searchParams.get("dateFrom"),
-					},
-				});
-			}
-
-			if (searchParams.get("dateTo")) {
-				andFilters.push({
-					...nestedDateFilters,
-					publishedAt: {
-						$lte: searchParams.get("dateTo"),
-					},
-				});
-			}
-		}
-
-		if (searchParams.get("category")) {
-			andFilters.push({
-				categories: {
-					Name: {
-						$contains: searchParams.get("category"),
-					},
-				},
-			});
-		}
-
-		// Add the $and condition if it's not empty
-		if (andFilters.length > 0) {
-			filters["$and"] = andFilters;
-		}
-
-		const query = qs.stringify(
-			{
-				_q: searchTerm,
-				publicationState: "live",
-				populate: "*",
-				sort: [`publishedAt:${searchParams.get("sort") || "asc"}`],
-				filters,
-			},
-			{
-				encodeValuesOnly: true,
-			}
-		);
-
-		setIsLoading(true);
-
-		const res = await fetch(`${process.env.APP_URL}/api/reports?${query}`);
-		const reports = await res.json();
-
-		setReports(reports);
-		setIsLoading(false);
-
-		return reports;
-	};
-
-	useEffect(() => {
-		// Load all our reports
-		getReports(searchTerm);
-	}, [searchTerm, searchParams]);
-
-	switch (props.Type) {
-		case "grid":
-			return (
-				<>
-					<Search
-						isLoading={isLoading}
-						handleSearch={setSearchTerm}
-					/>
-					{!isLoading && reports?.data?.length > 0 ? (
-						<ReportGridSection>
-							<ReportGridInnerContainer>
-								{reports?.data?.map((report, index) => {
-									const publishedAt = new Date(
-										report?.attributes.publishedAt.substring(
-											0,
-											10
-										)
-									);
-
-									const formattedPublishedAt =
-										publishedAt.toLocaleString("default", {
-											month: "long",
-											day: "numeric",
-											year: "numeric",
-										});
-
-									return (
-										<ReportGridCardLink
-											key={`rcardlink-${index}`}
-											href={
-												`/reports/${report?.attributes?.slug}` ||
-												""
-											}
-										>
-											<ReportGridCard
-												key={`rcard-${index}`}
-											>
-												<TitleContainer>
-													{report?.attributes?.Title}
-												</TitleContainer>
-												<ReportGridCardFooter>
-													<span className="text">
-														{formattedPublishedAt}
-													</span>
-													<Image
-														src={AngledArrowBlue}
-														alt="angled arrow"
-														width={30}
-														height={30}
-														className="angledArrow"
-													/>
-												</ReportGridCardFooter>
-											</ReportGridCard>
-										</ReportGridCardLink>
-									);
-								})}
-							</ReportGridInnerContainer>
-						</ReportGridSection>
-					) : (
-						<SearchMessage>
-							{isLoading ? (
-								<p>Gathering Reports</p>
-							) : (
-								<div>
-									<p>
-										Sorry, nothing matches your search
-										criteria.
-									</p>
-									<p>
-										Please try refiing your search or
-										contact us for more information.
-									</p>
-								</div>
-							)}
-						</SearchMessage>
-					)}
-				</>
-			);
-		default:
-			return (
-				<ReportListSection>
-					<ReportsTopContainer>
-						<Title
-							size="heading"
-							weight="medium"
-							color="darkblue"
-							as="h2"
-						>
-							{props.Title}
-						</Title>
-						<Link
-							className="primaryBtnBlue"
-							href={props.MainCTAurl || "#"}
-						>
-							<span>{props.MainCTAtext}</span>
-							<Image
-								src={AngledArrowBlue}
-								alt="angled arrow"
-								width={15}
-								height={15}
-							/>
-						</Link>
-					</ReportsTopContainer>
-					{props?.reports?.data?.map((report, index) => {
-						const publishedAt = new Date(
-							report?.attributes.publishedAt.substring(0, 10)
-						);
-
-						const formattedPublishedAt = publishedAt.toLocaleString(
-							"default",
-							{
-								month: "long",
-								day: "numeric",
-								year: "numeric",
-							}
-						);
-						return (
-							<ReportCard key={`rcard-${index}`}>
-								<MetaContainerList>
-									<DateList>{formattedPublishedAt}</DateList>
-									<AuthorList>Author</AuthorList>
-								</MetaContainerList>
-								<TitleContainerList>
-									<Link href={report?.CTAurl || "#"}>
-										{report?.attributes?.Title}
-									</Link>
-									<div className="mobileArrow">
-										<Image
-											src={ArrowRightOrange}
-											alt="angled arrow"
-											width={15}
-											height={15}
-											className="rightArrow"
-										/>
-									</div>
-								</TitleContainerList>
-								<Arrow>
-									<Image
-										src={ArrowRightOrange}
-										alt="angled arrow"
-										width={15}
-										height={15}
-										className="rightArrow"
-									/>
-								</Arrow>
-							</ReportCard>
-						);
-					})}
-				</ReportListSection>
-			);
-	}
-}
+import Search from './Search';
+import useDebouncedState from './../hooks/useDebouncedState';
 
 const SearchMessage = styled.div`
 	color: var(--white);
@@ -620,19 +389,27 @@ export default function ReportList(props) {
 		case 'grid':
 			return (
 				<>
-					<SearchContainer>
-						<Search
-							isLoading={isLoading}
-							handleSearch={setSearchTerm}
-						/>
-					</SearchContainer>
+					<Search
+						isLoading={isLoading}
+						handleSearch={setSearchTerm}
+					/>
 					{!isLoading && reports?.data?.length > 0 ? (
 						<ReportGridSection>
 							<ReportGridInnerContainer>
 								{reports?.data?.map((report, index) => {
 									const publishedAt = new Date(
-										report?.attributes.publishedAt
+										report?.attributes.publishedAt.substring(
+											0,
+											10
+										)
 									);
+
+									const formattedPublishedAt =
+										publishedAt.toLocaleString('default', {
+											month: 'long',
+											day: 'numeric',
+											year: 'numeric',
+										});
 
 									return (
 										<ReportGridCardLink
@@ -650,14 +427,7 @@ export default function ReportList(props) {
 												</TitleContainer>
 												<ReportGridCardFooter>
 													<span className="text">
-														{Intl.DateTimeFormat(
-															'en-us',
-															{
-																month: 'long',
-																day: 'numeric',
-																year: 'numeric',
-															}
-														).format(publishedAt)}
+														{formattedPublishedAt}
 													</span>
 													<Image
 														src={AngledArrowBlue}
@@ -719,25 +489,26 @@ export default function ReportList(props) {
 						</Link>
 					</ReportsTopContainer>
 					{props?.reports?.data?.map((report, index) => {
-						const date = new Date(report?.attributes.publishedAt);
+						const publishedAt = new Date(
+							report?.attributes.publishedAt.substring(0, 10)
+						);
+
+						const formattedPublishedAt = publishedAt.toLocaleString(
+							'default',
+							{
+								month: 'long',
+								day: 'numeric',
+								year: 'numeric',
+							}
+						);
 						return (
 							<ReportCard key={`rcard-${index}`}>
 								<MetaContainerList>
-									<DateList>
-										{Intl.DateTimeFormat('en-us', {
-											month: 'long',
-											day: 'numeric',
-											year: 'numeric',
-										}).format(date)}
-									</DateList>
+									<DateList>{formattedPublishedAt}</DateList>
+									<AuthorList>Author</AuthorList>
 								</MetaContainerList>
 								<TitleContainerList>
-									<Link
-										href={
-											`/reports/${report?.attributes?.slug}` ||
-											''
-										}
-									>
+									<Link href={report?.CTAurl || '#'}>
 										{report?.attributes?.Title}
 									</Link>
 									<div className="mobileArrow">
