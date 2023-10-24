@@ -12,6 +12,7 @@ import CircleFeature from "../components/CircleFeature";
 import FeatureList from "../components/FeatureList";
 import Form from "../components/Form";
 import EventList from "../components/EventList";
+import AnalystsGrid from "../components/AnalystsGrid";
 
 export default async function sectionRenderer(sections, index) {
 	const sectionsToDisplay = [];
@@ -89,6 +90,11 @@ export default async function sectionRenderer(sections, index) {
 			case "layout.event-list":
 				sectionsToDisplay.push(
 					<EventList key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.analysts-grid":
+				sectionsToDisplay.push(
+					<AnalystsGrid key={`section-${index}`} {...section} />
 				);
 				break;
 			default:
