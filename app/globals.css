@@ -73,6 +73,22 @@ a {
   transition: 0.3s ease all;
 }
 
+.button-reset {
+	border: none;
+	margin: 0;
+	padding: 0;
+	width: auto;
+	overflow: visible;
+	background: transparent;
+	color: inherit;
+	cursor: pointer;
+	font: inherit;
+	line-height: normal;
+	-webkit-font-smoothing: inherit;
+	-moz-osx-font-smoothing: inherit;
+	-webkit-appearance: none;
+}
+
 .primaryLinkBlue:hover img {
   filter: invert(0.4) sepia(1) saturate(20) hue-rotate(360deg) brightness(1.04);
 }

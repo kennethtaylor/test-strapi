@@ -1,19 +1,17 @@
-"use client";
-import Link from "next/link";
-import { styled } from "styled-components";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import qs from "qs";
-import Title from "./Title";
+'use client';
+import Link from 'next/link';
+import { styled } from 'styled-components';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import qs from 'qs';
+import Title from './Title';
 // import BodyCopy from "./BodyCopy";
-import Image from "next/image";
-import AngledArrowBlue from "../../public/images/icons/angledArrowBlue.svg?url";
-import ArrowRightOrange from "../../public/images/icons/arrowRightOrange.svg?url";
+import Image from 'next/image';
+import AngledArrowBlue from '../../public/images/icons/angledArrowBlue.svg?url';
+import ArrowRightOrange from '../../public/images/icons/arrowRightOrange.svg?url';
 
-import { DateTime } from "luxon"; // TODO - can probably remove this
-
-import Search from "./Search";
-import useDebouncedState from "./../hooks/useDebouncedState";
+import Search from './Search';
+import useDebouncedState from './../hooks/useDebouncedState';
 
 const SearchMessage = styled.div`
 	color: var(--white);
@@ -199,7 +197,7 @@ const ReportGridCardLink = styled(Link)`
 					rgba(32, 58, 113, 1) 0%,
 					rgba(50, 119, 223, 1) 100%
 				);
-				content: "";
+				content: '';
 				z-index: -1;
 				border-radius: 1rem;
 			}
@@ -295,10 +293,26 @@ const ReportGridCardFooter = styled.div`
 	}
 `;
 
+const SearchContainer = styled.div`
+	padding: 2rem 6rem;
+	margin: 4rem 0 0 0;
+
+	@media only screen and (max-width: 1100px) {
+		& {
+			padding: 2rem 4rem;
+		}
+	}
+	@media only screen and (max-width: 655px) {
+		& {
+			padding: 2rem 2rem;
+		}
+	}
+`;
+
 export default function ReportList(props) {
 	const [reports, setReports] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const [searchTerm, setSearchTerm] = useDebouncedState("", 500);
+	const [searchTerm, setSearchTerm] = useDebouncedState('', 500);
 	const searchParams = useSearchParams();
 
 	// TODO - For now the grid version of this component used the reports api directly
@@ -306,32 +320,32 @@ export default function ReportList(props) {
 		let filters = {};
 		const andFilters = [];
 
-		if (searchParams.get("dateFrom") || searchParams.get("dateTo")) {
+		if (searchParams.get('dateFrom') || searchParams.get('dateTo')) {
 			let nestedDateFilters = {};
 
-			if (searchParams.get("dateFrom")) {
+			if (searchParams.get('dateFrom')) {
 				andFilters.push({
 					publishedAt: {
-						$gte: searchParams.get("dateFrom"),
+						$gte: searchParams.get('dateFrom'),
 					},
 				});
 			}
 
-			if (searchParams.get("dateTo")) {
+			if (searchParams.get('dateTo')) {
 				andFilters.push({
 					...nestedDateFilters,
 					publishedAt: {
-						$lte: searchParams.get("dateTo"),
+						$lte: searchParams.get('dateTo'),
 					},
 				});
 			}
 		}
 
-		if (searchParams.get("category")) {
+		if (searchParams.get('category')) {
 			andFilters.push({
 				categories: {
 					Name: {
-						$contains: searchParams.get("category"),
+						$contains: searchParams.get('category'),
 					},
 				},
 			});
@@ -339,15 +353,15 @@ export default function ReportList(props) {
 
 		// Add the $and condition if it's not empty
 		if (andFilters.length > 0) {
-			filters["$and"] = andFilters;
+			filters['$and'] = andFilters;
 		}
 
 		const query = qs.stringify(
 			{
 				_q: searchTerm,
-				publicationState: "live",
-				populate: "*",
-				sort: [`publishedAt:${searchParams.get("sort") || "asc"}`],
+				publicationState: 'live',
+				populate: '*',
+				sort: [`publishedAt:${searchParams.get('sort') || 'asc'}`],
 				filters,
 			},
 			{
@@ -372,13 +386,15 @@ export default function ReportList(props) {
 	}, [searchTerm, searchParams]);
 
 	switch (props.Type) {
-		case "grid":
+		case 'grid':
 			return (
 				<>
-					<Search
-						isLoading={isLoading}
-						handleSearch={setSearchTerm}
-					/>
+					<SearchContainer>
+						<Search
+							isLoading={isLoading}
+							handleSearch={setSearchTerm}
+						/>
+					</SearchContainer>
 					{!isLoading && reports?.data?.length > 0 ? (
 						<ReportGridSection>
 							<ReportGridInnerContainer>
@@ -392,7 +408,7 @@ export default function ReportList(props) {
 											key={`rcardlink-${index}`}
 											href={
 												`/reports/${report?.attributes?.slug}` ||
-												""
+												''
 											}
 										>
 											<ReportGridCard
@@ -404,11 +420,11 @@ export default function ReportList(props) {
 												<ReportGridCardFooter>
 													<span className="text">
 														{Intl.DateTimeFormat(
-															"en-us",
+															'en-us',
 															{
-																month: "long",
-																day: "numeric",
-																year: "numeric",
+																month: 'long',
+																day: 'numeric',
+																year: 'numeric',
 															}
 														).format(publishedAt)}
 													</span>
@@ -460,7 +476,7 @@ export default function ReportList(props) {
 						</Title>
 						<Link
 							className="primaryBtnBlue"
-							href={props.MainCTAurl || "#"}
+							href={props.MainCTAurl || '#'}
 						>
 							<span>{props.MainCTAtext}</span>
 							<Image
@@ -472,22 +488,25 @@ export default function ReportList(props) {
 						</Link>
 					</ReportsTopContainer>
 					{props?.reports?.data?.map((report, index) => {
-						const date = new Date(
-							report?.attributes.publishedAt
-						);
+						const date = new Date(report?.attributes.publishedAt);
 						return (
 							<ReportCard key={`rcard-${index}`}>
 								<MetaContainerList>
 									<DateList>
-										{Intl.DateTimeFormat("en-us", {
-											month: "long",
-											day: "numeric",
-											year: "numeric",
+										{Intl.DateTimeFormat('en-us', {
+											month: 'long',
+											day: 'numeric',
+											year: 'numeric',
 										}).format(date)}
 									</DateList>
 								</MetaContainerList>
 								<TitleContainerList>
-									<Link href={`/reports/${report?.attributes?.slug}` || ""}>
+									<Link
+										href={
+											`/reports/${report?.attributes?.slug}` ||
+											''
+										}
+									>
 										{report?.attributes?.Title}
 									</Link>
 									<div className="mobileArrow">
