@@ -28,13 +28,12 @@ const StyledInput = styled.input`
 	border-bottom: 0.5px solid var(--white);
 	color: var(--white);
 	text-transform: uppercase;
-	font-family: var(--font-family);
+	font-weight: 400;
+	font-family: var(--sans-serif);
 	font-size: var(--nav);
 	padding-left: 5rem;
 	padding-bottom: 1.5rem;
-
 	letter-spacing: 0.1rem;
-	font-size: 1rem;
 	transition: border-color 0.1s ease-in-out;
 
 	&:focus {
