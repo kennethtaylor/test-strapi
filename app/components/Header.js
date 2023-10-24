@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import SearchIcon from '../../public/images/icons/searchIcon.svg?url';
 import AngledArrow from '../../public/images/icons/angledArrow.svg?url';
 import Logo from '../../public/images/logoWhite.svg?url';
@@ -423,13 +424,82 @@ const SearchContainer = styled.div`
 	}
 `;
 
+const SearchResultsContainer = styled.div`
+	position: fixed;
+	left: 2rem;
+	top: 7rem;
+	height: calc(100% - 9.5rem);
+	max-height: 37rem;
+	overflow-y: auto;
+	width: calc(100% - 4rem);
+	z-index: 99;
+
+	/* Gradient Scroll Bar */
+
+	/* width */
+	&::-webkit-scrollbar {
+		width: 0.625rem;
+	}
+
+	/* Track */
+	&::-webkit-scrollbar-track {
+		background: var(--cool-grey);
+	}
+
+	/* Handle */
+	&::-webkit-scrollbar-thumb {
+		border-radius: 0.625rem;
+		background: var(
+			--Orange-Gradient,
+			linear-gradient(
+				113deg,
+				#ffb901 1.18%,
+				#ff7f00 46.59%,
+				#fe6312 80.48%,
+				#fd6220 98.21%
+			)
+		);
+	}
+`;
+
+const SearchResult = styled.div`
+	background: var(--white);
+	border-bottom: 1px solid var(--cool-grey);
+	padding: 2.5rem 5rem;
+
+	.search-result-date {
+		color: var(--darkblue);
+		font-size: 1.125rem;
+		font-family: var(--sans-serif);
+		margin-bottom: 0.5rem;
+	}
+
+	.search-result-title {
+		font-size: 1.5rem;
+		font-family: var(--sans-serif);
+		font-weight: 600;
+		transition: 0.2s color ease-in-out;
+
+		&:hover,
+		&:focus {
+			color: var(--orange);
+		}
+	}
+`;
+
 export default function Header() {
 	const minSearchTermLength = 2;
+	const pathname = usePathname();
 	const [navIsOpen, setNavIsOpen] = useState(false);
 	const [searchIsLoading, setSearchIsLoading] = useState(false);
-	const [searchResults, setSearchResults] = useState([]);
+	const [searchResults, setSearchResults] = useState({});
 	const [searchTerm, setSearchTerm] = useDebouncedState('', 500);
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+	useEffect(() => {
+		// Hide search when route changes
+		setIsSearchVisible(false);
+	}, [pathname]);
 
 	function toggleNav() {
 		setNavIsOpen(!navIsOpen);
@@ -445,6 +515,38 @@ export default function Header() {
 
 		setSearchResults(results);
 		setSearchIsLoading(false);
+	};
+
+	const mergedSearchResults = (obj) => {
+		// Create an empty array to store all the items
+		const mergedArray = [];
+		const resultTypeMap = {};
+
+		// Loop through each property (array) in the object
+		for (const key in obj) {
+			if (obj.hasOwnProperty(key)) {
+				// Concatenate the current array to the mergedArray
+				mergedArray.push(
+					...obj[key].map((item) => {
+						const itemSlug = item.slug || item.Slug;
+						return {
+							...item,
+							resultType: key,
+							url: `${key === 'pages' ? '' : key}/${
+								itemSlug === 'home' ? '/' : itemSlug
+							}`,
+						};
+					})
+				);
+			}
+		}
+
+		// Sort the merged array by date
+		mergedArray.sort(
+			(a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
+		);
+
+		return mergedArray;
 	};
 
 	useEffect(() => {
@@ -490,6 +592,40 @@ export default function Header() {
 								/>
 							</svg>
 						</IconAction>
+						{mergedSearchResults(searchResults).length && (
+							<SearchResultsContainer>
+								{mergedSearchResults(searchResults).map(
+									(result) => {
+										const publishedAt = new Date(
+											result.publishedAt
+										);
+
+										return (
+											<SearchResult
+												key={`${result.resultType}-${result.id}`}
+											>
+												<div className="search-result-date">
+													{Intl.DateTimeFormat(
+														'en-us',
+														{
+															month: 'long',
+															day: 'numeric',
+															year: 'numeric',
+														}
+													).format(publishedAt)}
+												</div>
+												<Link
+													href={`${window.location.origin}/${result.url}`}
+													className="search-result-title"
+												>
+													{result.Title}
+												</Link>
+											</SearchResult>
+										);
+									}
+								)}
+							</SearchResultsContainer>
+						)}
 					</SearchContainer>
 					<AnnoucementText>
 						{/*Optional Announcement Text*/}

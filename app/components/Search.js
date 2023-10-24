@@ -19,8 +19,6 @@ const SearchBarContainer = styled.div`
 	}
 `;
 
-const SearchResultsContainer = styled.div``;
-
 const StyledInput = styled.input`
 	position: relative;
 	width: 100%;
@@ -101,7 +99,6 @@ export default function Search({
 					</div>
 				)}
 			</SearchBarContainer>
-			<SearchResultsContainer></SearchResultsContainer>
 		</SearchSection>
 	);
 }
