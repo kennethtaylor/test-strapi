@@ -284,10 +284,7 @@ export default function EventList(props) {
 							return (
 								<Link
 									key={`rcardlink-${index}`}
-									href={
-										`/events/${event?.attributes?.slug}` ||
-										'#'
-									}
+									href={`/events/${event?.attributes?.Slug}`}
 								>
 									<EventGridCard key={`rcard-${index}`}>
 										<MetaContainer>
