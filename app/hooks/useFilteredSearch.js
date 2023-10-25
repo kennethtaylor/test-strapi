@@ -74,7 +74,7 @@ export const useFilteredSearch = (itemTypeUrlSegment, searchTerm) => {
 	};
 
 	useEffect(() => {
-		// Load all our reports
+		// Load all our items
 		fetchItems(searchTerm);
 	}, [searchTerm, searchParams]);
 
