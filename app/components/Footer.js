@@ -1,11 +1,11 @@
-"use client";
-import React from "react";
-import { styled } from "styled-components";
-import Image from "next/image";
-import Link from "next/link";
-import FullLogo from "../../public/images/FullLogoWhite.svg?url";
-import Spotify from "../../public/images/icons/Spotify.svg?url";
-import LinkedIn from "../../public/images/icons/LinkedInWhite.svg?url";
+'use client';
+import React from 'react';
+import { styled } from 'styled-components';
+import Image from 'next/image';
+import Link from 'next/link';
+import FullLogo from '../../public/images/FullLogoWhite.svg?url';
+import Spotify from '../../public/images/icons/Spotify.svg?url';
+import LinkedIn from '../../public/images/icons/LinkedInWhite.svg?url';
 
 const StyledFooter = styled.footer`
 	width: 100%;
@@ -95,7 +95,9 @@ const FooterContainer = styled.div`
 		line-height: 1.5;
 	}
 
-	.mobileContent {display: none;}
+	.mobileContent {
+		display: none;
+	}
 
 	@media only screen and (max-width: 900px) {
 		& {
@@ -103,7 +105,7 @@ const FooterContainer = styled.div`
 		}
 		& .column.three,
 		& .column.four,
-		& .column.two{
+		& .column.two {
 			width: calc(50% - 1rem);
 			position: relative;
 		}
@@ -111,7 +113,7 @@ const FooterContainer = styled.div`
 			width: 100%;
 			max-width: 174px;
 		}
-		& .column.one .LogoContainer img{
+		& .column.one .LogoContainer img {
 			width: 100%;
 			max-width: 300px;
 			height: auto;
@@ -179,73 +181,21 @@ export default function Footer() {
 				</div>
 				<div className="column two">
 					<p className="columnlabel">Twenty Two VI</p>
-						<ul className="footerLinks">
-							<li>
-								<Link href="/reports">Reports</Link>
-							</li>
-							<li>
-								<Link href="/events">Events</Link>
-							</li>
-							<li>
-								<Link href="/webinars">Webinars</Link>
-							</li>
-							<li>
-								<Link href="/company">About</Link>
-							</li>
-						</ul>
-						<div className="mobileContent">
-							<p className="columnlabel">Connect</p>
-							<ul className="contactLinks">
-								<li>
-									<Link href="/contact">Contact Us</Link>
-								</li>
-							</ul>
-							<address>
-								1234 Address Here
-								<br />
-								New York, NY 1234
-							</address>
-							<ul className="socialContainer">
-								<li>
-									<Image
-									src={LinkedIn}
-									alt="LinkedIn logo"
-									width={20}
-									height={20}
-									/>
-								</li>
-								<li>
-									<Image 
-									src={Spotify}
-									alt="Spotify logo"
-									width={20}
-									height={20}
-									/>
-								</li>
-							</ul>
-
-							<p className="columnlabel">Legal</p>
-							<ul className="policyMenu">
-								<li>
-									<Link href="/terms">Terms of Use</Link>
-								</li>
-								<li>
-									<Link href="/privacy-policy">Privacy Policy</Link>
-								</li>
-								<li>
-									<Link href="/ada-statement">Accessibility</Link>
-								</li>
-								<li>
-									<Link href="/disclosures">Disclosures</Link>
-								</li>
-								<li className="copyright">
-									Twenty Two VI ©{currentYear}. All Rights Reserved.
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="column three">
+					<ul className="footerLinks">
+						<li>
+							<Link href="/reports">Reports</Link>
+						</li>
+						<li>
+							<Link href="/events">Events</Link>
+						</li>
+						<li>
+							<Link href="/webinars">Webinars</Link>
+						</li>
+						<li>
+							<Link href="/company">About</Link>
+						</li>
+					</ul>
+					<div className="mobileContent">
 						<p className="columnlabel">Connect</p>
 						<ul className="contactLinks">
 							<li>
@@ -259,26 +209,24 @@ export default function Footer() {
 						</address>
 						<ul className="socialContainer">
 							<li>
-							<Image
-								src={LinkedIn}
-								alt="LinkedIn logo"
-								width={20}
-								height={20}
-							/>
+								<Image
+									src={LinkedIn}
+									alt="LinkedIn logo"
+									width={20}
+									height={20}
+								/>
 							</li>
 							<li>
-							<Image 
-								src={Spotify}
-								alt="Spotify logo"
-								width={20}
-								height={20}
-							/>
+								<Image
+									src={Spotify}
+									alt="Spotify logo"
+									width={20}
+									height={20}
+								/>
 							</li>
 						</ul>
-					</div>
 
-					<div className="column four">
-					<p className="columnlabel">Legal</p>
+						<p className="columnlabel">Legal</p>
 						<ul className="policyMenu">
 							<li>
 								<Link href="/terms">Terms of Use</Link>
@@ -295,9 +243,64 @@ export default function Footer() {
 								<Link href="/disclosures">Disclosures</Link>
 							</li>
 							<li className="copyright">
-								Twenty Two VI ©{currentYear}. All Rights Reserved.
+								Twenty Two VI ©{currentYear}. All Rights
+								Reserved.
 							</li>
 						</ul>
+					</div>
+				</div>
+
+				<div className="column three">
+					<p className="columnlabel">Connect</p>
+					<ul className="contactLinks">
+						<li>
+							<Link href="/contact">Contact Us</Link>
+						</li>
+					</ul>
+					<address>
+						1234 Address Here
+						<br />
+						New York, NY 1234
+					</address>
+					<ul className="socialContainer">
+						<li>
+							<Image
+								src={LinkedIn}
+								alt="LinkedIn logo"
+								width={20}
+								height={20}
+							/>
+						</li>
+						<li>
+							<Image
+								src={Spotify}
+								alt="Spotify logo"
+								width={20}
+								height={20}
+							/>
+						</li>
+					</ul>
+				</div>
+
+				<div className="column four">
+					<p className="columnlabel">Legal</p>
+					<ul className="policyMenu">
+						<li>
+							<Link href="/terms">Terms of Use</Link>
+						</li>
+						<li>
+							<Link href="/privacy-policy">Privacy Policy</Link>
+						</li>
+						<li>
+							<Link href="/ada-statement">Accessibility</Link>
+						</li>
+						<li>
+							<Link href="/disclosures">Disclosures</Link>
+						</li>
+						<li className="copyright">
+							Twenty Two VI ©{currentYear}. All Rights Reserved.
+						</li>
+					</ul>
 				</div>
 			</FooterContainer>
 		</StyledFooter>
