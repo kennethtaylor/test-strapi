@@ -1,13 +1,12 @@
-"use client";
-import Link from "next/link";
-import { styled } from "styled-components";
-import Title from "./Title";
-import Image from "next/image";
-import AngledArrowBlue from "../../public/images/icons/angledArrowBlue.svg?url";
-import ArrowRightOrange from "../../public/images/icons/arrowRightOrange.svg?url";
-import { useEffect, useState } from "react";
+'use client';
+import Link from 'next/link';
+import { styled } from 'styled-components';
+import Title from './Title';
+import Image from 'next/image';
+import AngledArrowBlue from '../../public/images/icons/angledArrowBlue.svg?url';
+import ArrowRightOrange from '../../public/images/icons/arrowRightOrange.svg?url';
 
-import { DateTime } from "luxon";
+import { DateTime } from 'luxon';
 
 const EventListSection = styled.section`
 	width: 100%;
@@ -76,7 +75,7 @@ const EventGridCard = styled.article`
 			rgba(32, 58, 113, 1) 0%,
 			rgba(50, 119, 223, 1) 100%
 		);
-		content: "";
+		content: '';
 		z-index: -1;
 		border-radius: 1rem;
 	}
@@ -272,11 +271,8 @@ const Arrow = styled.div`
 `;
 
 export default function EventList(props) {
-	// isloading state
-	const [isLoading, setIsLoading] = useState(true);
-
 	switch (props.Type) {
-		case "grid":
+		case 'grid':
 			return (
 				<EventGridSection>
 					<EventGridInnerContainer>
@@ -290,7 +286,7 @@ export default function EventList(props) {
 									key={`rcardlink-${index}`}
 									href={
 										`/events/${event?.attributes?.slug}` ||
-										"#"
+										'#'
 									}
 								>
 									<EventGridCard key={`rcard-${index}`}>
@@ -333,7 +329,7 @@ export default function EventList(props) {
 						</Title>
 						<Link
 							className="primaryBtnBlue"
-							href={props.MainCTAurl || "#"}
+							href={props.MainCTAurl || '#'}
 						>
 							<span>{props.MainCTAtext}</span>
 							<Image
@@ -357,7 +353,7 @@ export default function EventList(props) {
 									<AuthorList>Author</AuthorList>
 								</MetaContainerList>
 								<TitleContainerList>
-									<Link href={event?.CTAurl || "#"}>
+									<Link href={event?.CTAurl || '#'}>
 										{event?.attributes?.Title}
 									</Link>
 									<div className="mobileArrow">
