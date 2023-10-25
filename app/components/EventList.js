@@ -5,6 +5,8 @@ import Title from './Title';
 import Image from 'next/image';
 import AngledArrowBlue from '../../public/images/icons/angledArrowBlue.svg?url';
 import ArrowRightOrange from '../../public/images/icons/arrowRightOrange.svg?url';
+import { SearchMessage } from './SearchMessage';
+import { useFilteredSearch } from '../hooks/useFilteredSearch';
 
 import { DateTime } from 'luxon';
 
@@ -153,7 +155,7 @@ const MetaContainerList = styled.div`
 	}
 `;
 
-const Date = styled.p`
+const DateText = styled.p`
 	font-family: var(--sans-serif);
 	font-weight: 400;
 	font-size: var(--body);
@@ -271,49 +273,86 @@ const Arrow = styled.div`
 `;
 
 export default function EventList(props) {
+	const { isLoading, items } = useFilteredSearch('events');
+
 	switch (props.Type) {
 		case 'grid':
 			return (
-				<EventGridSection>
-					<EventGridInnerContainer>
-						{props?.events?.data?.map((event, index) => {
-							let publishedAt = DateTime.fromISO(
-								event?.attributes?.publishedAt
-							);
+				<>
+					{!isLoading && items?.data?.length > 0 ? (
+						<EventGridSection>
+							<EventGridInnerContainer>
+								{items?.data?.map((event, index) => {
+									const publishedAt = new Date(
+										event?.attributes.publishedAt.substring(
+											0,
+											10
+										)
+									);
 
-							return (
-								<Link
-									key={`rcardlink-${index}`}
-									href={
-										`/events/${event?.attributes?.slug}` ||
-										'#'
-									}
-								>
-									<EventGridCard key={`rcard-${index}`}>
-										<MetaContainer>
-											<Date>{`${publishedAt.monthLong} ${publishedAt.c.day}, ${publishedAt.c.year}`}</Date>
-										</MetaContainer>
-										<TitleContainer>
-											{event?.attributes?.Title}
-										</TitleContainer>
-										<LearnMoreContainer>
-											<LearnMoreBtn>
-												Learn More
-											</LearnMoreBtn>
-											<Image
-												src={AngledArrowBlue}
-												alt="angled arrow"
-												width={30}
-												height={30}
-												className="angledArrow"
-											/>
-										</LearnMoreContainer>
-									</EventGridCard>
-								</Link>
-							);
-						})}
-					</EventGridInnerContainer>
-				</EventGridSection>
+									const formattedPublishedAt =
+										publishedAt.toLocaleString('default', {
+											month: 'long',
+											day: 'numeric',
+											year: 'numeric',
+										});
+
+									return (
+										<Link
+											key={`rcardlink-${index}`}
+											href={
+												`/events/${event?.attributes?.Slug}` ||
+												'#'
+											}
+										>
+											<EventGridCard
+												key={`rcard-${index}`}
+											>
+												<MetaContainer>
+													<DateText>
+														{formattedPublishedAt}
+													</DateText>
+												</MetaContainer>
+												<TitleContainer>
+													{event?.attributes?.Title}
+												</TitleContainer>
+												<LearnMoreContainer>
+													<LearnMoreBtn>
+														Learn More
+													</LearnMoreBtn>
+													<Image
+														src={AngledArrowBlue}
+														alt="angled arrow"
+														width={30}
+														height={30}
+														className="angledArrow"
+													/>
+												</LearnMoreContainer>
+											</EventGridCard>
+										</Link>
+									);
+								})}
+							</EventGridInnerContainer>
+						</EventGridSection>
+					) : (
+						<SearchMessage>
+							{isLoading ? (
+								<p>Gathering Events</p>
+							) : (
+								<div>
+									<p>
+										Sorry, nothing matches your search
+										criteria.
+									</p>
+									<p>
+										Please try refiing your search or
+										contact us for more information.
+									</p>
+								</div>
+							)}
+						</SearchMessage>
+					)}
+				</>
 			);
 		default:
 			return (

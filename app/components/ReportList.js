@@ -1,9 +1,6 @@
 'use client';
 import Link from 'next/link';
 import { styled } from 'styled-components';
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import qs from 'qs';
 import Title from './Title';
 
 import Image from 'next/image';
@@ -11,28 +8,9 @@ import AngledArrowBlue from '../../public/images/icons/angledArrowBlue.svg?url';
 import ArrowRightOrange from '../../public/images/icons/arrowRightOrange.svg?url';
 
 import Search from './Search';
+import { SearchMessage } from './SearchMessage';
 import useDebouncedState from './../hooks/useDebouncedState';
-
-const SearchMessage = styled.div`
-	color: var(--white);
-	padding: 4rem 6rem 6rem 6rem;
-	font-size: 1.5rem;
-	font-family: var(--sans-serif);
-	font-weight: 400;
-	text-align: center;
-	min-height: 35vmin;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	p {
-		margin-bottom: 2rem;
-
-		&:last-of-type {
-			margin-bottom: 0;
-		}
-	}
-`;
+import { useFilteredSearch } from '../hooks/useFilteredSearch';
 
 const TitleContainer = styled.h2`
 	font-family: var(--sans-serif);
@@ -310,93 +288,23 @@ const SearchContainer = styled.div`
 `;
 
 export default function ReportList(props) {
-	const [reports, setReports] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
 	const [searchTerm, setSearchTerm] = useDebouncedState('', 500);
-	const searchParams = useSearchParams();
-
-	// TODO - For now the grid version of this component used the reports api directly
-	const getReports = async (searchTerm) => {
-		let filters = {};
-		const andFilters = [];
-
-		if (searchParams.get('dateFrom') || searchParams.get('dateTo')) {
-			let nestedDateFilters = {};
-
-			if (searchParams.get('dateFrom')) {
-				andFilters.push({
-					publishedAt: {
-						$gte: searchParams.get('dateFrom'),
-					},
-				});
-			}
-
-			if (searchParams.get('dateTo')) {
-				andFilters.push({
-					...nestedDateFilters,
-					publishedAt: {
-						$lte: searchParams.get('dateTo'),
-					},
-				});
-			}
-		}
-
-		if (searchParams.get('category')) {
-			andFilters.push({
-				categories: {
-					Name: {
-						$contains: searchParams.get('category'),
-					},
-				},
-			});
-		}
-
-		// Add the $and condition if it's not empty
-		if (andFilters.length > 0) {
-			filters['$and'] = andFilters;
-		}
-
-		const query = qs.stringify(
-			{
-				_q: searchTerm,
-				publicationState: 'live',
-				populate: '*',
-				sort: [`publishedAt:${searchParams.get('sort') || 'asc'}`],
-				filters,
-			},
-			{
-				encodeValuesOnly: true,
-			}
-		);
-
-		setIsLoading(true);
-
-		const res = await fetch(`${process.env.APP_URL}/api/reports?${query}`);
-		const reports = await res.json();
-
-		setReports(reports);
-		setIsLoading(false);
-
-		return reports;
-	};
-
-	useEffect(() => {
-		// Load all our reports
-		getReports(searchTerm);
-	}, [searchTerm, searchParams]);
+	const { isLoading, items } = useFilteredSearch('reports', searchTerm);
 
 	switch (props.Type) {
 		case 'grid':
 			return (
 				<>
-					<Search
-						isLoading={isLoading}
-						handleSearch={setSearchTerm}
-					/>
-					{!isLoading && reports?.data?.length > 0 ? (
+					<SearchContainer>
+						<Search
+							isLoading={isLoading}
+							handleSearch={setSearchTerm}
+						/>
+					</SearchContainer>
+					{!isLoading && items?.data?.length > 0 ? (
 						<ReportGridSection>
 							<ReportGridInnerContainer>
-								{reports?.data?.map((report, index) => {
+								{items?.data?.map((report, index) => {
 									const publishedAt = new Date(
 										report?.attributes.publishedAt.substring(
 											0,
