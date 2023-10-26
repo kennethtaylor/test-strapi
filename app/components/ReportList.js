@@ -413,7 +413,6 @@ export default function ReportList(props) {
 							<ReportCard key={`rcard-${index}`}>
 								<MetaContainerList>
 									<DateList>{formattedPublishedAt}</DateList>
-									<AuthorList>Author</AuthorList>
 								</MetaContainerList>
 								<TitleContainerList>
 									<Link href={report?.CTAurl || '#'}>
