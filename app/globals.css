@@ -119,7 +119,7 @@ a.primaryBtnWhite {
 a.primaryBtnWhite span,
 a.primaryBtnBlue span {
   font-family: var(--sans-serif);
-  font-weight: 400;
+  font-weight: 600;
   font-size: var(--nav);
   text-transform: uppercase;
 }

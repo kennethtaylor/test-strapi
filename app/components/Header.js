@@ -42,63 +42,83 @@ const StyledHeader = styled.header`
 const TopBar = styled.div`
 	width: 100%;
 	margin: auto;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	background: var(--darkblue);
-	padding: 0.5rem 2rem;
 	position: relative;
-	border-bottom: 0.5px solid rgba(255, 255, 255, 0.2);
 `;
 
-const AnnoucementText = styled.p`
-	font-size: var(--nav);
-	font-family: var(--sans-serif);
-	font-weight: 400;
-	font-style: normal;
-	color: var(--white);
+const AnnoucementBar = styled.div`
+	background: linear-gradient(45deg, rgba(1,4,60,1) 0%, rgba(32,58,113,1) 100%);
+	width: 100%;
+	padding: 0.5rem 2rem;
+	position: relative;
+
+	& p {
+		margin: auto;
+		color: var(--white);
+		text-align: center;
+		font-size: var(--nav);
+		font-family: var(--sans-serif);
+		font-weight: 400;
+		font-style: normal;
+		display: block;
+	}
 `;
 const HeaderContainer = styled.div`
 	width: 100%;
 	display: flex;
 	padding: 1.5rem 2rem 1rem 2rem;
 	justify-content: space-between;
-	align-items: flex-start;
+	align-items: center;
 	flex-wrap: wrap;
 	background: transparent;
 	transition: 0.3s ease all;
 
 	.sitebranding.sticky & {
-		background: var(--darkblue);
-		padding: 0.7rem 2rem;
+		padding: 1.5rem 2rem;
 		align-items: center;
 	}
 `;
-
-const NavContainerLeft = styled.div`
-	display: flex;
-	align-items: center;
-	gap: 4rem;
-	width: calc(50% - 2rem);
+const LogoImage = styled.div`
+	position: absolute;
+	top: 2rem;
+	left: 0rem;
+	width: 150px;
+	padding: 1rem 2rem;
 	transition: 0.3s ease all;
 
 	& .headerLogo {
 		width: 100%;
-		max-width: 100px;
+		max-width: 100%;
 		height: auto;
-		transition: 0.3s ease all;
 	}
-	.sitebranding.sticky & .headerLogo {
-		max-width: 50px;
-		height: auto;
+	.sitebranding.sticky & {
+		top: 2.7rem;
+		left: 2rem;
+		padding: 0;
+		width: 50px;
 	}
 `;
+const NavContainerLeft = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 4rem;
+	width: calc(33.33% - 0.5rem);
+	transition: 0.3s ease all;
+`;
+
+const NavContainerCenter = styled.div`
+	width: calc(33.33% - 0.5rem);
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 2rem;
+`;
+
 const NavContainerRight = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
 	gap: 2rem;
-	width: calc(50% - 2rem);
+	width: calc(33.33% - 0.5rem);
 
 	@media only screen and (max-width: 600px) {
 		& nav {
@@ -122,6 +142,9 @@ const NavSection = styled.nav`
 	& .linkwbtn {
 		display: flex;
 		gap: 0.5rem;
+		color: var(--white);
+		font-size: var(--nav);
+		font-weight: 500;
 		align-items: center;
 		transition: 0.3s ease all;
 	}
@@ -164,12 +187,12 @@ const NavSection = styled.nav`
 
 	& .primaryBtn .background {
 		background: var(--orange-gradient-linear) border-box;
-		opacity: 0;
+		opacity: 1;
 		transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 	}
 
 	& .primaryBtn:hover .background {
-		opacity: 1;
+		opacity: 0.8;
 	}
 
 	& .primaryBtn .border {
@@ -198,6 +221,9 @@ const NavSection = styled.nav`
 
 	& .primaryBtn span {
 		color: #fff;
+		font-family: var(--sans-serif);
+		font-weight: 500;
+		font-size: var(--nav);
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -567,6 +593,9 @@ export default function Header() {
 	return (
 		<StyledHeader>
 			<div className="sitebranding">
+			<AnnoucementBar>
+					<p>Optional Announcement Text</p>
+			</AnnoucementBar>
 				<TopBar>
 					<SearchContainer isSearchVisible={isSearchVisible}>
 						<Search
@@ -627,23 +656,33 @@ export default function Header() {
 							</SearchResultsContainer>
 						)}
 					</SearchContainer>
-					<AnnoucementText>
-						{/*Optional Announcement Text*/}
-					</AnnoucementText>
-					<NavSection>
-						<IconAction
-							className="button-reset"
-							onClick={() => setIsSearchVisible(true)}
-							aria-label="display search box"
-						>
-							<Image
-								src={SearchIcon}
-								alt="search icon"
-								width={20}
-								height={20}
+				</TopBar>
+				<LogoImage>
+					<Link href="/">
+						<Image
+							className="headerLogo"
+							src={Logo}
+							alt="22VI Logo"
+							width={68}
+							height={92}
 							/>
-						</IconAction>
-						<Link className="linkwbtn" href="#">
+					</Link>
+				</LogoImage>
+				<HeaderContainer>
+					<NavContainerLeft>
+					</NavContainerLeft>
+
+					<NavContainerCenter>
+						<NavSection>
+							<Link href="/reports">Reports</Link>
+							<Link href="/events">Events</Link>
+							<Link href="/webinars">Webinars</Link>
+						</NavSection>
+					</NavContainerCenter>
+
+					<NavContainerRight>
+						<NavSection>
+							<Link className="linkwbtn" href="#">
 							Log In{' '}
 							<Image
 								src={AngledArrow}
@@ -667,26 +706,18 @@ export default function Header() {
 								<div className="background"></div>
 							</div>
 						</Link>
-					</NavSection>
-				</TopBar>
-				<HeaderContainer>
-					<NavContainerLeft>
-						<Link href="/">
+						<IconAction
+							className="button-reset"
+							onClick={() => setIsSearchVisible(true)}
+							aria-label="display search box"
+						>
 							<Image
-								className="headerLogo"
-								src={Logo}
-								alt="22VI Logo"
-								width={68}
-								height={92}
+								src={SearchIcon}
+								alt="search icon"
+								width={20}
+								height={20}
 							/>
-						</Link>
-					</NavContainerLeft>
-
-					<NavContainerRight>
-						<NavSection>
-							<Link href="/reports">Reports</Link>
-							<Link href="/events">Events</Link>
-							<Link href="/webinars">Webinars</Link>
+						</IconAction>
 						</NavSection>
 						<Hamburger onClick={() => toggleNav()}>
 							<div className="barTop"></div>
