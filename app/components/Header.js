@@ -686,7 +686,7 @@ export default function Header() {
 						<NavSection>
 							<Link href="/reports">Reports</Link>
 							<Link href="/events">Events</Link>
-							<Link href="/company">About</Link>
+							<Link href="/webinars">Webinars</Link>
 						</NavSection>
 						<Hamburger onClick={() => toggleNav()}>
 							<div className="barTop"></div>
@@ -716,10 +716,13 @@ export default function Header() {
 								<Link href="/events">Events</Link>
 							</li>
 							<li>
-								<Link href="/company">Company</Link>
+								<Link href="/webinars">Webinars</Link>
 							</li>
 							<li>
-								<Link href="/contact">Contact</Link>
+								<Link href="/company">About</Link>
+							</li>
+							<li>
+								<Link href="/contact">Contact Us</Link>
 							</li>
 						</ul>
 						<ul className="smallMenu">
@@ -768,16 +771,9 @@ export default function Header() {
 						<div className="column">
 							<ul className="policyMenu">
 								<li>
-									<Link href="/disclosures">Disclosures</Link>
+									<Link href="/terms">Terms of Use</Link>
 								</li>
-								<li>
-									<Link href="/terms">Terms</Link>
-								</li>
-								<li>
-									<Link href="/cookie-policy">
-										Cookie Policy
-									</Link>
-								</li>
+
 								<li>
 									<Link href="/privacy-policy">
 										Privacy Policy
@@ -785,8 +781,11 @@ export default function Header() {
 								</li>
 								<li>
 									<Link href="/ada-statement">
-										ADA Statement
+										Accessibility
 									</Link>
+								</li>
+								<li>
+									<Link href="/disclosures">Disclosures</Link>
 								</li>
 							</ul>
 						</div>

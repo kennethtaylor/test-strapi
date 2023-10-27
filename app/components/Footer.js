@@ -23,7 +23,7 @@ const FooterContainer = styled.div`
 
 	& .column.one .LogoContainer {
 		width: 100%;
-		max-width: 174px;
+		max-width: 150px;
 		position: relative;
 	}
 
@@ -111,7 +111,7 @@ const FooterContainer = styled.div`
 		}
 		& .column.one .LogoContainer {
 			width: 100%;
-			max-width: 174px;
+			max-width: 150px;
 		}
 		& .column.one .LogoContainer img {
 			width: 100%;
