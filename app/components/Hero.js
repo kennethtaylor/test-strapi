@@ -170,6 +170,7 @@ const ArchiveContentContainerSingle = styled.div`
 		color: var(--white);
 		font-weight: 400;
 		font-size: var(--body);
+		line-height: 1.5;
 		padding: 2rem 0 0 0;
 	}
 	@media only screen and (max-width: 820px) {
@@ -211,6 +212,7 @@ const ThreeQuarters = styled.div`
 		font-family: var(--sans-serif);
 		font-size: var(--body);
 		font-weight: 400;
+		line-height: 1.5;
 	}
 	@media only screen and (max-width: 1280px) {
 		& {
