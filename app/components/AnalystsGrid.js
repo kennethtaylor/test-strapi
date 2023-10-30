@@ -1,8 +1,8 @@
-"use client";
-import { useState } from "react";
-import Title from "./Title";
-import { styled } from "styled-components";
-import Image from "next/image";
+'use client';
+import { useState } from 'react';
+import Title from './Title';
+import { styled } from 'styled-components';
+import Image from 'next/image';
 import AngledArrowBlue from '../../public/images/icons/angledArrowBlue.svg?url';
 
 const AnalystsSection = styled.section`
@@ -53,22 +53,30 @@ const FlexContainer = styled.div`
 		maax-width: 100%;
 		transition: all 0.3s ease-in-out;
 	}
-	&:hover .arrow img {filter: contrast(0) sepia(100%) hue-rotate(-15deg) saturate(3);}
+	&:hover .arrow img {
+		filter: contrast(0) sepia(100%) hue-rotate(-15deg) saturate(3);
+	}
 `;
 
 export default function AnalystsGrid(props) {
 	const { Title: title, blurb, AnalystsCards } = props;
 	const [currentAnalyst, setCurrentAnalyst] = useState(null);
-	console.log(props);
 
 	return (
 		<AnalystsSection>
-			<Title as="h1" color="darkblue" weight="medium" size="heading" align="left">
+			<Title
+				as="h1"
+				color="darkblue"
+				weight="medium"
+				size="heading"
+				align="left"
+			>
 				{title}
 			</Title>
 			{blurb && <p>{blurb}</p>}
 			<AnalystsCardContainer>
 				{AnalystsCards?.map((analyst, index) => {
+					console.log('analyst: ', analyst);
 					return (
 						<AnalystsCard
 							key={`analyst-${index}`}
@@ -76,26 +84,29 @@ export default function AnalystsGrid(props) {
 								setCurrentAnalyst(props.AnalystsCards[index])
 							}
 						>
-							<Image 
+							<Image
 								src={analyst.Image?.data.attributes.url}
-								alt={analyst.Image?.data.attributes.alternativeText}
+								alt={
+									analyst.Image?.data.attributes
+										.alternativeText
+								}
 								width={329}
 								height={323}
 							/>
 							<FlexContainer>
-							<div className="analystData">
-								<h2>{analyst.Name}</h2>
-								<p>{analyst.JobTitle}</p>
-							</div>
-							<div className="arrow">
-								<Image
-									src={AngledArrowBlue}
-									alt="angled arrow"
-									width={15}
-									height={15}
-									className="rightArrow"
-								/>
-							</div>
+								<div className="analystData">
+									<h2>{analyst.Name}</h2>
+									<p>{analyst.JobTitle}</p>
+								</div>
+								<div className="arrow">
+									<Image
+										src={AngledArrowBlue}
+										alt="angled arrow"
+										width={15}
+										height={15}
+										className="rightArrow"
+									/>
+								</div>
 							</FlexContainer>
 						</AnalystsCard>
 					);
