@@ -417,6 +417,7 @@ const Underlay = styled.div`
 	right: 0;
 	bottom: 0;
 	opacity: 0;
+	display: none;
 	z-index: -1;
 	background: rgba(0, 0, 0, 0.7);
 	transition: opacity 0.5s ease;
@@ -424,6 +425,7 @@ const Underlay = styled.div`
 	&.open {
 		z-index: 99;
 		opacity: 1;
+		display: block;
 	}
 `;
 
