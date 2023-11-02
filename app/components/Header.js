@@ -20,7 +20,7 @@ const StyledHeader = styled.header`
 	width: 100%;
 	display: inline-block;
 
-	& .sitebranding {
+	&.sitebranding {
 		width: 100%;
 		position: fixed;
 		top: 0;
@@ -29,7 +29,7 @@ const StyledHeader = styled.header`
 		z-index: 99;
 	}
 
-	& .sitebranding.sticky {
+	&.sitebranding.sticky {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -118,7 +118,11 @@ const NavContainerRight = styled.div`
 	align-items: center;
 	justify-content: flex-end;
 	gap: 2rem;
-	width: calc(33.33% - 0.5rem);
+	width: 100%;
+
+	@media only screen and (max-width: 868px) {
+		& .mainLink {display: none;}
+	}
 
 	@media only screen and (max-width: 600px) {
 		& nav {
@@ -577,7 +581,7 @@ export default function Header() {
 
 	useEffect(() => {
 		ScrollTrigger.create({
-			start: 'top 0',
+			start: "0px 0px",
 			end: 99999,
 			toggleClass: { className: 'sticky', targets: '.sitebranding' },
 		});
@@ -591,8 +595,7 @@ export default function Header() {
 	}, [searchTerm]);
 
 	return (
-		<StyledHeader>
-			<div className="sitebranding">
+		<StyledHeader className="sitebranding">
 			<AnnoucementBar>
 					<p>Optional Announcement Text</p>
 			</AnnoucementBar>
@@ -672,16 +675,11 @@ export default function Header() {
 					<NavContainerLeft>
 					</NavContainerLeft>
 
-					<NavContainerCenter>
-						<NavSection>
-							<Link href="/reports">Reports</Link>
-							<Link href="/events">Events</Link>
-							<Link href="/webinars">Webinars</Link>
-						</NavSection>
-					</NavContainerCenter>
-
 					<NavContainerRight>
 						<NavSection>
+							<Link href="/reports" className="mainLink">Reports</Link>
+							<Link href="/events" className="mainLink">Events</Link>
+							<Link href="/webinars" className="mainLink">Webinars</Link>
 							<Link className="linkwbtn" href="#">
 							Log In{' '}
 							<Image
@@ -690,7 +688,7 @@ export default function Header() {
 								width={15}
 								height={15}
 							/>
-						</Link>
+							</Link>
 						<Link href="#">
 							<div className="primaryBtn">
 								<span>
@@ -725,7 +723,6 @@ export default function Header() {
 						</Hamburger>
 					</NavContainerRight>
 				</HeaderContainer>
-			</div>
 
 			<MobileMenu className={navIsOpen ? 'open' : ''}>
 				<div className="closeContainer" onClick={() => toggleNav()}>

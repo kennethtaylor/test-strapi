@@ -5,6 +5,10 @@ import Title from "./Title";
 import PostFilters from "./PostFilters";
 
 import { DateTime } from "luxon";
+import { useEffect } from "react";
+import { gsap } from "gsap/dist/gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 const HeroContent = styled.div`
 	display: grid;
@@ -32,7 +36,7 @@ const HeroContent = styled.div`
 
 const ScrollContent = styled.div`
 	position: absolute;
-	bottom: -3rem;
+	bottom: 0rem;
 	left: 0rem;
 	right: 0rem;
 	z-index: 2;
@@ -110,9 +114,7 @@ const ScrollContent = styled.div`
 	}
 
 	@media only screen and (max-width: 600px) {
-		& {
-			bottom: -2rem;
-		}
+		bottom: 2rem;
 		& .scrollIcon {
 			position: relative;
 			color: var(--white);
@@ -242,6 +244,21 @@ export default function Hero(props) {
 		reportTitle,
 	} = props;
 
+	useEffect(() => {
+		const boxes = gsap.utils.toArray('.scrollIcon');
+			boxes.forEach((box) => {
+			  gsap.to(box, {
+				autoAlpha: 0,
+				scrollTrigger: {
+				  trigger: box,
+				  start: 'bottom bottom',
+				  end: 'top 20%',
+				  scrub: true,
+				},
+			  });
+			});
+		}, []);
+
 	switch (Type) {
 		case "home":
 			return (
@@ -258,7 +275,7 @@ export default function Hero(props) {
 						</Title>
 					</HeroContent>
 					<ScrollContent>
-						<div className="scrollIcon">
+						<div className="scrollIcon" data-speed="1.2">
 							<span>Scroll</span>
 							<div className="border"></div>
 							<div className="background"></div>
