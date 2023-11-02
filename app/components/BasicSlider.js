@@ -42,6 +42,11 @@ const MarqueeContainer = styled.div`
 		color: var(--white);
 		font-weight: 400;
 	}
+	@media only screen and (max-width: 820px) {
+		& .box {
+			font-size: clamp(2.2rem, 2.2vw, 4.4rem);
+		}
+	}
 `;
 
 export default function BasicSlider(props) {

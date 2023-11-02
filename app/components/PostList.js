@@ -5,7 +5,6 @@ import styled from 'styled-components';
 export const TitleContainer = styled.h2`
 	font-family: var(--sans-serif);
 	line-height: 1.2;
-	margin-bottom: 1rem;
 
 	& a {
 		font-family: var(--sans-serif);
@@ -29,14 +28,12 @@ export const TitleContainerList = styled.div`
 	}
 
 	@media only screen and (max-width: 820px) {
-		& {
-			display: flex;
-			width: 100%;
-			gap: 2rem;
-			justify-content: space-between;
-			align-items: center;
-			padding: 2rem 0 0 0;
-		}
+		display: flex;
+		width: 100%;
+		gap: 2rem;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 0 0 0;
 
 		& .mobileArrow {
 			display: block;
@@ -71,9 +68,7 @@ export const Arrow = styled.div`
 		opacity: 0;
 	}
 	@media only screen and (max-width: 820px) {
-		& {
-			display: none;
-		}
+		display: none;
 	}
 `;
 
@@ -81,14 +76,10 @@ export const PostGridSection = styled.div`
 	width: 100%;
 	padding: 4rem 6rem;
 	@media only screen and (max-width: 1100px) {
-		& {
-			padding: 4rem 4rem;
-		}
+		padding: 4rem 4rem;
 	}
 	@media only screen and (max-width: 655px) {
-		& {
-			padding: 4rem 2rem 4rem 2rem;
-		}
+		padding: 4rem 2rem 4rem 2rem;
 	}
 `;
 
@@ -99,14 +90,10 @@ export const PostGridInnerContainer = styled.div`
 	gap: 2rem;
 
 	@media only screen and (max-width: 1100px) {
-		& {
-			grid-template-columns: repeat(2, 1fr);
-		}
+		grid-template-columns: repeat(2, 1fr);
 	}
 	@media only screen and (max-width: 820px) {
-		& {
-			grid-template-columns: repeat(1, 1fr);
-		}
+		grid-template-columns: repeat(1, 1fr);
 	}
 `;
 
@@ -118,14 +105,18 @@ export const PostTopContainer = styled.div`
 	padding: 4rem 6rem 3rem 6rem;
 
 	@media only screen and (max-width: 820px) {
-		& {
-			display: block;
-			padding: 4rem 4rem 3rem 4rem;
-		}
+		display: block;
+		padding: 4rem 4rem 3rem 4rem;
 
+		& h2 {
+			line-height: 1.2;
+		}
 		& a.primaryBtnBlue {
 			margin-top: 2rem;
 		}
+	}
+	@media only screen and (max-width: 600px) {
+		padding: 4rem 3rem 3rem 3rem;
 	}
 `;
 
@@ -144,10 +135,12 @@ export const PostCard = styled.article`
 	}
 
 	@media only screen and (max-width: 820px) {
-		& {
-			flex-direction: column;
-			padding: 3rem 4rem;
-		}
+		display: flex;
+		flex-direction: column;
+		padding: 3rem 4rem;
+	}
+	@media only screen and (max-width: 600px) {
+		padding: 3rem 3rem;
 	}
 `;
 

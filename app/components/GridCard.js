@@ -14,16 +14,17 @@ export const GridCard = styled.article`
 	cursor: pointer;
 	position: relative;
 
-	h2,
-	p {
+	& h2,
+	& p {
 		font-family: var(--sans-serif);
 	}
 
 	@media only screen and (max-width: 820px) {
 		padding: 2rem;
+		aspect-ratio: unset;
 
-		& {
-			aspect-ratio: unset;
+		& h2 {
+			padding: 2rem 0;
 		}
 	}
 `;

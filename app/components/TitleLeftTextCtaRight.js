@@ -12,15 +12,15 @@ const TitleLeftTextCtaRightContainer = styled.section`
 	display: flex;
 	align-items: flex-start;
 	gap: 4rem;
-	padding: 14rem 8rem 10rem 8rem;
+	padding: 10rem 8rem 12rem 8rem;
 	flex-wrap: wrap;
 
 	@media only screen and (max-width: 820px) {
-		& {
+			display: flex;
+			align-items: flex-start;
 			flex-direction: column;
 			gap: 2rem;
-			padding: 14rem 4rem 8rem 4rem;
-		}
+			padding: 10rem 4rem 12rem 4rem;
 	}
 `;
 const TitleContainer = styled.div`
@@ -31,7 +31,7 @@ const TitleContainer = styled.div`
 		line-height: 1.2;
 	}
 	@media only screen and (max-width: 820px) {
-		& {width: 100%;}
+		width: 100%;
 	}
 `;
 
@@ -41,10 +41,12 @@ const ContentContainer = styled.div`
 	line-height: 1.5;
 
 	@media only screen and (max-width: 820px) {
-		& {
 			width: 100%;
-			padding: 2rem 0 0rem 4rem;
-		}
+			padding-top: unset;
+			padding: 0rem 0rem 0rem 4rem;
+	}
+	@media only screen and (max-width: 600px) {
+		padding: 0rem 0rem 0rem 2rem;
 	}
 `;
 
@@ -59,10 +61,10 @@ const Content = styled.div`
 export default function TitleLeftTextCtaRight(props) {
 	return (
 		<TitleLeftTextCtaRightContainer>
-			<TitleContainer>
+			<TitleContainer data-speed="1.2">
 				<Title as="h2" weight="medium" size="quote" color="white">{props.Title}</Title>
 			</TitleContainer>
-			<ContentContainer>
+			<ContentContainer data-speed="1.25">
 				<Content dangerouslySetInnerHTML={{ __html: props.Content }} />
 				<Link className="primaryBtnWhite" href={props.CTAurl}><span>{props.CTAtext}</span><Image src={AngledArrow} alt="angled arrow" width={15} height={15}/></Link>
 			</ContentContainer>
