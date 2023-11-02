@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { useEffect, useState, useCallback } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import styled from 'styled-components';
+import { useEffect, useState, useCallback } from 'react';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 const PostFilters = () => {
 	const [categories, setCategories] = useState([]);
@@ -16,7 +16,7 @@ const PostFilters = () => {
 			params.set(name, value);
 
 			if (paramToReset) {
-				params.set(paramToReset, "");
+				params.set(paramToReset, '');
 			}
 
 			return params.toString();
@@ -32,23 +32,23 @@ const PostFilters = () => {
 	};
 
 	const handleDateChange = (e, dateName) => {
-		if (dateName === "dateFrom") {
-			if (searchParams.get("dateTo")) {
+		if (dateName === 'dateFrom') {
+			if (searchParams.get('dateTo')) {
 				router.push(
 					pathname +
-						"?" +
-						createQueryString("dateFrom", e.target.value, "dateTo")
+						'?' +
+						createQueryString('dateFrom', e.target.value, 'dateTo')
 				);
 			} else {
 				router.push(
 					pathname +
-						"?" +
-						createQueryString("dateFrom", e.target.value)
+						'?' +
+						createQueryString('dateFrom', e.target.value)
 				);
 			}
 		} else {
 			router.push(
-				pathname + "?" + createQueryString(dateName, e.target.value)
+				pathname + '?' + createQueryString(dateName, e.target.value)
 			);
 		}
 	};
@@ -66,12 +66,12 @@ const PostFilters = () => {
 					onChange={(e) =>
 						router.push(
 							pathname +
-								"?" +
-								createQueryString("category", e.target.value)
+								'?' +
+								createQueryString('category', e.target.value)
 						)
 					}
 					name="category"
-					value={searchParams.get("category")}
+					value={searchParams.get('category')}
 				>
 					<option value="default" disabled hidden>
 						Category
@@ -86,39 +86,41 @@ const PostFilters = () => {
 					})}
 				</Filter>
 			</FieldWrapper>
-			<FieldWrapper>
-				<Filter
-					onChange={(e) =>
-						router.push(
-							pathname +
-								"?" +
-								createQueryString("sort", e.target.value)
-						)
-					}
-					defaultValue="default"
-					value={searchParams.get("sort")}
-					name="sort"
-				>
-					<option value="default" disabled hidden>
-						Sort By
-					</option>
-					<option value="desc">Newest</option>
-					<option value="asc">Oldest</option>
-				</Filter>
-			</FieldWrapper>
+			{pathname !== '/events' && (
+				<FieldWrapper>
+					<Filter
+						onChange={(e) =>
+							router.push(
+								pathname +
+									'?' +
+									createQueryString('sort', e.target.value)
+							)
+						}
+						defaultValue="default"
+						value={searchParams.get('sort')}
+						name="sort"
+					>
+						<option value="default" disabled hidden>
+							Sort By
+						</option>
+						<option value="desc">Newest</option>
+						<option value="asc">Oldest</option>
+					</Filter>
+				</FieldWrapper>
+			)}
 			<DateRangeSelector>
 				<input
 					type="date"
-					value={searchParams.get("dateFrom")}
-					onChange={(e) => handleDateChange(e, "dateFrom")}
+					value={searchParams.get('dateFrom')}
+					onChange={(e) => handleDateChange(e, 'dateFrom')}
 					aria-label="Report date range start date"
 				/>
 				<div className="divider">|</div>
 				<input
 					type="date"
-					value={searchParams.get("dateTo")}
-					onChange={(e) => handleDateChange(e, "dateTo")}
-					min={searchParams.get("dateFrom")}
+					value={searchParams.get('dateTo')}
+					onChange={(e) => handleDateChange(e, 'dateTo')}
+					min={searchParams.get('dateFrom')}
 					aria-label="Reports date range end date"
 				/>
 			</DateRangeSelector>
@@ -171,7 +173,7 @@ const DateRangeSelector = styled.div`
 		width: 100%;
 	}
 
-	input[type="date"]::-webkit-calendar-picker-indicator {
+	input[type='date']::-webkit-calendar-picker-indicator {
 		color: white;
 		cursor: pointer;
 		margin-left: -15px;
@@ -214,7 +216,7 @@ const FieldWrapper = styled.div`
 	flex-shrink: 0;
 
 	&::after {
-		content: "";
+		content: '';
 		position: absolute;
 		right: 1rem;
 		top: 50%;
