@@ -18,8 +18,6 @@ import {
 } from './PostList';
 import { useFilteredEventSearch } from '../hooks/useFilteredSearch';
 
-import { DateTime } from 'luxon';
-
 const EventListSection = styled.section`
 	width: 100%;
 	background: var(--cool-grey);
@@ -100,39 +98,6 @@ const LearnMoreBtn = styled.p`
 export default function EventList(props) {
 	const { isLoading, items } = useFilteredEventSearch();
 
-	const getEventDateTimes = (eventDetails) => {
-		let eventDate;
-		let formattedEventDate;
-		let eventStartTime;
-		let eventEndTime;
-
-		if (eventDetails?.date) {
-			const startTimeParts = eventDetails.startTime.split(':');
-			const endTimeParts = eventDetails.endTime.split(':');
-
-			eventDate = DateTime.fromISO(eventDetails?.date).setZone(
-				'America/New_York'
-			);
-			// .toLocal(); TODO - If we want to display the users TZ we'll need to do some additional work here
-			formattedEventDate = eventDate.toLocaleString(DateTime.DATE_FULL);
-			eventStartTime = eventDate.set({
-				hour: startTimeParts[0],
-				minute: startTimeParts[1],
-			});
-			eventEndTime = eventDate.set({
-				hour: endTimeParts[0],
-				minute: endTimeParts[1],
-			});
-		}
-
-		return {
-			eventDate,
-			formattedEventDate,
-			eventStartTime,
-			eventEndTime,
-		};
-	};
-
 	switch (props.Type) {
 		case 'grid':
 			return (
@@ -141,15 +106,11 @@ export default function EventList(props) {
 						<PostGridSection>
 							<PostGridInnerContainer>
 								{items?.data?.map((event, index) => {
-									const eventDetails =
-										event?.attributes?.EventDetails;
-
-									const {
-										eventDate,
-										formattedEventDate,
-										eventStartTime,
-										eventEndTime,
-									} = getEventDateTimes(eventDetails);
+									const eventStart = new Date(
+										event?.attributes?.EventStart
+									);
+									const eventEnd =
+										event?.attributes?.EventEnd;
 
 									return (
 										<GridCardLink
@@ -168,29 +129,54 @@ export default function EventList(props) {
 														}
 													</TitleContainer>
 													<EventCardDetails>
-														{eventDate && (
+														{eventStart && (
 															<DateText>
-																{
-																	formattedEventDate
-																}
+																{Intl.DateTimeFormat(
+																	'en-us',
+																	{
+																		month: 'long',
+																		day: 'numeric',
+																		year: 'numeric',
+																	}
+																).format(
+																	new Date(
+																		eventStart
+																	)
+																)}
 															</DateText>
 														)}
 														<EventCardTime>
-															{eventStartTime &&
-															eventEndTime ? (
-																<>
-																	{eventStartTime.toFormat(
-																		'h:mma'
-																	)}{' '}
-																	-{' '}
-																	{eventEndTime.toFormat(
-																		'h:mma'
-																	)}{' '}
-																	{
-																		eventDate.offsetNameShort
-																	}
-																</>
-															) : null}
+															{Intl.DateTimeFormat(
+																'en-us',
+																{
+																	hour: 'numeric',
+																	minute: 'numeric',
+																	timeZone:
+																		'America/New_York',
+																	timeZoneName:
+																		'short',
+																}
+															).format(
+																new Date(
+																	eventStart
+																)
+															)}{' '}
+															-{' '}
+															{Intl.DateTimeFormat(
+																'en-us',
+																{
+																	hour: 'numeric',
+																	minute: 'numeric',
+																	timeZone:
+																		'America/New_York',
+																	timeZoneName:
+																		'short',
+																}
+															).format(
+																new Date(
+																	eventEnd
+																)
+															)}
 														</EventCardTime>
 													</EventCardDetails>
 												</EventCardHeader>

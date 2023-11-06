@@ -16,10 +16,8 @@ export const useFilteredEventSearch = () => {
 
 			if (searchParams.get('dateFrom')) {
 				andFilters.push({
-					EventDetails: {
-						date: {
-							$gte: searchParams.get('dateFrom'),
-						},
+					EventStart: {
+						$gte: searchParams.get('dateFrom'),
 					},
 				});
 			}
@@ -27,10 +25,8 @@ export const useFilteredEventSearch = () => {
 			if (searchParams.get('dateTo')) {
 				andFilters.push({
 					...nestedDateFilters,
-					EventDetails: {
-						date: {
-							$lte: searchParams.get('dateTo'),
-						},
+					EventStart: {
+						$lte: searchParams.get('dateTo'),
 					},
 				});
 			}

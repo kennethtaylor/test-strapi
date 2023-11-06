@@ -12,6 +12,7 @@ import CloseIcon from '../../public/images/icons/closeIconBlack.svg?url';
 import { gsap } from 'gsap/dist/gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Search from './Search';
+import { SearchResult } from './SearchResult';
 import useDebouncedState from './../hooks/useDebouncedState';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -46,7 +47,11 @@ const TopBar = styled.div`
 `;
 
 const AnnoucementBar = styled.div`
-	background: linear-gradient(45deg, rgba(1,4,60,1) 0%, rgba(32,58,113,1) 100%);
+	background: linear-gradient(
+		45deg,
+		rgba(1, 4, 60, 1) 0%,
+		rgba(32, 58, 113, 1) 100%
+	);
 	width: 100%;
 	padding: 0.5rem 2rem;
 	position: relative;
@@ -121,7 +126,9 @@ const NavContainerRight = styled.div`
 	width: 100%;
 
 	@media only screen and (max-width: 868px) {
-		& .mainLink {display: none;}
+		& .mainLink {
+			display: none;
+		}
 	}
 
 	@media only screen and (max-width: 600px) {
@@ -494,31 +501,6 @@ const SearchResultsContainer = styled.div`
 	}
 `;
 
-const SearchResult = styled.div`
-	background: var(--white);
-	border-bottom: 1px solid var(--cool-grey);
-	padding: 2.5rem 5rem;
-
-	.search-result-date {
-		color: var(--darkblue);
-		font-size: 1.125rem;
-		font-family: var(--sans-serif);
-		margin-bottom: 0.5rem;
-	}
-
-	.search-result-title {
-		font-size: 1.5rem;
-		font-family: var(--sans-serif);
-		font-weight: 600;
-		transition: 0.2s color ease-in-out;
-
-		&:hover,
-		&:focus {
-			color: var(--orange);
-		}
-	}
-`;
-
 export default function Header() {
 	const minSearchTermLength = 2;
 	const pathname = usePathname();
@@ -552,7 +534,7 @@ export default function Header() {
 	const mergedSearchResults = (obj) => {
 		// Create an empty array to store all the items
 		const mergedArray = [];
-		const resultTypeMap = {};
+		// const resultTypeMap = {};
 
 		// Loop through each property (array) in the object
 		for (const key in obj) {
@@ -578,12 +560,15 @@ export default function Header() {
 			(a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
 		);
 
-		return mergedArray;
+		// Simply hide items from search
+		return mergedArray.filter((result) => {
+			return !result.HideFromSearch;
+		});
 	};
 
 	useEffect(() => {
 		ScrollTrigger.create({
-			start: "0px 0px",
+			start: '0px 0px',
 			end: 99999,
 			toggleClass: { className: 'sticky', targets: '.sitebranding' },
 		});
@@ -599,90 +584,75 @@ export default function Header() {
 	return (
 		<StyledHeader className="sitebranding">
 			<AnnoucementBar>
-					<p>Optional Announcement Text</p>
+				<p>Optional Announcement Text</p>
 			</AnnoucementBar>
-				<TopBar>
-					<SearchContainer isSearchVisible={isSearchVisible}>
-						<Search
-							isLoading={searchIsLoading}
-							handleSearch={setSearchTerm}
-							isVisible={isSearchVisible}
-						/>
-						<IconAction
-							className="button-reset"
-							onClick={() => setIsSearchVisible(false)}
-							aria-label="close search"
+			<TopBar>
+				<SearchContainer isSearchVisible={isSearchVisible}>
+					<Search
+						isLoading={searchIsLoading}
+						handleSearch={setSearchTerm}
+						isVisible={isSearchVisible}
+					/>
+					<IconAction
+						className="button-reset"
+						onClick={() => setIsSearchVisible(false)}
+						aria-label="close search"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="30"
+							height="30"
+							viewBox="0 0 30 30"
+							fill="none"
 						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="30"
-								height="30"
-								viewBox="0 0 30 30"
-								fill="none"
-							>
-								<path
-									d="M15.5437 15L25.8697 4.662C25.9415 4.58954 25.9817 4.4917 25.9817 4.38975C25.9817 4.28779 25.9415 4.18996 25.8697 4.1175C25.7962 4.04741 25.6985 4.00838 25.597 4.00851C25.4954 4.00865 25.3978 4.04796 25.3245 4.11825L15 14.4555L4.67399 4.1175C4.60045 4.04787 4.50302 4.00907 4.40174 4.00907C4.30047 4.00907 4.20304 4.04787 4.12949 4.1175C4.05782 4.18983 4.0176 4.28754 4.0176 4.38937C4.0176 4.4912 4.05782 4.58892 4.12949 4.66125L14.4562 15L4.13024 25.338C4.09235 25.3732 4.06195 25.4157 4.04084 25.4629C4.01974 25.5101 4.00837 25.5611 4.00742 25.6128C4.00647 25.6645 4.01595 25.7159 4.0353 25.7638C4.05465 25.8118 4.08347 25.8554 4.12005 25.8919C4.15662 25.9285 4.20018 25.9573 4.24814 25.9767C4.29611 25.996 4.34748 26.0055 4.39919 26.0046C4.4509 26.0036 4.50188 25.9923 4.5491 25.9711C4.59632 25.95 4.63879 25.9196 4.67399 25.8817L15 15.5445L25.3252 25.8825C25.3609 25.9182 25.4033 25.9466 25.45 25.966C25.4967 25.9854 25.5467 25.9953 25.5972 25.9954C25.6478 25.9954 25.6978 25.9855 25.7445 25.9662C25.7912 25.9469 25.8336 25.9186 25.8694 25.8829C25.9051 25.8472 25.9335 25.8048 25.9529 25.7581C25.9722 25.7114 25.9822 25.6614 25.9822 25.6109C25.9823 25.5604 25.9724 25.5103 25.9531 25.4636C25.9338 25.4169 25.9054 25.3745 25.8697 25.3387L15.5437 15Z"
-									fill="#FBFBFB"
-								/>
-							</svg>
-						</IconAction>
-						{mergedSearchResults(searchResults).length && (
-							<SearchResultsContainer>
-								{mergedSearchResults(searchResults).map(
-									(result) => {
-										const publishedAt = new Date(
-											result.publishedAt
-										);
-
-										return (
-											<SearchResult
-												key={`${result.resultType}-${result.id}`}
-											>
-												<div className="search-result-date">
-													{Intl.DateTimeFormat(
-														'en-us',
-														{
-															month: 'long',
-															day: 'numeric',
-															year: 'numeric',
-														}
-													).format(publishedAt)}
-												</div>
-												<Link
-													href={`${window.location.origin}/${result.url}`}
-													className="search-result-title"
-												>
-													{result.Title}
-												</Link>
-											</SearchResult>
-										);
-									}
-								)}
-							</SearchResultsContainer>
-						)}
-					</SearchContainer>
-				</TopBar>
-				<LogoImage>
-					<Link href="/">
-						<Image
-							className="headerLogo"
-							src={Logo}
-							alt="22VI Logo"
-							width={68}
-							height={92}
+							<path
+								d="M15.5437 15L25.8697 4.662C25.9415 4.58954 25.9817 4.4917 25.9817 4.38975C25.9817 4.28779 25.9415 4.18996 25.8697 4.1175C25.7962 4.04741 25.6985 4.00838 25.597 4.00851C25.4954 4.00865 25.3978 4.04796 25.3245 4.11825L15 14.4555L4.67399 4.1175C4.60045 4.04787 4.50302 4.00907 4.40174 4.00907C4.30047 4.00907 4.20304 4.04787 4.12949 4.1175C4.05782 4.18983 4.0176 4.28754 4.0176 4.38937C4.0176 4.4912 4.05782 4.58892 4.12949 4.66125L14.4562 15L4.13024 25.338C4.09235 25.3732 4.06195 25.4157 4.04084 25.4629C4.01974 25.5101 4.00837 25.5611 4.00742 25.6128C4.00647 25.6645 4.01595 25.7159 4.0353 25.7638C4.05465 25.8118 4.08347 25.8554 4.12005 25.8919C4.15662 25.9285 4.20018 25.9573 4.24814 25.9767C4.29611 25.996 4.34748 26.0055 4.39919 26.0046C4.4509 26.0036 4.50188 25.9923 4.5491 25.9711C4.59632 25.95 4.63879 25.9196 4.67399 25.8817L15 15.5445L25.3252 25.8825C25.3609 25.9182 25.4033 25.9466 25.45 25.966C25.4967 25.9854 25.5467 25.9953 25.5972 25.9954C25.6478 25.9954 25.6978 25.9855 25.7445 25.9662C25.7912 25.9469 25.8336 25.9186 25.8694 25.8829C25.9051 25.8472 25.9335 25.8048 25.9529 25.7581C25.9722 25.7114 25.9822 25.6614 25.9822 25.6109C25.9823 25.5604 25.9724 25.5103 25.9531 25.4636C25.9338 25.4169 25.9054 25.3745 25.8697 25.3387L15.5437 15Z"
+								fill="#FBFBFB"
 							/>
-					</Link>
-				</LogoImage>
-				<HeaderContainer>
-					<NavContainerLeft>
-					</NavContainerLeft>
+						</svg>
+					</IconAction>
+					{mergedSearchResults(searchResults).length && (
+						<SearchResultsContainer>
+							{mergedSearchResults(searchResults).map(
+								(result) => {
+									return (
+										<SearchResult
+											result={result}
+											key={`${result.resultType}-${result.id}`}
+										/>
+									);
+								}
+							)}
+						</SearchResultsContainer>
+					)}
+				</SearchContainer>
+			</TopBar>
+			<LogoImage>
+				<Link href="/">
+					<Image
+						className="headerLogo"
+						src={Logo}
+						alt="22VI Logo"
+						width={68}
+						height={92}
+					/>
+				</Link>
+			</LogoImage>
+			<HeaderContainer>
+				<NavContainerLeft></NavContainerLeft>
 
-					<NavContainerRight>
-						<NavSection>
-							<Link href="/reports" className="mainLink">Reports</Link>
-							<Link href="/events" className="mainLink">Events</Link>
-							<Link href="/webinars" className="mainLink">Webinars</Link>
-							<Link className="linkwbtn" href="#">
+				<NavContainerRight>
+					<NavSection>
+						<Link href="/reports" className="mainLink">
+							Reports
+						</Link>
+						<Link href="/events" className="mainLink">
+							Events
+						</Link>
+						<Link href="/webinars" className="mainLink">
+							Webinars
+						</Link>
+						<Link className="linkwbtn" href="#">
 							Log In{' '}
 							<Image
 								src={AngledArrow}
@@ -690,7 +660,7 @@ export default function Header() {
 								width={15}
 								height={15}
 							/>
-							</Link>
+						</Link>
 						<Link href="#">
 							<div className="primaryBtn">
 								<span>
@@ -718,13 +688,13 @@ export default function Header() {
 								height={20}
 							/>
 						</IconAction>
-						</NavSection>
-						<Hamburger onClick={() => toggleNav()}>
-							<div className="barTop"></div>
-							<div className="barMiddle"></div>
-						</Hamburger>
-					</NavContainerRight>
-				</HeaderContainer>
+					</NavSection>
+					<Hamburger onClick={() => toggleNav()}>
+						<div className="barTop"></div>
+						<div className="barMiddle"></div>
+					</Hamburger>
+				</NavContainerRight>
+			</HeaderContainer>
 
 			<MobileMenu className={navIsOpen ? 'open' : ''}>
 				<div className="closeContainer" onClick={() => toggleNav()}>

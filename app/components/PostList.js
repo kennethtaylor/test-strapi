@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 export const TitleContainer = styled.h2`
 	font-family: var(--sans-serif);
+	font-size: var(--sub-heading);
 	line-height: 1.2;
 
 	& a {
