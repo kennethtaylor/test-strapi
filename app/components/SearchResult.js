@@ -12,32 +12,34 @@ export const SearchResult = ({ result }) => {
 			>
 				{result.Title}
 			</Link>
-			<div className="search-result-date">
-				<div>
-					Date:{' '}
-					{Intl.DateTimeFormat('en-us', {
-						month: 'long',
-						day: 'numeric',
-						year: 'numeric',
-					}).format(new Date(result.EventStart))}
+			{result.EventStart && result.EventEnd && (
+				<div className="search-result-date">
+					<div>
+						Date:{' '}
+						{Intl.DateTimeFormat('en-us', {
+							month: 'long',
+							day: 'numeric',
+							year: 'numeric',
+						}).format(new Date(result.EventStart))}
+					</div>
+					<div>
+						Time:{' '}
+						{Intl.DateTimeFormat('en-us', {
+							hour: 'numeric',
+							minute: 'numeric',
+							timeZone: 'America/New_York',
+							timeZoneName: 'short',
+						}).format(new Date(result.EventStart))}{' '}
+						-{' '}
+						{Intl.DateTimeFormat('en-us', {
+							hour: 'numeric',
+							minute: 'numeric',
+							timeZone: 'America/New_York',
+							timeZoneName: 'short',
+						}).format(new Date(result.EventEnd))}
+					</div>
 				</div>
-				<div>
-					Time:{' '}
-					{Intl.DateTimeFormat('en-us', {
-						hour: 'numeric',
-						minute: 'numeric',
-						timeZone: 'America/New_York',
-						timeZoneName: 'short',
-					}).format(new Date(result.EventStart))}{' '}
-					-{' '}
-					{Intl.DateTimeFormat('en-us', {
-						hour: 'numeric',
-						minute: 'numeric',
-						timeZone: 'America/New_York',
-						timeZoneName: 'short',
-					}).format(new Date(result.EventEnd))}
-				</div>
-			</div>
+			)}
 		</StyledSearchResult>
 	) : (
 		<StyledSearchResult>

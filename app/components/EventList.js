@@ -106,9 +106,8 @@ export default function EventList(props) {
 						<PostGridSection>
 							<PostGridInnerContainer>
 								{items?.data?.map((event, index) => {
-									const eventStart = new Date(
-										event?.attributes?.EventStart
-									);
+									const eventStart =
+										event?.attributes?.EventStart;
 									const eventEnd =
 										event?.attributes?.EventEnd;
 
@@ -145,39 +144,42 @@ export default function EventList(props) {
 																)}
 															</DateText>
 														)}
-														<EventCardTime>
-															{Intl.DateTimeFormat(
-																'en-us',
-																{
-																	hour: 'numeric',
-																	minute: 'numeric',
-																	timeZone:
-																		'America/New_York',
-																	timeZoneName:
-																		'short',
-																}
-															).format(
-																new Date(
-																	eventStart
-																)
-															)}{' '}
-															-{' '}
-															{Intl.DateTimeFormat(
-																'en-us',
-																{
-																	hour: 'numeric',
-																	minute: 'numeric',
-																	timeZone:
-																		'America/New_York',
-																	timeZoneName:
-																		'short',
-																}
-															).format(
-																new Date(
-																	eventEnd
-																)
+														{eventStart &&
+															eventEnd && (
+																<EventCardTime>
+																	{Intl.DateTimeFormat(
+																		'en-us',
+																		{
+																			hour: 'numeric',
+																			minute: 'numeric',
+																			timeZone:
+																				'America/New_York',
+																			timeZoneName:
+																				'short',
+																		}
+																	).format(
+																		new Date(
+																			eventStart
+																		)
+																	)}{' '}
+																	-{' '}
+																	{Intl.DateTimeFormat(
+																		'en-us',
+																		{
+																			hour: 'numeric',
+																			minute: 'numeric',
+																			timeZone:
+																				'America/New_York',
+																			timeZoneName:
+																				'short',
+																		}
+																	).format(
+																		new Date(
+																			eventEnd
+																		)
+																	)}
+																</EventCardTime>
 															)}
-														</EventCardTime>
 													</EventCardDetails>
 												</EventCardHeader>
 												<LearnMoreContainer>
