@@ -159,7 +159,7 @@ const ArchiveHeroContent = styled.div`
 const ArchiveContentContainerSingle = styled.div`
 	color: var(--white);
 	padding: 0 0 4rem 0;
-
+	width: 100%;
 	& h1 {
 		font-family: var(--sans-serif);
 		line-height: 1.2;
@@ -337,14 +337,14 @@ export default function Hero(props) {
 							>
 								{reportTitle}
 							</Title>
-							<p style={{ textAlign: "center" }}>
+							{/* <p style={{ textAlign: "center" }}>
 								Published on{" "}
 								{`${date.toLocaleString("default", {
 									month: "long",
 									day: "numeric",
 									year: "numeric",
 								})}`}
-							</p>
+							</p>*/}
 						</ArchiveContentContainerSingle>
 					</ArchiveHeroContent>
 				</Section>

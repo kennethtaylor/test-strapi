@@ -2,7 +2,9 @@
 import sectionRenderer from '../../utils/sectionRenderer';
 import getEventBySlug from '../../../lib/getEventBySlug';
 import Hero from '@/app/components/Hero';
+import Image from 'next/image';
 import getPageSections from '@/lib/getPageSections';
+import AngledArrow from '../../../public/images/icons/angledArrow.svg?url';
 import styled from 'styled-components';
 import { remark } from 'remark';
 import html from 'remark-html';
@@ -58,6 +60,7 @@ export default async function Page({ params }) {
 						<form>
 							{/* name field group */}
 							<FieldGroup>
+								<Label htmlFor="First">First Name<span>*</span></Label>
 								<StyledInput
 									aria-label="first name input"
 									name="firstname"
@@ -68,6 +71,7 @@ export default async function Page({ params }) {
 							</FieldGroup>
 							{/* last name field group */}
 							<FieldGroup>
+								<Label htmlFor="lastname">Last Name<span>*</span></Label>
 								<StyledInput
 									aria-label="last name input"
 									name="lastname"
@@ -78,18 +82,29 @@ export default async function Page({ params }) {
 							</FieldGroup>
 							{/* email field group */}
 							<FieldGroup>
+								<Label htmlFor="email">Email<span>*</span></Label>
 								<StyledInput
 									aria-label="email input"
 									name="email"
 									type="email"
-									placeholder="email"
+									placeholder="Enter Email*"
 									required
 								/>
 							</FieldGroup>
 							{/* register button */}
 							<FieldGroup>
 								<StyledButton type="submit">
+									<span>
 									Register
+									<Image
+										src={AngledArrow}
+										alt="angled arrow"
+										width={15}
+										height={15}
+									/>
+									</span>
+									<div className="border"></div>
+									<div className="background"></div>
 								</StyledButton>
 							</FieldGroup>
 						</form>
@@ -102,13 +117,173 @@ export default async function Page({ params }) {
 
 const InnerContainer = styled.div`
 	padding: 0 0 3rem 0;
+	background: var(--white);
+	width: 100%;
+	padding: 6rem;
+	display: flex;
+	gap: 4rem;
+	align-items: flex-start;
+	justify-content: space-between;
 `;
-const ContentContainer = styled.div``;
+const ContentContainer = styled.div`
+	width: calc(65% - 2rem);
+`;
 const MetaDetails = styled.div``;
 const Divider = styled.div``;
 const MainDetails = styled.div``;
-const SidebarContainer = styled.div``;
-const Sidebar = styled.div``;
-const FieldGroup = styled.div``;
-const StyledInput = styled.input``;
-const StyledButton = styled.button``;
+
+const SidebarContainer = styled.div`
+width: calc(35% - 2rem);
+position: relative;
+`;
+
+const Sidebar = styled.div`
+	width: 100%;
+	background: rgb(1,4,60);
+	background: linear-gradient(45deg, rgba(1,4,60,1) 0%, rgba(32,58,113,1) 100%);
+	background: -moz-linear-gradient(45deg, rgba(1,4,60,1) 0%, rgba(32,58,113,1) 100%);
+	background: -webkit-linear-gradient(45deg, rgba(1,4,60,1) 0%, rgba(32,58,113,1) 100%);
+	border-radius: 1rem;
+	padding: 2rem;
+
+	sub ,
+	h3 {
+		color: var(--white);
+		font-weight: 400;
+		font-family: var(--sans-serif);
+	}
+	h3 {
+		font-size: var(--reportsheading);
+	}
+
+	sub {
+		font-size: var(--body);
+		font-style: italic;
+		padding: 0 0 1rem 0;
+		width: 100%;
+		margin: 0 auto;
+		display: block;
+	}
+	sub span {
+		color: var(--orange);
+	}
+`;
+
+const FieldGroup = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	width: 100%;
+	padding: 0 0 1rem 0;
+`;
+
+const StyledInput = styled.input`
+	border-radius: 2rem;
+	width: 100%;
+	background: var(--white);
+	color: var(--darkblue);
+	appearance: none;
+	webkit-appearance: none;
+	moz-appearance: none;
+	o-appearance: none;
+	padding: 0.8rem 1rem;
+	border-style: none;
+`;
+
+const Label = styled.label`
+	color: var(--white);
+	font-weight: 400;
+	font-family: var(--sans-serif);
+	font-size: var(--nav);
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	padding: 0 0 0.5rem 0;
+
+	span {
+		color: var(--orange);
+	}
+`;
+const StyledButton = styled.button`
+	margin: 1rem 0 0 0;
+	position: relative;
+	color: var(--white);
+	padding: 0.5rem 1.5rem;
+	background: transparent !important;
+	transition: 0.3s ease all;
+	appearance: none;
+	cursor: pointer;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-o-appearance: none;
+	border-style: none;
+
+	&::before {
+		background: linear-gradient(
+				163deg,
+				rgba(255, 185, 1, 1) 0%,
+				rgba(255, 127, 0, 1) 45%,
+				rgba(254, 99, 18, 1) 89%,
+				rgba(253, 98, 32, 1) 100%
+			)
+			border-box;
+	}
+
+	&:hover .background {
+		box-shadow: 0rem 0.5rem 1rem rgba(255, 255, 255, 0.3);
+	}
+
+	.background,
+	.border {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		border-radius: 9.2rem;
+	}
+
+	.background {
+		background: var(--orange-gradient-linear) border-box;
+		opacity: 1;
+		transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+	}
+
+	.border {
+		border: 1px solid transparent;
+		background: linear-gradient(
+				163deg,
+				rgba(255, 185, 1, 1) 0%,
+				rgba(255, 127, 0, 1) 45%,
+				rgba(254, 99, 18, 1) 89%,
+				rgba(253, 98, 32, 1) 100%
+			)
+			border-box;
+		background: linear-gradient(
+				163deg,
+				rgba(255, 185, 1, 1) 0%,
+				rgba(255, 127, 0, 1) 45%,
+				rgba(254, 99, 18, 1) 89%,
+				rgba(253, 98, 32, 1) 100%
+			)
+			border-box;
+		-webkit-mask: linear-gradient(#fff 0 0) padding-box,
+			linear-gradient(#fff 0 0);
+		-webkit-mask-composite: destination-out;
+		mask-composite: exclude;
+	}
+
+	span {
+		color: #fff;
+		font-family: var(--sans-serif);
+		font-weight: 500;
+		font-size: var(--nav);
+		text-transform: uppercase;
+		display: flex;
+		align-items: center;
+		letter-spacing: 0.1rem;
+		gap: 0.5rem;
+		position: relative;
+		z-index: 1;
+	}
+`;
