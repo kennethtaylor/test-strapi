@@ -333,6 +333,33 @@ const MobileMenuContainer = styled.div`
 	height: 100%;
 `;
 
+const LogInMenu = styled.ul`
+	display: flex;
+	gap: 0.8rem;
+	flex-direction: column;
+	list-style: none;
+	justify-content: flex-start;
+	margin-block-start: 0em;
+    margin-block-end: 2rem;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+
+	.linkwbtn {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		letter-spacing: 0.1rem;
+		font-size: var(--nav);
+		text-transform: uppercase;
+		color: var(--white);
+	}
+
+	.linkwbtn img {
+		filter: invert(0);
+	}
+`;
+
 const TopMenu = styled.div`
 	padding: 4rem 2rem 0 2rem;
 
@@ -350,26 +377,15 @@ const TopMenu = styled.div`
 	.largeMenu li {
 		font-size: var(--sub-heading);
 		font-weight: 500;
-		letter-spacing: 0.15rem;
 		line-height: 2;
 	}
 	.largeMenu li,
 	.smallMenu li {
 		font-family: var(--sans-serif);
-		text-transform: uppercase;
 	}
 	.smallMenu li {
-		letter-spacing: 0.1rem;
-		font-size: var(--nav);
+		font-size: var(--body-large);
 		line-height: 2.5;
-	}
-	.smallMenu .linkwbtn {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-	.smallMenu .linkwbtn img {
-		filter: invert(1);
 	}
 `;
 
@@ -710,11 +726,13 @@ export default function Header() {
 								<Link href="/reports">Reports</Link>
 							</li>
 							<li>
-								<Link href="/events">Events</Link>
-							</li>
-							<li>
 								<Link href="/webinars">Webinars</Link>
 							</li>
+							<li>
+								<Link href="/events">Events</Link>
+							</li>
+						</ul>
+						<ul className="smallMenu">
 							<li>
 								<Link href="/company">About</Link>
 							</li>
@@ -722,34 +740,34 @@ export default function Header() {
 								<Link href="/contact">Contact Us</Link>
 							</li>
 						</ul>
-						<ul className="smallMenu">
-							<li>
-								<Link className="linkwbtn" href="#">
-									Log In{' '}
-									<Image
-										src={AngledArrow}
-										alt="angled arrow"
-										width={15}
-										height={15}
-									/>
-								</Link>
-							</li>
-							<li>
-								<Link className="linkwbtn" href="#">
-									Sign Up{' '}
-									<Image
-										src={AngledArrow}
-										alt="angled arrow"
-										width={15}
-										height={15}
-									/>
-								</Link>
-							</li>
-						</ul>
 					</TopMenu>
 
 					<BottomMenu>
 						<div className="column">
+						<LogInMenu>
+						<li>
+							<Link className="linkwbtn" href="#">
+								Sign Up{' '}
+								<Image
+									src={AngledArrow}
+									alt="angled arrow"
+									width={15}
+									height={15}
+								/>
+							</Link>
+						</li>
+						<li>
+							<Link className="linkwbtn" href="#">
+								Log In{' '}
+								<Image
+									src={AngledArrow}
+									alt="angled arrow"
+									width={15}
+									height={15}
+								/>
+							</Link>
+						</li>
+					</LogInMenu>
 							<address>
 								1234 Main Street
 								<br />
