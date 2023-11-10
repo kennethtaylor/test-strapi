@@ -22,6 +22,10 @@ import {
 } from './PostList';
 import useDebouncedState from './../hooks/useDebouncedState';
 import { useFilteredSearch } from '../hooks/useFilteredSearch';
+import { useEffect } from "react";
+import { gsap } from "gsap/dist/gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 const ReportListSection = styled.section`
 	width: 100%;
@@ -69,6 +73,27 @@ const ReportGridCardFooter = styled.div`
 export default function ReportList(props) {
 	const [searchTerm, setSearchTerm] = useDebouncedState('', 500);
 	const { isLoading, items } = useFilteredSearch('reports', searchTerm);
+
+	useEffect(() => {
+		var listfades = gsap.utils.toArray(".listfade");
+
+		listfades.forEach((section) => {
+			gsap.fromTo(
+				section,
+				{ autoAlpha: 0, y: 50 },
+				{ autoAlpha: 1,
+				  y: 0,
+				  duration: 1,
+					scrollTrigger: {
+						trigger: section,
+						start: "top bottom",
+						markers: false,
+						toggleActions: "play none none reset",
+					},
+				}
+			);
+		});
+	}, []);
 
 	switch (props.Type) {
 		case 'grid':
@@ -187,7 +212,7 @@ export default function ReportList(props) {
 							}
 						);
 						return (
-							<PostCard key={`rcard-${index}`}>
+							<PostCard key={`rcard-${index}`} className="listfade">
 								<MetaContainerList>
 									<DateList>{formattedPublishedAt}</DateList>
 								</MetaContainerList>

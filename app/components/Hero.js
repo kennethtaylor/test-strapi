@@ -36,7 +36,7 @@ const HeroContent = styled.div`
 
 const ScrollContent = styled.div`
 	position: absolute;
-	bottom: 0rem;
+	bottom: -1rem;
 	left: 0rem;
 	right: 0rem;
 	z-index: 2;

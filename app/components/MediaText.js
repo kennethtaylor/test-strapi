@@ -5,6 +5,7 @@ import Title from "./Title";
 import BodyCopy from "./BodyCopy";
 import Image from "next/image";
 import Link from "next/link";
+import AngledArrow from "../../public/images/icons/angledArrow.svg?url";
 import AngledArrowBlue from "../../public/images/icons/angledArrowBlue.svg?url";
 
 const MediaTextSection = styled.section`
@@ -96,10 +97,10 @@ export default function MediaText(props) {
 						{props.Title}
 					</Title>
 					<BodyContainer>{props.Content}</BodyContainer>
-					<Link className="primaryBtnBlue" href={props.MainCTAurl}>
+					<Link className="primaryBtnOrange" href={props.MainCTAurl}>
 						<span>{props.MainCTAText}</span>
 						<Image
-							src={AngledArrowBlue}
+							src={AngledArrow}
 							alt="angled arrow"
 							width={15}
 							height={15}

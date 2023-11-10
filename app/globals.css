@@ -93,6 +93,29 @@ a {
   filter: invert(0.4) sepia(1) saturate(20) hue-rotate(360deg) brightness(1.04);
 }
 
+.primaryBtnOrange{
+  display: flex;
+  width: fit-content;
+  width: -webkit-fit-content;
+  gap: 0.5rem;
+  align-items: center;
+  border-radius: 1.5rem;
+  padding: 0.7rem 2rem;
+  letter-spacing: 0.1rem;
+  transition: 0.3s ease all;
+  color: var(--white);
+  background: linear-gradient(163deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%);
+  background: -moz-linear-gradient(163deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%);
+  background: -webkit-linear-gradient(163deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%);
+}
+
+a.primaryBtnOrange span {
+  font-family: var(--sans-serif);
+  font-weight: 600;
+  font-size: var(--nav);
+  text-transform: uppercase;
+}
+
 a.primaryBtnWhite,
 a.primaryBtnBlue {
   display: flex;
