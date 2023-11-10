@@ -199,11 +199,11 @@ const NavSection = styled.nav`
 	& .primaryBtn .background {
 		background: var(--orange-gradient-linear) border-box;
 		opacity: 1;
-		transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+		transition: 0.3s ease all;
 	}
 
 	& .primaryBtn:hover .background {
-		opacity: 0.8;
+		box-shadow: 0rem 0.5rem 1rem rgba(255, 255, 255, 0.3);
 	}
 
 	& .primaryBtn .border {
@@ -645,9 +645,6 @@ export default function Header() {
 					<NavSection>
 						<Link href="/reports" className="mainLink">
 							Reports
-						</Link>
-						<Link href="/events" className="mainLink">
-							Events
 						</Link>
 						<Link href="/webinars" className="mainLink">
 							Webinars

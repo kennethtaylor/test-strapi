@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const CircleFeatureSection = styled.section`
     width: 100%;
-    height: 75vh;
+    height: 80vh;
     background-image: url(${(props) => `${props.bgimage}`});
     background-size: cover !important;
 	-webkit-background-size: cover !important;
@@ -15,7 +15,7 @@ const CircleFeatureSection = styled.section`
     display: block;
     position: relative;
     overflow: hidden;
-    margin: 6rem 0;
+    margin: 6rem 0 0rem 0;
 `;
 const Circle = styled.div`
     position: absolute;

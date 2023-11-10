@@ -1,8 +1,9 @@
 "use client";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Title from "./Title";
-import { useEffect, useState } from "react";
+import AngledArrow from '../../public/images/icons/angledArrow.svg?url';
 
 const FormContainer = styled.section`
     width: 100%;
@@ -83,9 +84,10 @@ const StyledLabel = styled.label`
     display: block;
     text-align: left;
 	font-weight: 400;
+	letter-spacing: 0.1rem;
     text-transform: uppercase;
 	padding: 0 0 0.5rem 0;
-	font-size: var(--body);
+	font-size: var(--nav);
 
 	& span {
 		color: var(--orange);
@@ -115,22 +117,85 @@ const StyledTextArea = styled.textarea`
 	color: var(--white);
 `;
 
-const SubmitButton = styled.input`
-	width: fit-content;
-	width: -webkit-fit-content;
+const SubmitButton = styled.button`
+	margin: 1rem 0 0 0;
+	position: relative;
 	color: var(--white);
-	font-family: var(--sans-serif);
-	padding: 1rem 3rem;
-	text-transform: uppercase;
-	font-size: var(--body);
-	background: var(--orange-gradient);
-	background: var(--orange-gradient-linear);
-	background: var(--orange-gradient-moz);
-	background: var(--orange-gradient-webkit);
+	padding: 0.7rem 2rem;
+	background: transparent !important;
+	transition: 0.3s ease all;
 	appearance: none;
+	cursor: pointer;
 	-webkit-appearance: none;
-	border-radius: 2rem;
-	border: none;
+	-moz-appearance: none;
+	-o-appearance: none;
+	border-style: none;
+
+	&::before {
+		background: linear-gradient(
+				163deg,
+				rgba(255, 185, 1, 1) 0%,
+				rgba(255, 127, 0, 1) 45%,
+				rgba(254, 99, 18, 1) 89%,
+				rgba(253, 98, 32, 1) 100%
+			)
+			border-box;
+	}
+
+	&:hover .background {
+		box-shadow: 0rem 0.5rem 1rem rgba(255, 255, 255, 0.3);
+	}
+
+	.background,
+	.border {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		border-radius: 9.2rem;
+	}
+
+	.background {
+		background: var(--orange-gradient-linear) border-box;
+		opacity: 1;
+		transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+	}
+
+	.border {
+		border: 1px solid transparent;
+		background: linear-gradient(
+			163deg,
+			rgba(255, 185, 1, 1) 0%,
+			rgba(255, 127, 0, 1) 45%,
+			rgba(254, 99, 18, 1) 89%,
+			rgba(253, 98, 32, 1) 100%
+		) border-box;
+		background: linear-gradient(
+			163deg,
+			rgba(255, 185, 1, 1) 0%,
+			rgba(255, 127, 0, 1) 45%,
+			rgba(254, 99, 18, 1) 89%,
+			rgba(253, 98, 32, 1) 100%
+		) border-box;
+		-webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+		-webkit-mask-composite: destination-out; 
+		mask-composite: exclude;
+	}
+
+	span {
+		color: #fff;
+		font-family: var(--sans-serif);
+		font-weight: 500;
+		font-size: var(--body);
+		text-transform: uppercase;
+		display: flex;
+		align-items: center;
+		letter-spacing: 0.1rem;
+		gap: 0.5rem;
+		position: relative;
+		z-index: 1;
+	}
 `;
 
 export default function Form(props) {
@@ -238,7 +303,19 @@ export default function Form(props) {
 							onChange={handleChange}
 							placeholder="Enter Message Here"></StyledTextArea>
 					</FieldGroup>
-                    <SubmitButton type="submit" name="submit" value="Submit" />
+
+                    <SubmitButton type="submit" name="submit" value="submit">
+						<span>Submit
+							<Image
+								src={AngledArrow}
+								alt="angled arrow"
+								width={15}
+								height={15}
+							/>
+						</span>
+						<div className="border"></div>
+						<div className="background"></div>
+					</SubmitButton>
                 </FormInner>
             )}
         </FormContainer>

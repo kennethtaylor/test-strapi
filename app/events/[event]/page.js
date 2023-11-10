@@ -36,10 +36,15 @@ export default async function Page({ params }) {
 				<ContentContainer>
 					<MetaDetails>
 						<h3>Event Details</h3>
-						<p>Date: {EventDetails.date}</p>
-						<p>Time: {EventDetails.time}</p>
-						<p>Location: {EventDetails.location}</p>
-						<p>{Blurb}</p>
+						<div className="MetaContainer">
+							<p><span className="uppercase"><strong>Date:</strong></span> {EventDetails.date}</p>
+							<p><span className="uppercase"><strong>Time:</strong></span> {EventDetails.time}</p>
+							<p><span className="uppercase"><strong>Location:</strong></span> {EventDetails.location}</p>
+						</div>
+
+						<div className="blurbContainer">
+							<p>{Blurb}</p>
+						</div>
 					</MetaDetails>
 					<Divider />
 					{/* Convert to html string */}
@@ -121,19 +126,70 @@ const InnerContainer = styled.div`
 	width: 100%;
 	padding: 6rem;
 	display: flex;
-	gap: 4rem;
+	gap: 6rem;
 	align-items: flex-start;
 	justify-content: space-between;
 `;
+
 const ContentContainer = styled.div`
-	width: calc(65% - 2rem);
+	width: calc(60% - 3rem);
 `;
-const MetaDetails = styled.div``;
-const Divider = styled.div``;
-const MainDetails = styled.div``;
+
+const MetaDetails = styled.div`
+	padding: 0;
+
+	h3 {
+		font-family: var(--sans-serif);
+		font-weight: 600;
+		font-size: var(--reportsheading);
+		color: var(--darkblue);
+	}
+
+	.MetaContainer {
+		padding: 1rem 0 0 0;
+	}
+
+	.MetaContainer p {
+		font-weight: 400;
+		font-family: var(--sans-serif);
+		font-size: var(--body);
+		line-height: 1.5;
+		color: var(--darkblue);
+	}
+	.MetaContainer p strong {font-weight: 700 !important;}
+
+	.MetaContainer p .uppercase {text-transform: uppercase; letter-spacing: 0.08rem;}
+
+	.blurbContainer {
+		padding: 2rem 0 0 0;
+	}
+
+	.blurbContainer p {
+		color: var(--darkblue);
+		font-weight: 400;
+		font-family: var(--sans-serif);
+		font-size: var(--body);
+		line-height: 1.5;
+	}
+`;
+const Divider = styled.div`
+	width: 100%;
+	height: 1px;
+	background: var(--cool-grey);
+	margin: 3rem 0 3rem 0;
+`;
+const MainDetails = styled.div`
+p { 
+	font-weight: 400;
+	font-family: var(--sans-serif);
+	font-size: var(--body);
+	line-height: 1.5;
+	margin-bottom: 1.5rem;
+}
+`;
 
 const SidebarContainer = styled.div`
-width: calc(35% - 2rem);
+width: calc(40% - 3rem);
 position: relative;
 `;
 
@@ -159,7 +215,7 @@ const Sidebar = styled.div`
 	sub {
 		font-size: var(--body);
 		font-style: italic;
-		padding: 0 0 1rem 0;
+		padding: 0 0 2rem 0;
 		width: 100%;
 		margin: 0 auto;
 		display: block;
@@ -182,13 +238,41 @@ const StyledInput = styled.input`
 	border-radius: 2rem;
 	width: 100%;
 	background: var(--white);
+	font-family: var(--sans-serif);
+	font-weight: 400;
 	color: var(--darkblue);
 	appearance: none;
+	font-size: var(--body);
 	webkit-appearance: none;
 	moz-appearance: none;
 	o-appearance: none;
 	padding: 0.8rem 1rem;
 	border-style: none;
+
+	&::-webkit-input-placeholder {
+		color: var(--darkblue);
+		font-family: var(--sans-serif);
+		font-weight: 400;
+		font-size: var(--body);
+  	}
+  	&::-moz-placeholder {
+		color: var(--darkblue);
+		font-family: var(--sans-serif);
+		font-weight: 400;
+		font-size: var(--body);
+  	}
+  	&:-ms-input-placeholder {
+		color: var(--darkblue);
+		font-family: var(--sans-serif);
+		font-weight: 400;
+		font-size: var(--body);
+  	}
+  	&:-moz-placeholder { 
+		color: var(--darkblue);
+		font-family: var(--sans-serif);
+		font-weight: 400;
+		font-size: var(--body);
+  	}
 `;
 
 const Label = styled.label`
@@ -208,7 +292,7 @@ const StyledButton = styled.button`
 	margin: 1rem 0 0 0;
 	position: relative;
 	color: var(--white);
-	padding: 0.5rem 1.5rem;
+	padding: 0.7rem 2rem;
 	background: transparent !important;
 	transition: 0.3s ease all;
 	appearance: none;
@@ -252,24 +336,21 @@ const StyledButton = styled.button`
 	.border {
 		border: 1px solid transparent;
 		background: linear-gradient(
-				163deg,
-				rgba(255, 185, 1, 1) 0%,
-				rgba(255, 127, 0, 1) 45%,
-				rgba(254, 99, 18, 1) 89%,
-				rgba(253, 98, 32, 1) 100%
-			)
-			border-box;
+			163deg,
+			rgba(255, 185, 1, 1) 0%,
+			rgba(255, 127, 0, 1) 45%,
+			rgba(254, 99, 18, 1) 89%,
+			rgba(253, 98, 32, 1) 100%
+		) border-box;
 		background: linear-gradient(
-				163deg,
-				rgba(255, 185, 1, 1) 0%,
-				rgba(255, 127, 0, 1) 45%,
-				rgba(254, 99, 18, 1) 89%,
-				rgba(253, 98, 32, 1) 100%
-			)
-			border-box;
-		-webkit-mask: linear-gradient(#fff 0 0) padding-box,
-			linear-gradient(#fff 0 0);
-		-webkit-mask-composite: destination-out;
+			163deg,
+			rgba(255, 185, 1, 1) 0%,
+			rgba(255, 127, 0, 1) 45%,
+			rgba(254, 99, 18, 1) 89%,
+			rgba(253, 98, 32, 1) 100%
+		) border-box;
+		-webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+		-webkit-mask-composite: destination-out; 
 		mask-composite: exclude;
 	}
 
@@ -277,7 +358,7 @@ const StyledButton = styled.button`
 		color: #fff;
 		font-family: var(--sans-serif);
 		font-weight: 500;
-		font-size: var(--nav);
+		font-size: var(--body);
 		text-transform: uppercase;
 		display: flex;
 		align-items: center;

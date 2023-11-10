@@ -183,23 +183,23 @@ export default function Footer() {
 					<p className="columnlabel">Twenty Two VI</p>
 					<ul className="footerLinks">
 						<li>
-							<Link href="/reports">Reports</Link>
+							<Link to="/reports" onClick={() => {window.location.href="/reports"}} href="/reports">Reports</Link>
 						</li>
 						<li>
-							<Link href="/events">Events</Link>
+							<Link to="/webinars" onClick={() => {window.location.href="/webinars"}} href="/webinars">Webinars</Link>
 						</li>
 						<li>
-							<Link href="/webinars">Webinars</Link>
+							<Link to="/events" onClick={() => {window.location.href="/events"}} href="/events">Events</Link>
 						</li>
 						<li>
-							<Link href="/company">About</Link>
+							<Link  to="/company" onClick={() => {window.location.href="/company"}} href="/company">About</Link>
 						</li>
 					</ul>
 					<div className="mobileContent">
 						<p className="columnlabel">Connect</p>
 						<ul className="contactLinks">
 							<li>
-								<Link href="/contact">Contact Us</Link>
+								<Link to="/contact" onClick={() => {window.location.href="/contact"}} href="/contact">Contact Us</Link>
 							</li>
 						</ul>
 						<address>
@@ -229,18 +229,18 @@ export default function Footer() {
 						<p className="columnlabel">Legal</p>
 						<ul className="policyMenu">
 							<li>
-								<Link href="/terms">Terms of Use</Link>
+								<Link to="/terms" onClick={() => {window.location.href="/terms"}} href="/terms">Terms of Use</Link>
 							</li>
 							<li>
-								<Link href="/privacy-policy">
+								<Link to="/privacy-policy" onClick={() => {window.location.href="/privacy-policy"}} href="/privacy-policy">
 									Privacy Policy
 								</Link>
 							</li>
 							<li>
-								<Link href="/ada-statement">Accessibility</Link>
+								<Link to="/ada-statement" onClick={() => {window.location.href="/ada-statement"}} href="/ada-statement">Accessibility</Link>
 							</li>
 							<li>
-								<Link href="/disclosures">Disclosures</Link>
+								<Link to="/disclosures" onClick={() => {window.location.href="/disclosures"}} href="/disclosures">Disclosures</Link>
 							</li>
 							<li className="copyright">
 								Twenty Two VI ©{currentYear}. All Rights
@@ -254,7 +254,7 @@ export default function Footer() {
 					<p className="columnlabel">Connect</p>
 					<ul className="contactLinks">
 						<li>
-							<Link href="/contact">Contact Us</Link>
+							<Link to="/contact" onClick={() => {window.location.href="/contact"}} href="/contact">Contact Us</Link>
 						</li>
 					</ul>
 					<address>
@@ -286,16 +286,16 @@ export default function Footer() {
 					<p className="columnlabel">Legal</p>
 					<ul className="policyMenu">
 						<li>
-							<Link href="/terms">Terms of Use</Link>
+							<Link to="/terms" onClick={() => {window.location.href="/terms"}} href="/terms">Terms of Use</Link>
 						</li>
 						<li>
-							<Link href="/privacy-policy">Privacy Policy</Link>
+							<Link to="/privacy-policy" onClick={() => {window.location.href="/privacy-policy"}} href="/privacy-policy">Privacy Policy</Link>
 						</li>
 						<li>
-							<Link href="/ada-statement">Accessibility</Link>
+							<Link to="/ada-statement" onClick={() => {window.location.href="/ada-statement"}} href="/ada-statement">Accessibility</Link>
 						</li>
 						<li>
-							<Link href="/disclosures">Disclosures</Link>
+							<Link to="/disclosures" onClick={() => {window.location.href="/disclosures"}} href="/disclosures">Disclosures</Link>
 						</li>
 						<li className="copyright">
 							Twenty Two VI ©{currentYear}. All Rights Reserved.
