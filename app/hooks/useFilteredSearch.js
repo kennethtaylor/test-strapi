@@ -81,7 +81,11 @@ export const useFilteredEventSearch = () => {
 	};
 };
 
-export const useFilteredSearch = (itemTypeUrlSegment, searchTerm) => {
+export const useFilteredSearch = (
+	itemTypeUrlSegment,
+	searchTerm,
+	hasCategories = false
+) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [items, setItems] = useState([]);
 	const searchParams = useSearchParams();
@@ -111,7 +115,7 @@ export const useFilteredSearch = (itemTypeUrlSegment, searchTerm) => {
 			}
 		}
 
-		if (searchParams.get('category')) {
+		if (hasCategories && searchParams.get('category')) {
 			andFilters.push({
 				categories: {
 					Name: {

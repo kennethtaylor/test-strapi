@@ -340,10 +340,10 @@ const LogInMenu = styled.ul`
 	list-style: none;
 	justify-content: flex-start;
 	margin-block-start: 0em;
-    margin-block-end: 2rem;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 0px;
+	margin-block-end: 2rem;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	padding-inline-start: 0px;
 
 	.linkwbtn {
 		display: flex;
@@ -469,8 +469,8 @@ const SearchContainer = styled.div`
 	background: var(--darkblue);
 	z-index: 99;
 
-	opacity: ${(props) => (props.isSearchVisible ? 1 : 0)};
-	pointer-events: ${(props) => (props.isSearchVisible ? 'auto' : 'none')};
+	opacity: ${(props) => (props.$isSearchVisible ? 1 : 0)};
+	pointer-events: ${(props) => (props.$isSearchVisible ? 'auto' : 'none')};
 	transition: 0.2s opacity ease-out;
 
 	${IconAction} {
@@ -603,7 +603,7 @@ export default function Header() {
 				<p>Optional Announcement Text</p>
 			</AnnoucementBar>
 			<TopBar>
-				<SearchContainer isSearchVisible={isSearchVisible}>
+				<SearchContainer $isSearchVisible={isSearchVisible}>
 					<Search
 						isLoading={searchIsLoading}
 						handleSearch={setSearchTerm}
@@ -744,30 +744,30 @@ export default function Header() {
 
 					<BottomMenu>
 						<div className="column">
-						<LogInMenu>
-						<li>
-							<Link className="linkwbtn" href="#">
-								Sign Up{' '}
-								<Image
-									src={AngledArrow}
-									alt="angled arrow"
-									width={15}
-									height={15}
-								/>
-							</Link>
-						</li>
-						<li>
-							<Link className="linkwbtn" href="#">
-								Log In{' '}
-								<Image
-									src={AngledArrow}
-									alt="angled arrow"
-									width={15}
-									height={15}
-								/>
-							</Link>
-						</li>
-					</LogInMenu>
+							<LogInMenu>
+								<li>
+									<Link className="linkwbtn" href="#">
+										Sign Up{' '}
+										<Image
+											src={AngledArrow}
+											alt="angled arrow"
+											width={15}
+											height={15}
+										/>
+									</Link>
+								</li>
+								<li>
+									<Link className="linkwbtn" href="#">
+										Log In{' '}
+										<Image
+											src={AngledArrow}
+											alt="angled arrow"
+											width={15}
+											height={15}
+										/>
+									</Link>
+								</li>
+							</LogInMenu>
 							<address>
 								1234 Main Street
 								<br />

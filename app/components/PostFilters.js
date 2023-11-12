@@ -60,32 +60,40 @@ const PostFilters = () => {
 
 	return (
 		<FilterContainer>
-			<FieldWrapper>
-				<Filter
-					defaultValue="default"
-					onChange={(e) =>
-						router.push(
-							pathname +
-								'?' +
-								createQueryString('category', e.target.value)
-						)
-					}
-					name="category"
-					value={searchParams.get('category')}
-				>
-					<option value="default" disabled hidden>
-						Category
-					</option>
-					<option value="">All Categories</option>
-					{categories.map((cat) => {
-						return (
-							<option key={cat.id} value={cat.attributes.Name}>
-								{cat.attributes.Name}
-							</option>
-						);
-					})}
-				</Filter>
-			</FieldWrapper>
+			{pathname !== '/reports' && (
+				<FieldWrapper>
+					<Filter
+						defaultValue="default"
+						onChange={(e) =>
+							router.push(
+								pathname +
+									'?' +
+									createQueryString(
+										'category',
+										e.target.value
+									)
+							)
+						}
+						name="category"
+						value={searchParams.get('category')}
+					>
+						<option value="default" disabled hidden>
+							Category
+						</option>
+						<option value="">All Categories</option>
+						{categories.map((cat) => {
+							return (
+								<option
+									key={cat.id}
+									value={cat.attributes.Name}
+								>
+									{cat.attributes.Name}
+								</option>
+							);
+						})}
+					</Filter>
+				</FieldWrapper>
+			)}
 			{pathname !== '/events' && (
 				<FieldWrapper>
 					<Filter

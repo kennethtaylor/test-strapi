@@ -207,12 +207,8 @@ export default function EventList(props) {
 							) : (
 								<div>
 									<p>
-										Sorry, nothing matches your search
-										criteria.
-									</p>
-									<p>
-										Please try refiing your search or
-										contact us for more information.
+										There are no upcoming events scheduled
+										at this time.
 									</p>
 								</div>
 							)}
