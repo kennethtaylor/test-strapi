@@ -1,11 +1,26 @@
-import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import NextAuth from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
 
 const options = {
 	providers: [
 		GoogleProvider({
 			clientId: process.env.GOOGLE_OATH_CLIENT_ID,
 			clientSecret: process.env.GOOGLE_OATH_CLIENT_SECRET,
+		}),
+		AppleProvider({
+			clientId: process.env.APPLE_ID,
+			clientSecret: process.env.APPLE_SECRET,
+		}),
+		Credentials({
+			name: 'Credentials',
+			credentials: {
+				email: {
+					label: 'Email',
+					type: 'email',
+					placeholder: 'John@example.com',
+				},
+				password: { label: 'Password', type: 'password' },
+			},
 		}),
 	],
 	database: process.env.NEXT_PUBLIC_DATABASE_URL,
