@@ -49,7 +49,10 @@ export default function SignInPage() {
 			callbackUrl: '/sign-in',
 		});
 
-		if (res.status === 200) console.log('Login Successfully:', res);
+		if (res.status === 200) {
+			console.log('Login Successfully:', res);
+			setError(null);
+		}
 
 		if (res.status === 401) setError('Invalid Credential');
 	}
