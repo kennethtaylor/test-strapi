@@ -1,7 +1,10 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import AppleProvider from 'next-auth/providers/apple';
 
 const options = {
+	NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 	providers: [
 		GoogleProvider({
 			clientId: process.env.GOOGLE_OATH_CLIENT_ID,
@@ -11,7 +14,7 @@ const options = {
 			clientId: process.env.APPLE_ID,
 			clientSecret: process.env.APPLE_SECRET,
 		}),
-		Credentials({
+		CredentialsProvider({
 			name: 'Credentials',
 			credentials: {
 				email: {
@@ -19,7 +22,37 @@ const options = {
 					type: 'email',
 					placeholder: 'John@example.com',
 				},
+				username: {
+					label: 'Username',
+					type: 'text',
+					placeholder: 'jsmith',
+				},
 				password: { label: 'Password', type: 'password' },
+			},
+			async authorize(credentials, req) {
+				if (!credentials?.email || !credentials?.password) return null;
+
+				try {
+					const signIn = await fetch(
+						`${process.env.APP_URL}/api/auth/local`,
+						{
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({
+								identifier: credentials.email,
+								password: credentials.password,
+							}),
+						}
+					);
+
+					if (!signIn.ok) throw new Error(await signIn.json());
+
+					return await signIn.json();
+				} catch (error) {
+					return null;
+				}
 			},
 		}),
 	],
@@ -28,6 +61,12 @@ const options = {
 		jwt: true,
 	},
 	callbacks: {
+		signIn: async (user, account, profile) => {
+			console.log('user: ', user);
+			console.log('account: ', account);
+			console.log('profile: ', profile);
+			return Promise.resolve(true);
+		},
 		session: async (session, user) => {
 			session.jwt = user.jwt;
 			session.id = user.id;
