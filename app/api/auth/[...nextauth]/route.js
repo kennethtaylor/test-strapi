@@ -3,7 +3,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import AppleProvider from 'next-auth/providers/apple';
 
-const options = {
+export const authOptions = {
 	NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 	providers: [
 		GoogleProvider({
@@ -60,33 +60,45 @@ const options = {
 	session: {
 		jwt: true,
 	},
+	secret: process.env.NEXTAUTH_SECRET,
 	callbacks: {
-		signIn: async (user, account, profile) => {
-			console.log('user: ', user);
-			console.log('account: ', account);
-			console.log('profile: ', profile);
+		signIn: async ({ user, account, profile }) => {
 			return Promise.resolve(true);
 		},
-		session: async (session, user) => {
-			session.jwt = user.jwt;
-			session.id = user.id;
+		session: async ({ session, token }) => {
+			session.jwt = token.jwt;
+			session.id = token.id;
+			session.user = token.user;
+
 			return Promise.resolve(session);
 		},
-		jwt: async (token, user, account) => {
+		jwt: async ({ token, user, account }) => {
 			const isSignIn = user ? true : false;
 			if (isSignIn) {
-				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_API_URL}/auth/${account.provider}/callback?access_token=${account?.accessToken}`
-				);
-				const data = await response.json();
-				token.jwt = data.jwt;
-				token.id = data.user.id;
+				if (account.provider !== 'credentials') {
+					const response = await fetch(
+						`${process.env.NEXT_PUBLIC_API_URL}/auth/${account.provider}/callback?access_token=${account?.accessToken}`
+					);
+					const data = await response.json();
+					token.jwt = data?.jwt || '';
+					token.accessToken = account.access_token;
+					token.id = data?.user?.id || '';
+				} else {
+					// token.jwt = user.jwt;
+					token.accessToken = account.access_token;
+					token.jwt = user?.jwt || '';
+					token.id = user?.user?.id || '';
+					token.user = user?.user || null;
+				}
 			}
 			return Promise.resolve(token);
 		},
 	},
+	pages: {
+		signIn: '/sign-in',
+	},
 };
 
-const handler = NextAuth(options);
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

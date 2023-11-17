@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import Title from '../components/Title';
@@ -39,6 +39,10 @@ export default function SignInPage() {
 	});
 	// use error state
 	const [error, setError] = useState(null);
+
+	const session = useSession();
+
+	console.log('USER:', session);
 
 	async function handleSignIn(e) {
 		e.preventDefault();
