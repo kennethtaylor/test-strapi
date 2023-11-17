@@ -3,7 +3,7 @@
 import getReportBySlug from '../../../lib/getReportBySlug';
 import { getServerSession } from 'next-auth';
 import { ReportPage } from '@/app/components/collections/ReportPage';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { getSession } from 'next-auth/react';
 
@@ -29,14 +29,16 @@ export async function generateStaticParams() {
 export default async function Page({ params: { report } }) {
 	const session = await getServerSession(authOptions);
 
+	if (!session) redirect('/sign-in');
+
 	if (!report) notFound();
 
 	const data = await getReportBySlug(report);
 
-	if (session) {
-		console.log('session here');
-		console.log(session?.user);
-	}
+	// if (session) {
+	console.log('session here');
+	console.log(session?.user);
+	// }
 
 	const sections = data[0]?.attributes?.Sections;
 
