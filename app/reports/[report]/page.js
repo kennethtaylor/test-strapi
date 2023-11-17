@@ -5,6 +5,7 @@ import { getServerSession } from 'next-auth';
 import { ReportPage } from '@/app/components/collections/ReportPage';
 import { notFound } from 'next/navigation';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getSession } from 'next-auth/react';
 
 export async function generateStaticParams() {
 	const res = await fetch(`${process.env.APP_URL}/api/reports`);
