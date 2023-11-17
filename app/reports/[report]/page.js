@@ -27,11 +27,11 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params: { report } }) {
+	const session = await getServerSession(authOptions);
+
 	if (!report) notFound();
 
 	const data = await getReportBySlug(report);
-
-	const session = await getServerSession(authOptions);
 
 	if (session) {
 		console.log('session here');
