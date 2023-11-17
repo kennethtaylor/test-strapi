@@ -47,7 +47,7 @@ const options = {
 						}
 					);
 
-					if (!signIn.ok) throw new Error(await signIn.json());
+					if (!signIn.ok) throw new Error(await signIn.text());
 
 					return await signIn.json();
 				} catch (error) {
