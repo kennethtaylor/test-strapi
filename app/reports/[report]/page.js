@@ -1,39 +1,42 @@
-'use client';
+// 'use client';
 
 import getReportBySlug from '../../../lib/getReportBySlug';
 import { getServerSession } from 'next-auth';
 import { ReportPage } from '@/app/components/collections/ReportPage';
 import { notFound, redirect } from 'next/navigation';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { getSession } from 'next-auth/react';
 
-export async function generateStaticParams() {
-	const res = await fetch(`${process.env.APP_URL}/api/reports`);
-	const data = await res.json();
+export const dynamic = 'force-dynamic';
 
-	if (!res.ok) {
-		throw new Error('Failed to fetch');
-	}
+// export async function generateStaticParams() {
+// 	const res = await fetch(`${process.env.APP_URL}/api/reports`);
+// 	const data = await res.json();
 
-	const paths = data?.data.map((item) => {
-		return {
-			params: {
-				report: item.attributes.Slug,
-			},
-		};
-	});
+// 	if (!res.ok) {
+// 		throw new Error('Failed to fetch');
+// 	}
 
-	return paths;
-}
+// 	const paths = data?.data.map((item) => {
+// 		return {
+// 			params: {
+// 				report: item.attributes.Slug,
+// 			},
+// 		};
+// 	});
+
+// 	return paths;
+// }
 
 export default async function Page({ params: { report } }) {
 	const session = await getServerSession(authOptions);
+
+	const data = await getReportBySlug(report);
 
 	if (!session) redirect('/sign-in');
 
 	if (!report) notFound();
 
-	const data = await getReportBySlug(report);
+	if (!data) notFound();
 
 	// if (session) {
 	console.log('session here');
