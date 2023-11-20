@@ -36,7 +36,9 @@ export default async function Page({ params: { report } }) {
 
 	if (!report) notFound();
 
-	if (!data) notFound();
+	const title = data?.data[0]?.attributes?.Title;
+
+	if (!title) notFound();
 
 	// if (session) {
 	console.log('session here');
@@ -45,7 +47,6 @@ export default async function Page({ params: { report } }) {
 
 	const sections = data[0]?.attributes?.Sections;
 
-	const title = data?.data[0]?.attributes?.Title;
 	const publishedAt = data?.data[0]?.attributes?.publishedAt;
 
 	return (
